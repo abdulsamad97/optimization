@@ -1,0 +1,93 @@
+{%- assign collection = collections[section.settings.collection] -%}
+
+<div class="container no-gutters gutters-md">
+{% if section.settings.title != blank %}
+<div class="row">
+    <div class="col-12 text-center text-uppercase">
+        <h2>{{ section.settings.title }}</h2>
+    </div>
+</div>
+{% endif %}
+
+<div id="home-fs-products" class="featured-products slick-slide " data-image-ratio="{{section.settings.ratio}}">
+    {% for product in collection.products limit: 6 %}
+        {% render 'product-listing' with product as product %}
+    {% endfor %}
+</div><!-- featured-products -->
+</div><!-- container -->
+
+{% if section.settings.cta_text != blank %}
+<div class="row mt-3">
+    <div class="col-12 text-center text-uppercase">
+        <a href="{{collections[section.settings.collection].url}}" title="View {{collections[section.settings.collection].title}}" class="btn btn-primary">{{ section.settings.cta_text }}</a>
+    </div>
+</div>
+{% endif %}
+
+{% schema %}
+{
+"name":   "Featured products",
+"class":  "section-featured-products",
+"tag":    "section",
+"settings": [
+    {
+		"type": 		"text",
+		"id": 			"title",
+      	"label": 		"Title",
+      	"default": 		"Featured products"
+    },
+    {
+		"id": 			"collection",
+		"type": 		"collection",
+		"label": 		"Collection"
+    },
+    {
+        "type":         "select",
+        "id":           "ratio",
+        "label":        "Fixed Ratio?",
+        "options": [
+            {
+                "value": "fixed-ratio square-crop",
+                "label": "Square (4x4 Cropped)"
+            },
+            {
+                "value": "fixed-ratio square",
+                "label": "Square (4x4)"
+            },
+            {
+                "value": "fixed-ratio portrait-crop",
+                "label": "Portrait (4x5 Cropped)"
+            },
+            {
+                "value": "fixed-ratio portrait",
+                "label": "Portrait (4x5)"
+            },
+            {
+                "value": "",
+                "label": "No Set Ratio"
+            }
+        ],
+        "default":   "fixed-ratio square",
+        "info":      "Force image consistency with a ratio"
+    },
+    {
+		"type": 		"text",
+		"id": 			"cta_text",
+      	"label": 		"CTA Text",
+      	"default": 		"View All"
+    }
+],
+"presets": [
+    {
+		"name": 		"Featured Products",
+		"category": 	"Product"
+    }
+]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

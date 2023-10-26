@@ -1,0 +1,64 @@
+<article class="col-12 col-md-6 col-lg-4 blog-listing mb-5 mb-md-4">
+
+    <div class="blog-listing-image mb-3 mb-md-0">
+        <a href="{{ article.url }}">
+            {% if article.image %}
+                {{ article | img_url: '1024x1024' | img_tag: article.title, 'd-block img-fluid' }}
+            {% else %}
+                {{ 'image' | placeholder_svg_tag: 'd-block image-placeholder img-fluid' }}
+            {% endif %}
+        </a>
+    </div>
+
+    <div class="blog-listing-content">
+
+        <div class="text-center">
+          <h3><a href="{{ article.url }}">{{ article.title }}</a></h3>
+            <span><a href="{{ article.url }}">Read Now</a></span>
+            
+        </div>
+
+        {% capture date %}{{ article.published_at | time_tag: format: 'day_month_year' }}{% endcapture %}
+        {% capture dateDetailed %}{{ article.published_at | time_tag: format: "%Y-%m-%d %H:%M" }}{% endcapture %}
+
+
+        <div class="rte mb-3 visually-hidden">
+            {% if article.excerpt.size > 0 %}
+            {{ article.excerpt }}
+            {% else %}
+            <p>
+                {{ article.content | strip_html | truncatewords: 30 }}
+            </p>
+            {% endif %}
+        </div>
+
+        <footer style="display:none;">
+            <time datetime="{{dateDetailed}}">{{ date }}</time>
+        </footer>
+
+        {% if blog.comments_enabled? or article.tags.size > 0 %}
+            <ul>
+            {% if blog.comments_enabled? %}
+                <li>
+                <a href="{{ article.url }}#comments">
+                    {{ 'blogs.comments.with_count' | t: count: article.comments_count }}
+                </a>
+                </li>
+            {% endif %}
+
+            <!--
+            {% if article.tags.size > 0 %}
+                {% for tag in article.tags %}
+                <li>
+                    <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>
+                    {% unless forloop.last %}, {% endunless %}
+                </li>
+                {% endfor %}
+            {% endif %}
+            -->
+            
+            </ul>
+        {% endif %}
+        {% comment %} <a href="{{ article.url }}" class="btn btn-primary">{{ 'blogs.article.read_more' | t }} &rarr;</a> {% endcomment %}
+    </div>
+</article>

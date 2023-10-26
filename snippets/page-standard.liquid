@@ -1,0 +1,48 @@
+<div class="container-fluid py-3 {{ page.template_suffix }}">
+	<div class="row">
+		<div class="col-12 text-v-small">{% include 'breadcrumbs' %}</div>
+	</div><!-- row -->
+</div><!-- container -->
+
+<header class="page-header{% if section.settings.background %} image lazyload {%endif%}" {% if section.settings.background %} data-bgset="{% include 'responsive-bg-image', image: section.settings.background %}"{% endif %}>
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-12 mb-md-0 col-md-8 col-lg-6 mx-auto text-center">
+				<h1>{{ page.title }}</h1>
+			</div>
+		</div><!-- row -->
+	</div>
+</header>
+
+<div class="container">
+	<div class="row mb-5">
+		<div class="col-12 mx-auto">
+			<div class="row no-gutters">
+				{% if page.content != blank %}
+					<div class="col-12 mt-4">
+						<div class="rte text-center mb-4">
+							{{page.content}}
+						</div>
+					</div>
+				{% endif %}
+				<div class="col-12">
+					<div class="accordion-container  mt-5">
+						{% for tab in section.blocks %}
+						<div class="accordion-item {% if forloop.first == true %}active{% endif %}">
+							<div class="accordion-title">
+								<h3>{{ tab.settings.tab_title }}{% render 'icon-chevron-down'%}</h3>
+							</div><!-- accordion-title -->
+							<div class="accordion-content">
+								<div class="rte">
+									{{ tab.settings.tab_content }}
+								</div>
+							</div><!-- accordion-content -->
+						</div><!-- accordion-item -->
+						{% endfor %}
+					</div><!-- accordion-container -->
+				</div><!-- col -->
+			</div>
+			
+		</div>
+	</div>
+</div>

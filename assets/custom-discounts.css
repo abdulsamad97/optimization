@@ -1,0 +1,296 @@
+
+main#MainContent {
+/*     max-width: 1440px; */
+    margin: 0 auto;
+}
+div#shopify-section-custom-discounts-new .custom-discounts-new-info.desktop-view-info {
+    display: flex;
+    height: 780px;
+    justify-content: center;
+    margin-left: -20px;
+    margin-right: -20px;
+}
+.custom-discounts-new-info.desktop-view-info .middle-discounts-new-info h3 {
+    font-size: 42px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    letter-spacing: normal;
+    font-family: helvetica-neue-condensed-black;
+}
+.middle-discounts-new-info h2 {
+    margin-bottom: 5px;
+}
+/* left  */
+.custom-discounts-new-info.desktop-view-info .left-discounts-new-info {
+    max-width: 33%;
+}
+.custom-discounts-new-info.desktop-view-info .left-discounts-new-info img {
+    width: 100%;
+    height:100%;
+    margin-left: -3px;
+}
+.middle-discounts-new-info svg {
+    width: 70%;
+    margin-top: 25px;
+    height: 50px;
+}
+.middle-discounts-new-info h2 {
+    font-weight: 800;
+    justify-content: center;
+    display: flex;
+    font-style: italic;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+    font-size: 52px;
+    font-family: helvetica-neue-condensed-black;
+    letter-spacing: 2px;
+}
+
+.middle-discounts-new-info p.pera1 {
+    text-align: center;
+    padding: 10px;
+    line-height: 1.3;
+    text-transform: none;
+    margin: 0;
+    font-family: Helvetica,sans-serif;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+.middle-discounts-new-info p.pera2 {
+    text-align: center;
+    font-size: 18px;
+    text-transform: none;
+    padding: 13px;
+    line-height: 1.3;
+    margin-bottom: -30px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+/* center  */
+.custom-discounts-new-info.desktop-view-info .middle-discounts-new-info {
+    max-width: 36%;
+    padding-top: 30px;
+}
+.middle-discounts-new-info span {
+    justify-content: center;
+    font-style: italic;
+    display: flex;
+    margin: 10px 0px;
+    font-size: 28px;
+    font-weight: 500;
+}
+.middle-discounts-new-info .discount-offer {
+    width: 100%;
+    display: flex;
+    max-width:100%;
+}
+.middle-discounts-new-info .discount-offer img {
+    width: 80%;
+    height: 50px;
+    margin-bottom: 30px;
+    object-fit: contain;
+}
+.middle-discounts-new-info .discount-offer .discount-offer-first {
+    width: 100%;
+    text-align: center;
+}
+.middle-discounts-new-info .discount-offer .discount-offer-sec {
+    width: 100%;
+    text-align: center;
+}
+.discount-offer-first a {
+    background: #000;
+    color: #fff;
+    padding: 10px 32px;
+    display: block;
+    width: 38%;
+    margin: 0px auto;
+}
+.discount-offer-sec a {
+    background: #000;
+    color: #fff;
+    padding: 10px;
+    display: block;
+    width: 90%;
+    margin: 0px auto;
+}
+
+/*right  */
+.custom-discounts-new-info.desktop-view-info .right-discounts-new-info {
+    max-width: 33%;
+}
+.custom-discounts-new-info.desktop-view-info .right-discounts-new-info img{
+  height:100%;
+}
+.middle-discounts-new-info p {
+    font-weight: 600;
+    font-size: 18px;
+}
+.middle-discounts-new-info .discount-offer .discount-offer-first img {
+    width: 70%;
+}
+
+@media only screen and (min-width:769px){
+  img.stu_discount-logo_info {
+      width: 45%;
+      margin: 0px auto;
+      display: block;
+  }
+}
+
+@media only screen and (max-width:767px){
+  .custom-discounts-new-info.desktop-view-info .middle-discounts-new-info img.stu_discount-logo_info {
+      width: 60%;
+      margin: 0px auto;
+      display: block;
+  }
+  .middle-discounts-new-info h2 {
+    text-align: center;
+    font-size: 41px;
+}
+  div#shopify-section-custom-discounts-new .custom-discounts-new-info.desktop-view-info img {
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+  div#shopify-section-custom-discounts-new .custom-discounts-new-info .discount-offer-first img {
+    object-fit: contain;
+    margin-bottom: 25px;
+}
+  .custom-discounts-new-info.desktop-view-info .middle-discounts-new-info h3 {
+    font-size: 52px;
+    line-height: 1;
+}
+  .middle-discounts-new-info p.pera2 {
+    line-height: 1.3;
+}
+  .discount-offer-first a, .discount-offer-sec a {
+    background: #000;
+    color: #fff;
+    display: inline-block;
+    padding: 13px 38px;
+    width: auto;
+}
+  .middle-discounts-new-info .discount-offer .discount-offer-sec img {
+    width: 80%;
+    object-fit: contain !important;
+}
+  .middle-discounts-new-info .discount-offer .discount-offer-sec:before {
+    content: "";
+    width: 30px;
+    height: 4px;
+    background-color: #000;
+    display: inline-block;
+    max-width: 100%;
+    margin-top: 50px;
+}
+  .middle-discounts-new-info .discount-offer .discount-offer-first {
+    padding-top: 5px;
+}
+}
+
+
+@media only screen and (max-width:576px){
+  div#shopify-section-custom-discounts-new .custom-discounts-new-info.desktop-view-info {
+    display: flex;
+    height: 68rem;
+}
+  .middle-discounts-new-info {
+    position: absolute;
+}
+  .middle-discounts-new-info p.pera1 {
+    font-size: 18px;
+}
+  .middle-discounts-new-info p.pera2 {
+    font-size: 18px;
+    padding: 10px;
+}
+  .custom-discounts-new-info.desktop-view-info .left-discounts-new-info {
+    max-width: 100%;
+    width:100%;
+    height:auto;
+}
+  .custom-discounts-new-info.desktop-view-info .middle-discounts-new-info {
+    max-width: 100%;
+    height: 100%;
+    background: #ffffff8f;
+}
+.right-discounts-new-info {
+    display: none;
+}
+  .discount-offer-first a, .discount-offer-sec a {
+        background: #000;
+    color: #fff;
+}
+  .middle-discounts-new-info .discount-offer img {
+   width: max-content;
+   margin-bottom: 10px;
+    height: 40px;
+}
+    .middle-discounts-new-info .discount-offer {
+    width: 100%;
+    display: block;
+    max-width: 100%;
+}
+}
+
+@media only screen and (min-width:576px) and (max-width:768px){
+.middle-discounts-new-info h2 {
+    text-align: center;
+}
+  .middle-discounts-new-info p.pera2 {
+    font-size: 12px;
+}
+  .middle-discounts-new-info p.pera1 {
+    font-size: 12px;
+}
+  .middle-discounts-new-info .discount-offer img {
+    margin-bottom: 10px;
+}
+  .discount-offer-first a, .discount-offer-sec a {
+    font-size: 9px;
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* @media only screen and (max-width:576px){
+  div#shopify-section-custom-discounts-new .custom-discounts-new-info.desktop-view-info {
+    display: block;
+    height: auto;
+}
+  .custom-discounts-new-info.desktop-view-info .left-discounts-new-info {
+    max-width: 100%;
+}
+  .custom-discounts-new-info.desktop-view-info .middle-discounts-new-info {
+    max-width: 100%;
+}
+  .custom-discounts-new-info.desktop-view-info .right-discounts-new-info {
+    max-width: 100%;
+}
+  .custom-discounts-new-info.desktop-view-info .right-discounts-new-info img {
+    width: 100%;
+    height: 100%;
+}
+} */

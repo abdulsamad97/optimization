@@ -1,0 +1,33 @@
+<section class="shop-now-section-banner">
+  <div class="shop_now_wrap">
+    <div class="banner_img_mob">
+    {{ section.settings.mob_hero_image | img_url: '2048x' | img_tag }}
+    </div>
+    
+  
+  </div>
+</section>
+{% schema %}
+  {
+    "name": "Mobile Hero",
+    "settings": [
+	{   
+		"type": "image_picker", 
+		"id": "mob_hero_image",
+		"label": "Hero Image Second" 
+	}	
+	],
+	"presets" :[
+	{
+		"name": "Hero Image Second",
+        "category": "Foursixty"
+	}
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

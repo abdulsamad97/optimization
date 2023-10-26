@@ -1,0 +1,166 @@
+{% paginate search.results by 12 %}
+
+<div class="container-fluid py-3">
+	<div class="row">
+		<div class="col-12">{% include 'breadcrumbs' %}</div>
+	</div><!-- row -->
+</div><!-- container -->
+
+<header class="page-header">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-12 mx-auto text-center">
+				<h1>{{ 'general.search.title' | t }}</h1>
+			</div>
+		</div><!-- row -->
+	</div>
+</header>
+
+<div class="collection-description">
+	<div class="container">
+		<div class="row">
+			<div class="col-12 col-md-6 col-lg-4 mx-auto">
+				<form action="/search" method="get" role="search" class="site-search">
+				<label for="Search" class="label-hidden">
+				  {{ 'general.search.placeholder' | t }}
+				</label>
+				<input type="search"
+					   name="q"
+					   id="Search"
+					   value="{{ search.terms | escape }}"
+					   placeholder="{{ 'general.search.placeholder' | t }}">
+				<button type="submit" class="btn btn-primary">{{ 'general.search.submit' | t }}</button>
+				</form>
+			</div><!-- col -->
+		</div><!-- row -->
+	</div><!-- container -->
+</div>
+
+<div class="collection-listing mt-3 mt-lg-5">
+	<div class="container no-gutters gutters-md">
+		<div class="row">
+			<div id="collection-filters" class="col-12">
+                {% assign productCount = search.results_count %}
+                {% for product in search.results %}
+                    {% unless product.available %}
+                        {% assign productCount = productCount = productCount | minus: 1 %}
+                    {% endunless %}
+                {% endfor %}
+                <span class="collection-count d-lg-none"><span class="value">{{ productCount }}</span> Result(s)</span>
+                <div id="filter-bar">
+                    <button id="btn-sort" class="btn-plain d-lg-none">Sort</button>
+                    <div id="bc-sf-filter-top-sorting"></div>
+                    <div id="collection-view" class="d-lg-none">
+                        <ul>
+                            <li class="active collection-view-grid">{% render 'icon-collection-view-grid'%}</li>
+                            <li class="collection-view-single">{% render 'icon-collection-view-single' %}</li>
+                        </ul>
+                    </div>
+                    <button id="btn-filter" class="btn-plain">{% render 'icon-filter' %} Filter</button>
+                    <div id="bc-sf-filter-tree"></div>
+                     <span class="collection-count d-none d-lg-inline-flex"><span class="value">{{ productCount }}</span> Result(s)</span>
+                </div><!-- filter-bar -->
+			</div><!-- col -->
+
+            {% if search.performed %}
+			<div id="collection-products" class="col-12">
+                <div id="bc-sf-filter-products" class="collection-view-grid" data-total-product-count="{{ search.results_count }}">
+                    {% for product in search.results %}
+                        {% if product.available %}
+                            {% render 'product-listing' with product as product %}
+                        {% endif %}
+                    {% else %}
+                        <p>{{ 'collections.general.no_matches' | t }}</p>
+                    {% endfor %}
+                </div><!-- row -->
+			</div><!-- col -->
+        
+            <div id="collection-pagination" class="col-12">
+                <div id="bc-sf-filter-bottom-pagination"></div>
+                <div id="bc-sf-filter-load-more"></div>
+            </div><!-- col -->
+            {% else %}
+            <p>Please perform a search</p>
+            {% endif %}
+        </div><!-- row -->
+	</div><!-- cotainer -->
+</div><!-- Collection Listing -->
+
+<div class="collection-overlay"></div>
+
+{% endpaginate %}
+
+<script>
+  // Declare bcSfFilterConfig variable
+  var bcSfFilterConfig = {
+    label: {
+      refine: "{{ 'product_filter_search.refine' | t }}",
+      refine_mobile: "{{ 'product_filter_search.refine_mobile' | t }}",
+      clear: "{{ 'product_filter_search.clear' | t }}",
+      clear_all: "{{ 'product_filter_search.clear_all' | t }}",
+      apply: "{{ 'product_filter_search.apply' | t }}",
+	  sale: "{{ 'products.product.on_sale' | t }}",
+	  sold_out: "{{ 'products.product.sold_out' | t }}",
+      breadcrumb_home: {% if product_filter_search.breadcrumb_home != blank %} {{ 'product_filter_search.breadcrumb_home' | t }}" {% else %} "Home" {% endif %},
+      load_more: {% assign temp = 'product_filter_search.load_more' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Load more Products" {% endunless %},
+      show_limit: {% assign temp = 'product_filter_search.show_limit' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Show" {% endunless %},
+      sorting: {% assign temp = 'collections.sorting.title' | t  %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Sorting" {% endunless %},
+      sorting_best_selling: {% assign temp = 'collections.sorting.best_selling' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Best Selling" {% endunless %},
+      sorting_featured: {% assign temp = 'collections.sorting.featured' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Featured" {% endunless %},
+      sorting_title_ascending: {% assign temp = 'collections.sorting.az' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Alphabetically, A-Z" {% endunless %},
+      sorting_title_descending: {% assign temp = 'collections.sorting.za' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Alphabetically, Z-A" {% endunless %},
+      sorting_price_ascending: {% assign temp = 'collections.sorting.price_ascending' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Lowest Price" {% endunless %},
+      sorting_price_descending: {% assign temp = 'collections.sorting.price_descending' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Highest Price" {% endunless %},
+      sorting_date_ascending: {% assign temp = 'collections.sorting.date_ascending' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Date, Old to New" {% endunless %},
+      sorting_date_descending: {% assign temp = 'collections.sorting.date_descending' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Date, New to Old" {% endunless %},
+      sorting_sale_descending: {% assign temp = 'collections.sorting.sale_descending' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "% Off" {% endunless %},
+      sorting_relevance: {% assign temp = 'collections.sorting.relevance' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} "Relevance" {% endunless %},
+      search_general_title: {% assign temp = 'product_filter_search.search_general_title' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} 'Search' {% endunless %},
+      search_result_header: {% assign temp = 'product_filter_search.search_result_header' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} {% raw %}'Search Results for "{{ terms }}"'{% endraw %} {% endunless %},
+      search_result_empty: {% assign temp = 'product_filter_search.search_result_empty' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} {% raw %}'Your search for "{{ terms }}"" didn\'t match any results'{% endraw %} {% endunless %},
+      search_result_number: {% assign temp = 'product_filter_search.search_result_number' | t %} {% unless temp contains 'translation missing'  %} "{{ temp }}" {% else %} {% raw %}'Showing {{ count }} results for "{{ terms }}"'{% endraw %} {% endunless %},
+    },
+    custom: {
+    }
+  };
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $( document ).ready(function() {
+    setTimeout(function(){
+      var search_count= $(".collection-count span").html();
+      // alert(search_count);
+      var search_val=$("input#Search").val();
+      var text= $('body.template-search #bc-sf-filter-load-more body.template-password .bc-sf-filter-load-more-button, .breadcrumb span:not(.seperator)').html();
+      var split_text= text.split("results");
+      var text_dcount= split_text[0].split("Search:");
+      var url=location.href;
+      if(url =="https://us.publicdesire.com/search"){
+        $('body.template-search #bc-sf-filter-load-more body.template-password .bc-sf-filter-load-more-button, .breadcrumb span:not(.seperator)').html('<strong>SEARCH</strong>');
+        //alert(1);
+      }else{
+        // alert(2);
+        var text= $('body.template-search #bc-sf-filter-load-more body.template-password .bc-sf-filter-load-more-button, .breadcrumb span:not(.seperator)').html();
+        //alert(text);
+        var result_text =text.substr(text.indexOf(' ')+3);
+        var result_text_info = result_text.split("found");
+        var split_text= text.split("result");
+        var text_dcount= split_text[0].split("Search:");
+
+        var res=$.trim(result_text_info[0]);
+        //alert("ddddd"+res);
+        if(res== "result"){
+          // alert('111SEARCH: '+search_count+'RESULTS'+split_text[1]);
+          $('body.template-search #bc-sf-filter-load-more body.template-password .bc-sf-filter-load-more-button, .breadcrumb span:not(.seperator)').html('SEARCH: '+search_count+' RESULTS'+split_text[1]);
+        }
+        else if(res== "results"){
+          // alert("count---"+search_count);
+          $('body.template-search #bc-sf-filter-load-more body.template-password .bc-sf-filter-load-more-button, .breadcrumb span:not(.seperator)').html('SEARCH: '+search_count+' RESULT'+split_text[1]);
+
+        }
+      }
+
+    }, 2000); 
+  }); 
+</script>

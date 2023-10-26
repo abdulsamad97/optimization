@@ -1,0 +1,281 @@
+{% comment %}
+This is section that can be moved and placed anywhere on the page.
+
+You will need:
+ 
+- Slick CDN files (found in the layout/theme.liquid)
+- Custom Styles (found in styles/sections/hero.scss)
+{% endcomment %}
+
+{% assign slickInfinite = section.settings.slide_infinite %}
+{% assign slickDots = section.settings.slide_dots %}
+{% assign slickArrows = section.settings.slide_arrows %}
+{% assign slickAutoplay = section.settings.slide_autoplay %}
+{% assign slickSpeed = section.settings.slide_speed %}
+
+{% capture slide_settings %}{"slidesToShow": 1, "slidesToScroll": 1, "arrows":{{slickArrows}}, "autoplay":{{slickAutoplay}}, "autoplaySpeed": {{slickSpeed}}, "dots": {{slickDots}}, "infinite": {{slickInfinite}}, "adaptiveHeight": true}{% endcapture %}
+
+<div class="hero">
+	<div class="hero-slick" data-slick='{{ slide_settings }}'>
+	
+    {% for block in section.blocks %}
+    {% case block.type %}
+    {% when 'slide' %}
+	{% if forloop.index == 2 %}
+     {% continue %}
+  	{% endif %}
+    <div class="hero-item">
+        <div class="hero-image {{ forloop.index }}">
+        {% if block.settings.image != blank and block.settings.desktop_image != blank %}
+            {% if block.settings.link != blank %}
+                <a href="{{block.settings.link}}" title="{{block.settings.title}}">
+            {% endif %}
+                <picture>
+                    <source media="(max-width: 540px)" srcset="{{ block.settings.image | img_url: '540x' }}">
+                    <source media="(max-width: 767px)" srcset="{{ block.settings.image | img_url: '760x' }}">
+                    <source media="(min-width: 768px) and (max-width:1023px)" srcset="{{ block.settings.desktop_image | img_url: '1024x' }}">
+                    <source media="(min-width: 1024px) and (max-width:1439px)" srcset="{{ block.settings.desktop_image | img_url: '1440x' }}">
+                    <source media="(min-width: 1440px)" srcset="{{ block.settings.desktop_image | img_url: '1920x' }}">
+                    <img {% if forloop.index == 1 %}src{% else %}data-src{% endif %}="{{ block.settings.image | img_url: '760x' }}" class="img-fluid {% if forloop.index == 1 %}skip-lazy{% else %}lazyload{% endif %}" alt="{{ block.settings.title }}" width="1440" height="600">
+                </picture>
+            {% if block.settings.link!= blank %}
+                </a>
+            {% endif %}
+        {% else %}
+            {{ 'image' | placeholder_svg_tag: 'hero-placeholder img-fluid' }}
+        {% endif %}
+        </div><!-- hero-image -->
+    </div><!-- hero-item -->
+
+    {% when 'video' %}
+
+    {% if block.settings.video_url != blank %}
+        {% capture videoOptions %}autoplay muted{% endcapture %}
+    {% else %}
+        {% capture videoOptions %}{% if block.settings.video_controls == true %}controls {% endif %}{% if block.settings.video_autoplay == true %}autoplay {% endif %}{% if block.settings.video_muted == true %}muted{% endif %}{% endcapture %}
+    {% endif %}
+
+        <div class="hero-item video{% if block.settings.video_url != blank %} video-link{% endif %}">
+        {% if block.settings.video_url != blank %}<a href="{{block.settings.video_url}}">{% endif %}
+            <video {{videoOptions}} {% if block.settings.video_mobile == true %}playsinline {% endif %}{% if block.settings.video_loop == true %}loop {% endif%}{% if block.settings.video_url == blank and block.settings.video_controls == true %}controlsList="nofullscreen nodownload"{% endif %} src="{{block.settings.video_source}}" {% if block.settings.video_url == blank and block.settings.video_autoplay == false %}preload="none"{% endif %}> </video>
+            {% if block.settings.video_url != blank %}</a>{% endif %}
+        </div><!-- hero-item -->
+
+    {% endcase %}
+	{% endfor %}
+	</div>
+</div>
+
+<!-- For Mobile -->
+<div class="header-bottom-bar-mobile">
+	<ul class="hero-slick-mob">
+	
+    {% for block in section.blocks %}
+      {% if forloop.index == 1 %}
+      	{% assign src= "//cdn.shopify.com/s/files/1/0359/5049/3835/files/SHOP_NOW_PAY_LATER_BANNER_MOBILE_67a15a1b-a224-4f86-9c0f-b2216c938e16_2048x.jpg?v=1620215210" %}
+      {% else %}
+      	{% assign src= block.settings.image %}
+	  {% endif %}
+    {% case block.type %}
+    {% when 'slide' %}
+
+    <li class="hero-item">
+        <div class="hero-image">
+        {% if block.settings.image != blank and block.settings.desktop_image != blank %}
+            {% if block.settings.link != blank %}
+                <a href="{{block.settings.link}}" title="{{block.settings.title}}">
+            {% endif %}
+                <picture>
+                    <source media="(max-width: 540px)" srcset="{{ block.settings.image | img_url: '540x' }}">
+                    <source media="(max-width: 767px)" srcset="{{ block.settings.image | img_url: '760x' }}">
+                    <source media="(min-width: 768px) and (max-width:1023px)" srcset="{{ block.settings.desktop_image | img_url: '1024x' }}">
+                    <source media="(min-width: 1024px) and (max-width:1439px)" srcset="{{ block.settings.desktop_image | img_url: '1440x' }}">
+                    <source media="(min-width: 1440px)" srcset="{{ block.settings.desktop_image | img_url: '1920x' }}">
+                    <img {% if forloop.index == 1 %}src{% else %}data-src{% endif %}="{{ src | img_url: '760x' }}" class="img-fluid {% if forloop.index == 1 %}skip-lazy{% else %}lazyload{% endif %}" alt="{{ block.settings.title }}" width="540" height="598">
+                </picture>
+            {% if block.settings.link!= blank %}
+                </a>
+            {% endif %}
+        {% else %}
+            {{ 'image' | placeholder_svg_tag: 'hero-placeholder img-fluid' }}
+        {% endif %}
+        </div><!-- hero-image -->
+    </li><!-- hero-item -->
+
+    {% when 'video' %}
+
+    {% if block.settings.video_url != blank %}
+        {% capture videoOptions %}autoplay muted{% endcapture %}
+    {% else %}
+        {% capture videoOptions %}{% if block.settings.video_controls == true %}controls {% endif %}{% if block.settings.video_autoplay == true %}autoplay {% endif %}{% if block.settings.video_muted == true %}muted{% endif %}{% endcapture %}
+    {% endif %}
+
+        <div class="hero-item video{% if block.settings.video_url != blank %} video-link{% endif %}">
+        {% if block.settings.video_url != blank %}<a href="{{block.settings.video_url}}">{% endif %}
+            <video {{videoOptions}} {% if block.settings.video_mobile == true %}playsinline {% endif %}{% if block.settings.video_loop == true %}loop {% endif%}{% if block.settings.video_url == blank and block.settings.video_controls == true %}controlsList="nofullscreen nodownload"{% endif %} src="{{block.settings.video_source}}" {% if block.settings.video_url == blank and block.settings.video_autoplay == false %}preload="none"{% endif %}> </video>
+            {% if block.settings.video_url != blank %}</a>{% endif %}
+        </div><!-- hero-item -->
+
+    {% endcase %}
+	{% endfor %}
+	</ul>
+</div>
+
+{% schema %}
+{
+    "name": "Hero",
+    "max_blocks": 4,
+    "settings": [
+       	{
+		    "type": "header",
+			"content": "Slider Options"
+		},
+		{
+			"type": "checkbox",
+			"id": "slide_infinite",
+			"label": "Infinite Loop?",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "slide_dots",
+			"label": "Dots?",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "slide_arrows",
+			"label": "Arrows?",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "slide_autoplay",
+			"label": "Autoplay?",
+			"default": false
+		},
+		{
+			"type": "range",
+			"id": "slide_speed",
+			"label": "Speed",
+			"min": 1000,
+			"max": 5000,
+			"step": 1000,
+			"default": 2000,
+			"info": "1000 = 1 Second"
+		}
+	],
+    "blocks": [
+		{
+			"type": "slide",
+			"name": "Slide",
+			"settings": [
+            {
+                "type": 	"header",
+                "content": 	"Images"
+            },
+            {
+                "type":     "paragraph",
+                "content":  "You can select images for both mobile and desktop."
+            },
+            {
+                "type":     "image_picker",
+                "id":       "image",
+                "label":    "Mobile Image",
+                "info":     "Portrait images work best for mobile. We wouldn't recommend exceeding 760px in width."
+            },
+			{
+                "type":     "image_picker",
+                "id":       "desktop_image",
+                "label":    "Desktop Image",
+                "info":     "Landscape images work best for desktop. We wouldn't recommend exceeding 1920px in width."
+            },
+            {
+                "type":      "url",
+                "id":        "link",
+                "label":     "Link"
+            },
+            {
+                "type":      "text",
+                "id":        "title",
+                "label":     "Alt Text",
+                "info":      "Description text for the image/link for SEO."
+            }
+			]
+		},
+        {
+			"type": "video",
+			"name": "Video",
+			"settings": [
+                {
+                    "type": 	"header",
+                    "content": 	"Adding a Video"
+                },
+                {
+                    "type":     "paragraph",
+                    "content":  "Please upload your video file to the [Files section](https://public-desire-uk.myshopify.com/admin/settings/files). Then paste the URL below."
+                },
+				{
+					"type":     "text",
+					"id":       "video_source",
+					"label":    "Video URL"
+				},
+                {
+                    "type": 	"header",
+                    "content": 	"Video Options"
+                },
+                {
+                    "type":     "checkbox",
+                    "id":       "video_controls",
+                    "default":  true,
+                    "label":    "Controls?",
+                    "info":     "Please note some browsers might not respect this parameter."
+                },
+                {
+                    "type":     "checkbox",
+                    "id":       "video_autoplay",
+                    "default":  true,
+                    "label":    "Autoplay?"
+                },
+                {
+                    "type":     "checkbox",
+                    "id":       "video_muted",
+                    "default":  true,
+                    "label":    "Muted?"
+                },
+                {
+                    "type":     "checkbox",
+                    "id":       "video_loop",
+                    "default":  true,
+                    "label":    "Loop?"
+                },
+                {
+                    "type":     "checkbox",
+                    "id":       "video_mobile",
+                    "default":  true,
+                    "label":    "Inline Mobile Video?",
+                    "info":     "If the mobile device supports it, play the video inline, rather than fullscreen"
+                },
+                {
+                    "id":       "video_url",
+                    "type":     "url", 
+                    "label":    "Video Link",
+                    "info":     "Where should the video link too?, if this option has a value, it will automatically mute the video and hide the controls."
+                }
+			]
+		}
+	],
+	"presets": [
+    {
+      "name": "Hero Slider",
+      "category": "Images",
+      "blocks": [
+        { 
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+	
+}
+{% endschema %}

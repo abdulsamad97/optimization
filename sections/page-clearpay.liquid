@@ -1,0 +1,215 @@
+<div class="container-fluid py-3 d-md-none">
+	<div class="row">
+		<div class="col-12 text-v-small">{% include 'breadcrumbs' %}</div>
+	</div><!-- row -->
+</div><!-- container -->
+
+<header class="page-header{% if section.settings.background %} image lazyload {%endif%} d-md-none mb-4" {% if section.settings.background %} data-bgset="{% include 'responsive-bg-image', image: section.settings.background %}"{% endif %}>
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-12 mb-md-0 col-md-8 col-lg-6 mx-auto text-center">
+				<h1>{{ page.title }}</h1>
+			</div>
+		</div><!-- row -->
+	</div>
+</header>
+
+<div class="container-fluid px-0">
+    <div class="row no-gutters">
+        <div class="col-12">
+            <picture>
+                <source media="(max-width: 767px)" srcset="{{ section.settings.mobile_image | img_url: '760x' }}">
+                <source media="(min-width: 1440px)" srcset="{{ section.settings.desktop_image | img_url: '1920x' }}">
+                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ section.settings.desktop_image | img_url: '1920x' }}" class="img-fluid lazyload d-block mx-auto" alt="{{ section.settings.desktop_image.alt }}">
+            </picture>
+        </div>
+      <div class="col-12">
+        <div class="hero-bottom-message text-center">
+          <h2 class="text-uppercase mb-1">{{section.settings.message_under_hero_one}}</h2>
+          {{section.settings.message_under_hero_two}}
+<!--           <p>Buy the shoes you want today and pay for it in four installments, interest-free with Clearpay.</p> -->
+        </div>
+      </div>
+      
+      <div class="col-12">
+        <div class="clearpay-how-it-work-header">
+          <h2 class="text-uppercase">Here's how it works.</h2>
+        </div>
+        <div class="clearpay-how-it-work mb-4">
+          <div class="row">
+            {% for block in section.blocks %}
+            <div class="col-md-4 mb-3">
+              <div class="clearpay-how-it-work-card p-4">
+                <div class="clearpay-how-it-work-icon mb-3 text-center">
+                	<img src="{{block.settings.imagee | img_url : 'master'}}" alt="">
+                </div>
+                {{ block.settings.how_it_work}}
+<!--                 <p>Shop online and select Clearpay as your payment method to instantly create an account and complete your purchase. Your order will be shipped out staight away!</p> -->
+              </div>
+            </div>
+            {% comment %}
+            <div class="col-md-4 mb-3">
+              <div class="clearpay-how-it-work-card p-4">
+                <div class="clearpay-how-it-work-icon mb-3 text-center">
+                	<img src="https://cdn.shopify.com/s/files/1/0270/6584/3821/files/clock.png?v=1613727985" alt="">
+                </div>
+                <p>The cost will be split into 4 installments, taken automatically every 2 weeks. The first payment will be taken at the time of purchase.</p>
+              </div>
+            </div>
+            <div class="col-md-4 mb-3">
+              <div class="clearpay-how-it-work-card p-4">
+                <div class="clearpay-how-it-work-icon mb-3 text-center">
+                	<img src="https://cdn.shopify.com/s/files/1/0270/6584/3821/files/credit-card.png?v=1613727985" alt="">
+                </div>
+                <p>No hidden costs! Pay nothing extra when you pay on time. The only fees are if you're late making a payment.</p>
+              </div>
+            </div>
+            {% endcomment %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-12">
+        <div class="text-center">
+          {{section.settings.clearpay_info}}
+        </div>
+      </div>
+      
+      
+      
+    </div>
+</div>
+<div class="row no-gutters">
+  <div class="col-12">
+    <div class="more-info-bottom-message text-center pt-2 pb-3 mt-4">
+      <h2 class="text-uppercase mt-0 mb-0">{{section.settings.visit_info}}</h2>
+      <p class="mb-0"><a href="{{section.settings.clearpay_link}}" target="_blank">{{section.settings.clearpay_text}}</a></p>
+    </div>
+  </div>
+</div>
+{% comment %}
+
+<div class="container">
+	<div class="row mb-5">
+		<div class="col-12 col-md-8 mx-auto">
+                {% for block in section.blocks %}
+                    {% case block.type %}
+                    {% when 'three_step' %}
+                        <div class="klarna-step-block text-center">
+                            <div class="block-title">{{block.settings.block_title}}</div>
+                            <div class="block-subtitle">{{block.settings.block_subtitle}}</div>
+
+                            <div class="step-wrapper">
+                                <div class="step step-one">
+                                    <div class="step-number">1</div>
+                                    <div class="step-title">{{block.settings.step_one}}</div>
+                                </div>
+                                <div class="step step-two">
+                                    <div class="step-number">2</div>
+                                    <div class="step-title">{{block.settings.step_two}}</div>
+                                </div>
+                                <div class="step step-three">
+                                    <div class="step-number">3</div>
+                                    <div class="step-title">{{block.settings.step_three}}</div>
+                                </div>
+                            </div>
+
+                            <div class="block-description">{{block.settings.block_description}}</div>
+
+                            {% if block.settings.block_terms != blank %}
+                                <div class="block-terms">{{block.settings.block_terms}}</div>
+                            {% endif %}
+                        </div>
+                    {% endcase %}
+                {% endfor %}
+		</div>
+        <div class="col-12">
+            {% for block in section.blocks %}
+                    {% case block.type %}
+                    {% when 'more_info' %}
+                        <div class="klarna-more-info">
+                            <a href="{{block.settings.block_subtitle}}" class="text-center">
+                                <div class="info-title">{{block.settings.button_title}}</div>
+                                <div class="info-link">{{block.settings.button_link_text}}</div>
+                            </a>
+                        </div>
+                    {% endcase %}
+                {% endfor %}
+        </div>
+	</div>
+</div>
+{% endcomment %}
+
+{% schema %}
+{
+  "name": "Clearpay",
+   "settings": [
+		{
+            "type":     "image_picker",
+            "id":       "desktop_image",
+            "label":    "Desktop Image",
+            "info":     "Landscape images work best for desktop. We wouldn't recommend exceeding 1920px in width."
+        },
+        {
+            "type":     "image_picker",
+            "id":       "mobile_image",
+            "label":    "Mobile Image",
+            "info":     "Portrait images work best for mobile. We wouldn't recommend exceeding 760px in width."
+        },
+        {
+            "type":      "text",
+            "id":        "message_under_hero_one", 
+            "label":     "Message Under Hero Line One",
+            "default":   "LOVE IT, GET IT, PAY IT IN FOUR."
+        },
+		{
+            "type":      "richtext",
+            "id":        "message_under_hero_two", 
+            "label":     "Message Under Hero Line Second",
+            "default":   "<p>Buy the shoes you want today and pay for it in four installments, interest-free with Clearpay.</p>"
+        },
+        {
+        "type":      "html",
+        "id":        "clearpay_info", 
+        "label":     "Description"
+       },
+         {
+        "type":      "text",
+        "id":        "visit_info", 
+        "label":     "Heading visit"
+       },
+       {
+        "type":      "text",
+        "id":        "clearpay_text", 
+        "label":     "Clearpay text"
+       },
+        {
+        "type":      "url",
+        "id":        "clearpay_link", 
+        "label":     "Clearpay link"
+       }
+
+  
+	],
+    "blocks": [
+		{
+			"type": "three_step",
+			"name": "How it works Block",
+            "limit": 3,
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "imagee",
+					"label": "Image Icon"
+				},
+                {
+					"type": "richtext",
+					"id": "how_it_work",
+					"label": "Detail"
+				}
+			]
+		}
+    ]
+}
+{% endschema %}

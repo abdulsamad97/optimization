@@ -1,0 +1,81 @@
+{% assign storeEU = 'https://eu.publicdesire.com/' %}
+{% assign storeAU = 'https://au.publicdesire.com/' %}
+{% assign storeUS = 'https://us.publicdesire.com/' %}
+{% assign storeUK = 'https://www.publicdesire.com/' %}
+{% if shop.domain contains "au." %}
+
+<link rel="alternate" href="{{storeAU}}{{ canonical_url | remove: storeAU }}" hreflang="en-au" />
+<link rel="alternate" href="{{storeUS}}{{ canonical_url | remove: storeAU }}" hreflang="en-us" />
+<link rel="alternate" href="{{storeUK}}{{ canonical_url | remove: storeAU }}" hreflang="en-gb" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeAU }}" hreflang="en-at" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeAU }}" hreflang="en-nl" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeAU }}" hreflang="en-be" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeAU }}" hreflang="en-pt" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeAU }}" hreflang="en-se" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeAU }}" hreflang="en-dk" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeAU }}" hreflang="en-hr" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeAU }}" hreflang="en-pl" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeAU }}" hreflang="en-fi" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeAU }}" hreflang="en-de" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeAU }}" hreflang="en-it" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeAU }}" hreflang="en-es" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeAU }}" hreflang="en-fr" />
+
+{% elsif shop.domain contains "eu." %}
+
+<link rel="alternate" href="{{storeAU}}{{ canonical_url | remove: storeEU }}" hreflang="en-au" />
+<link rel="alternate" href="{{storeUS}}{{ canonical_url | remove: storeEU }}" hreflang="en-us" />
+<link rel="alternate" href="{{storeUK}}{{ canonical_url | remove: storeEU }}" hreflang="en-gb" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeEU }}" hreflang="en-at" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeEU }}" hreflang="en-nl" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeEU }}" hreflang="en-be" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeEU }}" hreflang="en-pt" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeEU }}" hreflang="en-se" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeEU }}" hreflang="en-dk" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeEU }}" hreflang="en-hr" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeEU }}" hreflang="en-pl" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeEU }}" hreflang="en-fi" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeEU }}" hreflang="en-de" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeEU }}" hreflang="en-it" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeEU }}" hreflang="en-es" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeEU }}" hreflang="en-fr" />
+
+{% elsif shop.domain contains "us." %}
+
+<link rel="alternate" href="{{storeAU}}{{ canonical_url | remove: storeUS }}" hreflang="en-au" />
+<link rel="alternate" href="{{storeUS}}{{ canonical_url | remove: storeUS }}" hreflang="en-us" />
+<link rel="alternate" href="{{storeUK}}{{ canonical_url | remove: storeUS }}" hreflang="en-gb" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUS }}" hreflang="en-at" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUS }}" hreflang="en-nl" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUS }}" hreflang="en-be" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUS }}" hreflang="en-pt" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUS }}" hreflang="en-se" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUS }}" hreflang="en-dk" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUS }}" hreflang="en-hr" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUS }}" hreflang="en-pl" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUS }}" hreflang="en-fi" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUS }}" hreflang="en-de" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUS }}" hreflang="en-it" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUS }}" hreflang="en-es" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUS }}" hreflang="en-fr" /> 
+<link rel="alternate" href="{{storeUK}}{{ canonical_url | remove: storeUS }}" hreflang="x-default" />
+{% else %}
+
+<link rel="alternate" href="{{storeAU}}{{ canonical_url | remove: storeUK }}" hreflang="en-au" />
+<link rel="alternate" href="{{storeUS}}{{ canonical_url | remove: storeUK }}" hreflang="en-us" />
+<link rel="alternate" href="{{storeUK}}{{ canonical_url | remove: storeUK }}" hreflang="en-gb" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUK }}" hreflang="en-at" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUK }}" hreflang="en-nl" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUK }}" hreflang="en-be" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUK }}" hreflang="en-pt" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUK }}" hreflang="en-se" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUK }}" hreflang="en-dk" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUK }}" hreflang="en-hr" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUK }}" hreflang="en-pl" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUK }}" hreflang="en-fi" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUK }}" hreflang="en-de" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUK }}" hreflang="en-it" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUK }}" hreflang="en-es" />
+<link rel="alternate" href="{{storeEU}}{{ canonical_url | remove: storeUK }}" hreflang="en-fr" />
+<link rel="alternate" href="{{storeUK}}{{ canonical_url | remove: storeUK }}" hreflang="x-default" />
+{% endif %}

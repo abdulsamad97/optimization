@@ -1,0 +1,185 @@
+{% comment %}
+BG: The only field that we need to edit is the Logo/Image in the first script (Organization type). Aside from that, everything else will be dynamic. 
+
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "url": "{{shop.url}}",
+    "name": "{{shop.name}}",
+    {% if shop.description != blank %}"description": "{{shop.description}}",{% endif%}
+    "logo": "https:{{ 'logo-desktop-new.png' | asset_img_url: 'master' }}",
+    "image": "https:{{ 'logo-desktop-new.png' | asset_img_url: 'master' }}",
+    {% if shop.address.street != blank or shop.address.city != blank or shop.address.province != blank or shop.address.zip != blank or shop.address.country != blank %}
+    "address": {
+        "@type": "PostalAddress",
+        {% if shop.address.street != blank %}"streetAddress": "{{shop.address.street}}",{%endif%}
+        {% if shop.address.city != blank %}"addressLocality": "{{shop.address.city}}",{%endif%}
+        {% if shop.address.province != blank %}"addressRegion": "{{shop.address.province}}",{%endif%}
+        {% if shop.address.zip != blank %}"postalCode": "{{shop.address.zip}}",{%endif%}
+        {% if shop.address.country != blank %}"addressCountry": "{{shop.address.country}}"{%endif%}
+    }
+    {% endif %}
+}
+</script>
+{% endcomment %}
+
+{% if template == "index" %}
+<script type='application/ld+json'>
+{
+ "@context": "http://www.schema.org",
+ "@type": "Organization",
+ "legalName": "Public Desire Limited",
+ "brand": "Public Desire",
+ "alternateName": [
+  "Public Desire",
+  "public desire",
+  "PD",
+  "pd"
+ ],
+ "foundingDate": "2014",
+ "founder": {
+ "@type": "Person",
+ "name": "Ateeq Akhlaq"
+},
+ "logo": "https://cdn.shopify.com/s/files/1/0270/6584/3821/t/21/assets/logo-desktop-new.png?20437",
+ "url": "https://us.publicdesire.com/",
+ "sameAs": [
+ "https://www.facebook.com/publicdesire",
+ "https://twitter.com/PublicDesire",
+ "https://www.pinterest.co.uk/PublicDesire/",
+ "https://www.instagram.com/publicdesire/",
+ "https://www.snapchat.com/add/publicdesire",
+ "https://www.tiktok.com/@publicdesire?"
+],
+ "address": {
+ "@type": "PostalAddress",
+ "streetAddress": "9 Portland House",
+ "addressLocality": "Manchester",
+ "postalCode": "M1 3BE",
+ "addressCountry": "United Kingdom"
+},
+ "contactPoint": [ {
+ "@type": "ContactPoint",
+ "contactType": "General Enquiries",
+ "email": "help@publicdesire.com"
+}
+]
+}
+</script>
+
+
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": "https://us.publicdesire.com/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://us.publicdesire.com/search?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+
+ {% elsif template == "product" %} 
+  {% assign tag_name = "" %} 
+
+  {% for tag in product.tags %}
+      {% if tag contains "color_" %}
+        
+          {% assign tag_name = tag | split: "_" | last %}
+      {% endif %}
+  {% endfor %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": "{{product.title}}",
+    {% if product.images.size > 0 %}
+    "image": [
+        {% for image in product.images %}
+            {% if forloop.last == true %}
+                "https:{{ image.src | img_url: 'master' }}"
+            {% else %}
+                "https:{{ image.src | img_url: 'master' }}",
+            {% endif %}
+        {% endfor %}
+    ],
+    {% endif%}
+    {% if product.description != blank %}
+    "description": "{{ product.description | strip_html | escape }}",
+    {% endif %}
+    {% if tag_name != blank %}
+    "color": "{{ tag_name }}",
+    {% endif %}
+  
+    {% if product.vendor != blank %}
+    "brand": {
+        "@type": "Brand",
+        "name": "{{product.vendor}}"
+    },
+    {% endif%}
+    
+    {% if product.has_only_default_variant %}
+    "offers": {
+        "@type": "Offer",
+        "sku": "{{ product.selected_or_first_available_variant.sku }}",
+        "price": "{{ product.selected_or_first_available_variant.price | money_without_currency | remove: ',' }}",
+        "priceCurrency": "{{ shop.currency }}",
+        "itemCondition": "https://schema.org/NewCondition",
+        "name": "{{product.title}} {{product.selected_or_first_available_variant.title}}",
+        "url": "{{ shop.url }}{{ product.selected_or_first_available_variant.url }}",
+        {% if product.available %}
+        "availability": "https://schema.org/InStock"
+        {% else %}
+        "availability": "https://schema.org/OutOfStock"
+        {% endif %}
+       
+    }
+    {% else %}
+    "offers": [{
+        {% for variant in product.variants %}   
+                "@type": "Offer",
+                "sku": "{{variant.sku}}",
+                "price": {{ variant.price | money_without_currency | remove: ',' }},
+                "priceCurrency": "{{ shop.currency }}",
+                "itemCondition": "https://schema.org/NewCondition",
+                "name": "{{product.title}} {{variant.title}}",
+                "url": "{{ shop.url }}{{ variant.url }}",
+                {% if variant.available %}
+                "availability": "https://schema.org/InStock"
+                {% else %}
+                "availability": "https://schema.org/OutOfStock"
+                {% endif %}
+        {% if forloop.last == true %} 
+        }]
+        {% else %}
+        },{
+        {% endif %}
+        {% endfor %}    
+
+    {% endif %}
+  {% if product.metafields.okendo.summaryData.reviewCount > 0 %}
+  ,"aggregateRating": {
+   "@type": "AggregateRating",
+   "description": "Okendo Reviews",
+   "ratingValue": "{{ product.metafields.okendo.summaryData.reviewAverageValue }}",
+   "ratingCount": "{{ product.metafields.okendo.summaryData.reviewCount }}"
+  }
+  {% elsif product.metafields.okendo.ReviewCount > 0 %}
+  ,"aggregateRating": {
+   "@type": "AggregateRating",
+   "description": "Okendo Reviews",
+   "ratingValue": "{{ product.metafields.okendo.ReviewAverageValue }}",
+   "ratingCount": "{{ product.metafields.okendo.ReviewCount }}"
+  }
+  {% endif %}
+}
+</script>
+{% endif %}

@@ -1,0 +1,290 @@
+<nav id="site-navigation">
+    <ul class="top-level">
+        {% for block in section.blocks %}
+        {% case block.type %}
+        {% when 'nav_one' %}
+        {% comment %} 
+        BG: Navigation logic - There are only two columns for links on the mega menu, so depending on the total amount of links, depends on how many links per column are needed.
+        {% endcomment %}
+        {% assign linkTotal = linklists[block.settings.submenu].links.size %}
+        {% if linkTotal <= 14 %}
+            {% assign linksPerColumn = 9 %}
+        {% elsif linksTotal > 14 and linksTotal <= 16 %}
+            {% assign linksPerColumn = 8 %}
+        {% elsif linksTotal > 16 and linksTotal <= 18 %}
+            {% assign linksPerColumn = 9 %}
+        {% elsif linksTotal > 18 and linksTotal <= 20 %}
+            {% assign linksPerColumn = 10 %}
+        {% endif %}
+
+
+		<li class="menu-item-{{ block.settings.title | handle }} {% if block.settings.submenu != blank %}has-child {% endif %}">
+    	<a href="{{ block.settings.first_level_url }}">
+           {% if block.settings.title_image != blank %}
+          <img data-src="{{ block.settings.title_image | img_url:'original' }}" class="navi-title-img-info lazyload" width="100" height="30">
+            {% else %}
+            {{ block.settings.title }}
+          {% endif %}
+          <span class="plus-minus-icon"></span>
+          </a>
+    
+    	{% if block.settings.submenu != blank %}
+    
+    	<div class="sub-menu-container">
+    	<div class="container no-gutters">
+        	<div class="row no-gutters">
+            	<div class="col">
+                	<div class="row align-items-center justify-content-end no-gutters">
+                    	{% if block.settings.featured_menu_one == true or block.settings.featured_menu_two == true %}
+                        <div class="col-lg-5 order-2">
+                        <div class="sub-menu-row">
+                        {% if block.settings.featured_menu_one == true %}
+                            <div class="featured-menu-link text-center">
+                                {% if block.settings.featured_menu_image_one != blank %}
+                                    <div class="sub-menu-image">
+                                        <a href="{{block.settings.featured_menu_link_one}}">
+                                        <img data-src="{{ block.settings.featured_menu_image_one | img_url: '200x' , '800x' , '1000x' }}" data-image-url="{{ block.settings.featured_menu_image_one | img_url: '350x' }}" alt="{{ block.settings.featured_menu_image_one.alt }}" class="img-fluid img-full lazyload" width="350" height="455">
+                                        </a>
+                                    </div>
+                              		<div class="sub-menu-details-first">
+                                 	  {% if block.settings.title contains 'Sale' %}
+                                      {% assign title_one ='BAG YOURSELF A BARGAIN'%}
+                                      <h4>{{ title_one  }}</h4>
+                                      <a href="{{ block.settings.first_level_url }}" class="features-text-a"><span>Shop {{ block.settings.title }}</span></a>
+                                      
+                                      {% elsif block.settings.title contains 'Collections' %}
+                                      {% assign title_one ='FASHION BEAUTY & LIFESTYLE'%}
+                                      {% assign subtitle_one ='VIEW THE PD BLOG'%}
+                                      
+                                      <h4> {{ title_one }}</h4>
+                                      <a href="/blogs/news" class="features-text-a"><span>{{ subtitle_one }}</span></a>
+                              		  {% else %}
+                                      <h4>View All {{ block.settings.title  }}</h4>
+                                      <a href="{{ block.settings.first_level_url }}" class="features-text-a"><span>Shop our latest styles</span></a>
+                                      {% endif %}
+                              		</div>
+                                {% endif %}
+                            </div><!-- featured-menu-link -->
+                        {% endif %}
+                        {% if block.settings.featured_menu_two == true %}
+                            <div class="featured-menu-link text-center">
+                                {% if block.settings.featured_menu_image_two != blank %}
+                                    <div class="sub-menu-image">
+                                        <a href="{{block.settings.featured_menu_link_two}}">
+                                        <img data-src="{{ block.settings.featured_menu_image_two | img_url: '200x' , '800x' , '1000x' }}" data-image-url="{{ block.settings.featured_menu_image_two | img_url: '350x' }}" alt="{{ block.settings.featured_menu_image_two.alt }}" class="img-fluid img-full lazyload" width="350" height="455">
+                                        </a>
+                                    </div>
+                              		<div class="sub-menu-details-two {{block.settings.title}}">
+                                      	{% assign title = ''  %}
+                                      
+                                        {% if block.settings.title contains 'NEW IN' %}
+                                        {% assign title ='THE HOTTEST STYLES RN' %}
+                                      
+                                      	{% elsif block.settings.title contains 'SANDALS' %}
+                                        {% assign title ='DESTINATION: SUMMER' %}
+                                      
+                                      	{% elsif block.settings.title contains 'Heels' %}
+                                        {% assign title ='GOING OUT OUT?' %}
+                                      
+                                      	{% elsif block.settings.title contains 'Ankle Boots' %}
+                                        {% assign title ='IS IT TIME TO REBOOT YOUR LOOK?' %}
+                                      
+                                        {% elsif block.settings.title contains 'Sale' %}
+                                        {% assign title ='BROKE AF?' %}
+                                        {% assign subtitle ='UP TO 77% OFF' %}
+                                      
+                                        {% elsif block.settings.title contains 'Collections' %}
+                                        {% assign title ='COLOUR STAPLE: CHOC' %}
+                                        {% assign subtitle ='CHOCOLATE STYLES' %}
+                                      
+                                      	{% endif %}
+                              			<h4>{{ title }}</h4>
+                                      	
+                                        {% if block.settings.title contains 'Sale' %}
+                                     	 <a href="" class="features-text-a"><span>Shop UP TO 77% OFF</span></a>
+                              			
+                                  
+                                        {% elsif block.settings.title contains 'Collections' %}
+                                     	 <a href="/collections/chocolate-styles" class="features-text-a"><span>Shop {{ subtitle | handle }}</span></a>
+                              			
+                                      	{% else %}
+                                        <a href="" class="features-text-a"><span>Shop {{ block.settings.title }}</span></a>
+                                   		{% endif %} 
+                                   </div>
+                                {% endif %}
+                            </div><!-- featured-menu-link -->
+                        {% endif %}
+                            </div><!-- sub-menu-row -->
+                        </div><!-- col -->
+                    {% endif %}
+                    <div class="col-12 col-lg-5 d-lg-flex justify-content-lg-center order-1">
+                        {% if linklists[block.settings.submenu].links.size > 9 %}
+                            <div class="sub-menu-row multiple">
+                                <div class="sub-menu">
+                                    <ul>
+                                        <li><a href="{{ block.settings.first_level_url }}" class="go-to">View all {{ block.settings.title }}</a></li>
+                                        {% for link in linklists[block.settings.submenu].links limit: linksPerColumn %}
+                                            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div><!-- sub-menu -->
+                            </div><!-- sub-menu-row -->
+                            <div class="sub-menu-row multiple">
+                                <div class="sub-menu">
+                                    <ul>
+                                        <li><a href="{{ block.settings.first_level_url }}" class="go-to">View all {{ block.settings.title }}</a></li>
+                                        {% for link in linklists[block.settings.submenu].links offset: linksPerColumn limit: linksPerColumn %}
+                                            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div><!-- sub-menu -->
+                            </div><!-- sub-menu-row -->
+                        {% else %}
+                            <div class="sub-menu-row single">
+                                <div class="sub-menu">
+                                    <ul>
+                                        <li><a href="{{ block.settings.first_level_url }}" class="go-to">View all {{ block.settings.title }}</a></li>
+                                        {% for link in linklists[block.settings.submenu].links %}
+                                            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div><!-- sub-menu -->
+                            </div><!-- sub-menu-row -->
+                        {% endif %}
+
+                        {% comment %}
+                        <div class="sub-menu-row multiple">
+
+                            
+                            
+                        </div><!-- sub-menu-row -->
+                        {% endif %} {% endcomment %}
+                    </div><!-- col -->
+                </div><!-- row -->
+            </div><!-- col -->
+        </div><!-- row -->
+        </div><!-- container -->
+    </div><!-- sub-menu-container -->
+    
+    {% endif %}
+
+          <!-----------start for no submenu-------------------->
+ {% if block.settings.submenu == blank %}
+    <div class="sub-menu-container single-menu-option-info mobile-view-info">
+    <div class="container no-gutters">
+        <div class="row">
+            <div class="col">
+                <div class="sub-menu">
+                    <ul>
+                        <li><a href="{{ block.settings.first_level_url }}" class="go-to">View all {{ block.settings.title }}</a></li>
+                        {% for link in linklists[block.settings.submenu].links %}
+                            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div><!-- sub-menu -->
+            </div>
+        </div><!-- row -->
+    </div><!-- container -->
+    </div><!-- sub-menu-container -->
+    {% endif %}
+<!-----------end for no submenu-------------------->
+    
+</li>
+
+        {% when 'nav_three' %}
+
+		<li class="menu-item-{{ block.settings.title | handle }} {% if block.settings.submenu != blank %}has-child single-menu{% endif %}">
+    <a href="{{ block.settings.first_level_url }}">{{ block.settings.title }} <span class="plus-minus-icon"></span></a>
+    {% if block.settings.submenu != blank %}
+    <div class="sub-menu-container">
+    <div class="container no-gutters">
+        <div class="row">
+            <div class="col">
+                <div class="sub-menu">
+                    <ul>
+                        <li><a href="{{ block.settings.first_level_url }}" class="go-to">View all {{ block.settings.title }}</a></li>
+                        {% for link in linklists[block.settings.submenu].links %}
+                            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div><!-- sub-menu -->
+            </div>
+        </div><!-- row -->
+    </div><!-- container -->
+    </div><!-- sub-menu-container -->
+    {% endif %}
+</li>
+
+        {% endcase %}
+        {% endfor %}
+     {% comment %}
+    	<li class="menu-item-blog d-lg-none">
+        <a href="/blogs/blog" title="Blog">Blog</a>
+    </li>
+     {% endcomment %}
+     
+    </ul>
+    <ul class="mob-nav-bottom-btn">
+      <li><a href="/account" title="My Account">Sign in</a></li>
+      <li><a href="/a/wishlist">{% include 'icon-wishlist' %}Wishlist</a></li>
+    </ul>
+
+    <div id="store-select-mobile">
+    {% assign storeEU = 'https://eu.publicdesire.com/' %}
+    {% assign storeAU = 'https://au.publicdesire.com/' %}
+    {% assign storeUS = 'https://us.publicdesire.com/' %}
+    {% assign storeUK = 'https://www.publicdesire.com/' %}
+     {% if shop.domain contains "au." %}
+      	{% assign storecurrency= 'AUD $' %}
+     {% elsif shop.domain contains "eu." %}
+      	{% assign storecurrency= 'EUR €' %}
+     {% elsif shop.domain contains "us." %}
+      	{% assign storecurrency= 'USD $' %}
+     {% else %}
+      	{% assign storecurrency= 'GBP £' %}
+      {% endif %}
+    {% if shop.domain contains "au." %}
+        <ul class="store-select">
+            {% comment %}<li><span class="flag-au">{% render 'icon-flag-au' %}</span><span class="icon">{% render 'icon-sort-down-solid' %}</span>{% endcomment %}
+            <li><span class="flag-au">{{ storecurrency }}</span><span class="icon">{% render 'icon-sort-down-solid' %}</span>    
+              <ul class="store-options">
+                    <li><a href="{{storeEU}}{{ canonical_url | remove: storeAU }}" data-store-id="EUR">EUR €</a></li>
+                    <li><a href="{{storeUS}}{{ canonical_url | remove: storeAU }}" data-store-id="USA">USA $</a></li>
+                    <li><a href="{{storeUK}}{{ canonical_url | remove: storeAU }}" data-store-id="GBP">GBP £</a></li>
+                </ul>
+            </li>
+        </ul>
+        {% elsif shop.domain contains "eu." %}
+        <ul class="store-select">
+            <li><span class="flag-eu">{{ storecurrency }}</span><span class="icon">{% render 'icon-sort-down-solid' %}</span>
+                <ul class="store-options">
+                    <li><a href="{{storeAU}}{{ canonical_url | remove: storeEU }}" data-store-id="AUS">AUS $</a></li>
+                    <li><a href="{{storeUS}}{{ canonical_url | remove: storeEU }}" data-store-id="USA">USA $</a></li>
+                    <li><a href="{{storeUK}}{{ canonical_url | remove: storeEU }}" data-store-id="GBP">GBP £</a></li>
+                </ul>
+            </li>
+        </ul>
+        {% elsif shop.domain contains "us." %}
+        <ul class="store-select">
+            <li><span class="flag-us">{{ storecurrency }}</span><span class="icon">{% render 'icon-sort-down-solid' %}</span>
+                <ul class="store-options">
+                    <li><a href="{{storeAU}}{{ canonical_url | remove: storeUS }}" data-store-id="AUS">AUS $</a></li>
+                    <li><a href="{{storeEU}}{{ canonical_url | remove: storeUS }}" data-store-id="EUR">EUR €</a></li>
+                    <li><a href="{{storeUK}}{{ canonical_url | remove: storeUS }}" data-store-id="GBP">GBP £</a></li>
+                </ul>
+            </li>
+        </ul>
+        {% else %}
+        <ul class="store-select">
+            <li><span class="flag-uk">{{ storecurrency }}</span><span class="icon">{% render 'icon-sort-down-solid' %}</span>
+                <ul class="store-options">
+                    <li><a href="{{storeAU}}{{ canonical_url | remove: storeUK }}" data-store-id="AUS">AUS $</a></li>
+                    <li><a href="{{storeEU}}{{ canonical_url | remove: storeUK }}" data-store-id="EUR">EUR €</a></li>
+                    <li><a href="{{storeUS}}{{ canonical_url | remove: storeUK }}" data-store-id="USA">USA $</a></li>
+                </ul>
+            </li>
+        </ul>
+        {% endif %}
+    </div><!-- store-select-mobile -->
+
+</nav>

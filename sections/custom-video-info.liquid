@@ -1,0 +1,27 @@
+<div id="custom-video-info">
+  <div class="img-info">
+    <iframe src="{{section.settings.video_info}}" allowFullScreen='allowFullScreen'></iframe>
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Video Info",
+  "settings": [
+     {
+    "type": "text",
+    "id": "video_info",
+    "label": "Video"
+  }
+  ]
+  ,
+  "presets": [
+    {
+      "name": "Video Info",
+      "category": "Call To Action"
+    }
+  ]
+}
+{% endschema %}
+

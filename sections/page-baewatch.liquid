@@ -1,0 +1,192 @@
+<div class="container-fluid py-3">
+	<div class="row">
+		<div class="col-12 text-v-small">{% render 'breadcrumbs' %}</div>
+	</div><!-- row -->
+</div><!-- container -->
+
+<header class="page-header{% if section.settings.background %} image lazyload {%endif%}" {% if section.settings.background %} data-bgset="{% include 'responsive-bg-image', image: section.settings.background %}"{% endif %}>
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-12 mb-md-0 col-md-8 col-lg-6 mx-auto text-center">
+				<h1>{{ page.title }}</h1>
+			</div>
+		</div><!-- row -->
+	</div>
+</header>
+
+<div class="container">
+	<div class="row mt-4 mb-5">
+		<div class="col-12 col-md-10 mx-auto">
+			<div class="rte text-center">
+                {{page.content}}
+            </div>	
+		</div>
+	</div>
+</div>
+
+<div class="container px-0">
+	<div class="row no-gutters mt-4 mb-5">
+        <div class="col-12 baewatch-wrapper">
+            {% for block in section.blocks %}
+                {% case block.type %}
+                {% when 'featured_section' %}
+                    <div class="baewatch-featured-section text-center">
+                        <div class="featured-image">
+                            <picture>
+                                <source media="(max-width: 767px)" srcset="{{ block.settings.featured_image_mobile | img_url: '760x' }}">
+                                <source media="(min-width: 1440px)" srcset="{{ block.settings.featured_image | img_url: '1440x' }}">
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ block.settings.featured_image | img_url: '1440x' }}" class="img-fluid lazyload d-block mx-auto" alt="{{ block.settings.featured_image.alt }}">
+                            </picture>
+                        </div>
+                        <div class="featured-title">{{block.settings.featured_title}}</div>
+                        <div class="featured-description">{{block.settings.featured_description}}</div>
+                        <div class="featured-link"><a href="{{block.settings.section_link}}">{{block.settings.section_link_text}}</a></div>
+                    </div>
+
+                {% when 'case_studies' %}
+                    <div class="case-study text-center">
+                        <div class="featured-image">
+                            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ block.settings.featured_image | img_url: '360x' }}" class="img-fluid lazyload d-block mx-auto" alt="{{ block.settings.featured_image.alt }}">
+                        </div>
+                        <div class="featured-title">{{block.settings.featured_title}}</div>
+                        <div class="featured-description">{{block.settings.featured_description}}</div>
+                        <div class="featured-link"><a href="{{block.settings.section_link}}">{{block.settings.section_link_text}}</a></div>
+                    </div>
+
+                {% when 'instagram_section' %}
+                    <div class="instagram-section text-center">
+                            <div class="instagram-icon">
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="https://cdn.shopify.com/s/files/1/0270/6584/3821/files/icon-baewatch-camera.png?v=1582724626" class="img-fluid lazyload">
+                            </div>
+                            <div class="featured-title">{{block.settings.featured_title}}</div>
+                            <div class="featured-description">{{block.settings.featured_description}}</div>
+                            <div class="featured-link"><a href="{{block.settings.section_link}}">{{block.settings.section_link_text}}</a></div>
+                            <div class="featured-image">
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ block.settings.featured_image | img_url: '1440x' }}" class="img-fluid lazyload d-block mx-auto" alt="{{ block.settings.featured_image.alt }}">
+                            </div>
+                        </div>
+                {% endcase %}
+            {% endfor %}
+        </div>
+	</div>
+</div>
+
+{% schema %}
+{
+  "name": "Baewatch",
+	"settings": [
+		{
+			"type": "image_picker",
+			"id": "background",
+			"label": "Header Background Image",
+			"info": "Optimal image size: 1920 x 350"
+		}
+	],
+	"blocks": [
+		{
+			"type": "featured_section",
+			"name": "Baewatch Featured Section",
+            "limit": 2,
+			"settings": [
+                {
+                    "type": "image_picker",
+                    "id": "featured_image",
+                    "label": "Section Image",
+                    "info": "Optimal image width size: 1440px"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "featured_image_mobile",
+                    "label": "Section Image Mobile",
+                    "info": "Optimal image width size: 760px"
+                },
+                {
+                    "type":      "text",
+                    "id":        "featured_title",
+                    "label":     "Section Title"
+                },
+                {
+                    "type":      "richtext",
+                    "id":        "featured_description",
+                    "label":     "Section Description"
+                },
+                {
+                    "type":      "text",
+                    "id":        "section_link_text",
+                    "label":     "Section Link Text"
+                },
+                {
+                    "type":      "url",
+                    "id":        "section_link",
+                    "label":     "Section URL"
+                }
+			]
+		},
+        {
+			"type": "case_studies",
+			"name": "Baewatch Case Study",
+			"settings": [
+                {
+                    "type": "image_picker",
+                    "id": "featured_image",
+                    "label": "Section Image",
+                    "info": "Optimal image width size: 360px"
+                },
+                {
+                    "type":      "text",
+                    "id":        "featured_title",
+                    "label":     "Section Title"
+                },
+                {
+                    "type":      "richtext",
+                    "id":        "featured_description",
+                    "label":     "Section Description"
+                },
+                {
+                    "type":      "text",
+                    "id":        "section_link_text",
+                    "label":     "Section Link Text"
+                },
+                {
+                    "type":      "url",
+                    "id":        "section_link",
+                    "label":     "Section URL"
+                }
+			]
+		},
+        {
+			"type": "instagram_section",
+			"name": "Instagram Section",
+            "limit": 1,
+			"settings": [
+                {
+                    "type":      "text",
+                    "id":        "featured_title",
+                    "label":     "Section Title"
+                },
+                {
+                    "type":      "richtext",
+                    "id":        "featured_description",
+                    "label":     "Section Description"
+                },
+                {
+                    "type":      "text",
+                    "id":        "section_link_text",
+                    "label":     "Section Link Text"
+                },
+                {
+                    "type":      "url",
+                    "id":        "section_link",
+                    "label":     "Section URL"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "featured_image",
+                    "label": "Section Image",
+                    "info": "Optimal image width size: 1440px"
+                }
+			]
+		}
+	]
+}
+{% endschema %}

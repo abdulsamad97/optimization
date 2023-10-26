@@ -1,0 +1,80 @@
+<style>
+  h2.fs-title{ color: #FFF; text-transform: uppercase;}
+</style>
+{% comment %}
+<section class="shop-now-section">
+  <div class="shop_now_wrap">
+    <div class="sn-row">
+      <div class="sn-col sn-col-text">
+        {% if section.settings.title != blank %}
+         <h2 class="fs-title">{{ section.settings.title | escape }}</h2>
+        {% endif %}
+        {{ section.settings.code }}
+      </div>
+      <div class="sn-col sn-col-img">
+        <div class="sn-img-wrap">
+          <div class="sn-img">
+          	<img src="https://cdn.shopify.com/s/files/1/0359/5049/3835/files/klarna-logo-white.png?v=1619498771" alt="">
+          </div>
+          <div class="sn-img">
+          	<img src="https://cdn.shopify.com/s/files/1/0359/5049/3835/files/clearpay-logo-white.png?v=1619498771" alt="">
+          </div>
+        </div>
+        <p class="sn-img-label">PLEASE SPEND RESPONSIBLY 18+ T&amp;Cs APPLY</p>
+      </div>
+    </div>
+ 
+  </div>
+</section>
+{% endcomment %}
+
+<section class="shop-now-section-banner">
+  <div class="shop_now_wrap">
+    <div class="banner_img_desk">
+      <a href="{{section.settings.desktop_link}}"> <img src="{{ section.settings.banner_image_desktop | img_url: '2048x' }}" width="1500" height="70"></a>
+    </div>
+    <div class="banner_img_mob mob-hide">
+      <a href="{{section.settings.mobile_link}}"> {{ section.settings.banner_image_mob | img_url: '2048x' | img_tag }}</a>
+    </div>
+  
+  </div>
+</section>
+{% schema %}
+  {
+    "name": "Shop Now",
+    "settings": [
+	{   
+		"type": "image_picker", 
+		"id": "banner_image_desktop",
+		"label": "Banner Image Desktop" 
+	},
+    {
+      "id": "desktop_link",
+      "type": "url",
+      "label": "Banner Desktop link"
+    },
+    {   
+		"type": "image_picker", 
+		"id": "banner_image_mob",
+		"label": "Banner Image Mobile" 
+	},
+    {
+      "id": "mobile_link",
+      "type": "url",
+      "label": "Banner Mobile link"
+    }
+	],
+	"presets" :[
+	{
+		"name": "Shop Now",
+        "category": "Foursixty"
+	}
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

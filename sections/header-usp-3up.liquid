@@ -1,0 +1,128 @@
+<style>
+  #shopify-section-header-usp, #shopify-section-header-bottom-bar-mobile, #shopify-section-mobile-collection-header {
+    display : none;
+  }
+
+  #stUSPBar {
+    position : relative;
+    width : 100%;
+    background-color : rgb(0, 0, 0);
+    margin-top : 10px;
+  }
+
+  #stUSPBar_inner {
+    position : relative;
+    width : 100%;
+    display : flex;
+  }
+
+  .stUSPBar_item {
+    flex-basis : 33%;
+    text-align : center;
+    padding : 2vw 0px;
+    cursor : pointer;
+  }
+
+  .stUSPBar_item:nth-child(2) {
+    border-right-width : 2px;
+    border-left-width : 2px;
+    border-right-style : solid;
+    border-left-style : solid;
+    border-right-color : rgb(255, 255, 255);
+    border-left-color : rgb(255, 255, 255);
+    border-image-source : initial;
+    border-image-slice : initial;
+    border-image-width : initial;
+    border-image-outset : initial;
+    border-image-repeat : initial;
+    border-top : 0px;
+    border-bottom : 0px;
+  }
+  .stUSPBar_item span {
+    display : block;
+    color : rgb(255, 255, 255);
+    font-size : 3vw;
+    line-height : 1.2;
+    letter-spacing : 1px;
+    vertical-align : middle;
+  }
+
+  .stUSPBar_item>img {
+    width : 40%;
+    height: auto;
+    vertical-align : middle;
+  }
+
+  @media screen and (min-width: 768px) {
+    #stUSPBar {
+      margin-top : 0px;
+    }
+
+    .stUSPBar_item {
+      padding : 0.25vw 0px;
+    }
+
+    .stUSPBar_item>img {
+      width : 50px;
+      margin-right : 5px;
+    }
+
+    .stUSPBar_item span {
+      display : inline-block;
+      font-size : 14px;
+    }
+  }
+  @media (max-width:767px){
+        .stUSPBar_item span{
+          padding:0 5px;
+        }
+        
+      }
+</style>
+<div id="stUSPBar">
+  <div id="stUSPBar_inner">
+{% for block in section.blocks %}
+{% case block.type %}
+{% when 'usp_item' %}
+      {% if block.settings.item_link != blank %}
+  <a href="{{ block.settings.item_link }}" class="stUSPBar_item">{% endif %}<div class="stUSPBar_item" id="stUSPBar_item{{forloop.index}}">
+      {% if block.settings.image != blank %}<img class="lazyload" alt="{{ block.settings.title }}" data-src="{{ block.settings.image | img_url }}"  width="50" height="50">{% endif %}
+      <span>{{ block.settings.title }}</span>
+    </div>{% if block.settings.item_link != blank %}
+  </a>{% endif %}
+{% endcase %}
+{% endfor %}
+  </div>
+</div>
+<!-- header-usp-3up -->
+
+{% schema %}
+{
+    "name": "Header USPs - 3up",
+    
+    "blocks": [
+		{
+			"type": "usp_item",
+			"name": "USP Item",
+			"settings": [
+                {
+                  "type": "image_picker",
+                  "id": "image",
+                  "label": "USP Image",
+                  "info": "Transparent/Black Background Recommended"
+                },
+				{
+                    "type":     "text",
+				    "id":       "title",
+				    "label":    "Title"
+				},
+                {
+                    "type":     "url",
+                    "id":       "item_link",
+                    "label":    "Link"
+                }
+			]
+		}
+	]
+}
+{% endschema %}

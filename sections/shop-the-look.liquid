@@ -1,0 +1,363 @@
+<div id="section-id-{{ section.id }}" class="{% if section.settings.use_alt_bg %}use-alt-bg fully-padded-row--medium{% else %}fully-spaced-row--medium{% endif %} {{ section.settings.custom-class }}" data-section-type="logo-list">
+  {%- style -%}
+    #section-id-{{ section.id }} .logo-list__logo-image {
+      opacity: {{ section.settings.image_opacity }}%;
+    }
+    #section-id-{{ section.id }} .logo-list__link:hover .logo-list__logo-image {
+      opacity: {{ section.settings.image_opacity | times: 1.2 | at_most: 100 }}%;
+    }
+    {%- for block in section.blocks -%}
+      #section-id-{{ section.id }} .logo-list__logo-{{ forloop.index }} .logo-list__logo-image {
+        max-width: {{ block.settings.image_width }}px;
+      }
+    {%- endfor -%}
+  {%- endstyle -%}
+
+  <div class="container">
+    <h2 class="hometitle h4-style align-center spaced-row" data-cc-animate data-cc-animate-delay="0.15s" style="text-align:{{ section.settings.logo_aligment }}">
+      {{ section.settings.title | escape }}
+    </h2>
+
+    <div class="logo-list-container">
+      <div class="logo-list logo-list--count-{{ section.blocks.size }}" >
+        {%- for block in section.blocks -%}
+          
+            <div class="logo-list__logo logo-list__logo-{{ forloop.index }}" {{ block.shopify_attributes }} data-cc-animate="cc-fade-in-up" data-cc-animate-delay="{{ forloop.index | times: 0.15 }}s">
+          
+              
+            <div class="logo-list__logo-image">
+              {%- if block.settings.image != blank -%}
+                <div class="rimage-outer-wrapper" style="max-width: {{ block.settings.image.width }}px">
+                  <div class="rimage-wrapper lazyload--placeholder" style="padding-top: {{ 1 | divided_by: block.settings.image.aspect_ratio | times: 100 }}%">
+                    {%- assign img_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                    <img class="rimage__image lazyload fade-in"
+                      data-src="{{ img_url }}"
+                      data-widths="[{{ block.settings.image_width }}, {{ block.settings.image_width | times: 2}}]"
+                      data-aspectratio="{{ block.settings.image.aspect_ratio }}"
+                      data-sizes="auto"
+                      alt="{{ block.settings.image.alt | escape }}">
+                    <noscript>
+                      {%- capture image_width_key -%}{{ block.settings.image_width }}x{%- endcapture -%}
+                      <img class="rimage__image" src="{{ block.settings.image | img_url: image_width_key }}" alt="{{ image.alt | escape }}">
+                    </noscript>
+                  </div>
+                </div>
+              {%- else -%}
+                <div class="placeholder-image">
+                  {{- 'logo' | placeholder_svg_tag: 'placeholder-svg' -}}
+                </div>
+               {%- endif -%}
+             <div class="overlay">
+               {%- if block.settings.button_link != blank -%}
+               <a href="{{ block.settings.button_link }}" class="image_link"></a>
+             {%- endif -%}
+              
+             </div>
+          {%- if block.settings.button_link != blank -%}
+             <a href="{{ block.settings.button_link }}" class="shop_now">SHOP NOW</a>
+           {%- endif -%}
+            </div>
+
+            {%- if block.settings.title != blank -%}
+              <div class="logo-list__logo-title">
+                {{ block.settings.title }}
+              </div>
+            {%- endif -%}
+
+              {% if block.settings.logo-list-content != blank %}
+              <div class="logo-list-content">
+                {{ block.settings.logo-list-content }}
+              </div>
+                {% endif %}
+
+         
+            </div>
+         
+        {%- endfor -%}
+
+        {% if section.blocks.size == 0 %}
+          {%- for i in (1..4) -%}
+            <div class="logo-list__logo">
+              <div class="logo-list__logo-image">
+                <div class="placeholder-image">
+                  {{- 'logo' | placeholder_svg_tag: 'placeholder-svg' -}}              
+                </div>              
+              </div>
+              
+            </div>
+          {%- endfor -%}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Shop The Look",
+  "class": "section-logo-list",
+  "settings": [
+    {
+        "type": "radio",
+        "id": "logo_aligment",
+        "label": "Logo alignment",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Centered"
+          }
+        ],
+        "default": "center"
+   },
+
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Logo list"
+    },
+    {
+      "type": "range",
+      "id": "image_opacity",
+      "label": "Logo opacity",
+      "min": 20,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 75
+    },
+    {
+      "type": "checkbox",
+      "id": "use_alt_bg",
+      "label": "Use alternate section color",
+      "default": true
+    },
+    {
+      "type":"text",
+      "id": "custom-class",
+      "label": "Section Custom Class"
+    },
+   
+    {
+      "type": "range",
+      "id": "slider_quantity",
+      "label": "Slider Quantity",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 3
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Product box",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "range",
+          "id": "image_width",
+          "label": "Logo width",
+          "min": 40,
+          "max": 400,
+          "step": 10,
+          "unit": "px",
+          "default": 160
+        },
+        
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "info": "Optional"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "richtext",
+          "id": "logo-list-content",
+          "label": "Logo List Content"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop The Look",
+      "settings": {
+      },
+      "blocks": [
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<!-- slick slider -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+
+<script>
+  $(document).ready(function(){
+  $('.icon-text-list .logo-list').slick({
+  dots: false,
+  infinite: true,
+  speed: 300,
+  slidesToShow: {{ section.settings.slider_quantity }},
+  slidesToScroll: 1,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        infinite: true,
+        autoplay:true,
+       
+      }
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        autoplay:true,
+        
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        autoplay:true,
+       
+      }
+    },
+    {
+      breakpoint: 0,
+      settings: {
+        dots: true,
+       
+      }
+    }
+    // You can unslick at a given breakpoint now by adding:
+    // settings: "unslick"
+    // instead of a settings object
+  ]
+});
+  });
+</script>
+
+
+
+
+
+<style>
+
+.logo-list__logo-image .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0);
+      transition: background 0.5s ease;
+}
+ 
+  /* @media (max-width:990px){
+    .section-logo-list .rimage-wrapper img{
+      left:50%;
+      transform:translateX(-50%);
+    }
+  } */
+
+/*  ============= home page slider =================*/
+  .logo-list__logo-image{
+    margin:auto
+  }
+  .icon-text-list .hometitle{
+    margin-top:30px
+  }
+  .logo-list__logo-image{
+    position:relative;
+    max-width:100% !important;
+    margin:0 10px
+  }
+  .logo-list__logo-image .shop_now{
+    position:absolute;
+    top:51%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background: #fff;
+    width: 80%;
+    text-align: center;
+    color: #000;
+    font-size: 18px;
+    padding:10px 10px 7px 10px;
+    font-weight: 700;
+    opacity:0
+  }
+  .icon-text-list .logo-list__logo-image:hover .overlay {
+     background: rgba(0, 0, 0, .3);
+     cursor:pointer;
+}
+  .icon-text-list .logo-list__logo-image:hover .shop_now{
+     opacity:1
+  }
+  .logo-list .logo-list__logo-image .rimage-outer-wrapper .rimage-wrapper{
+     padding-top:0 !important;
+     position: relative;
+     padding-bottom: 112% !important;
+  }
+
+  .logo-list .logo-list__logo-image .rimage-outer-wrapper .rimage-wrapper img{
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      object-position: center;
+  }
+  .icon-text-list .slick-arrow{
+      display:none !important
+    }
+
+.icon-text-list .logo-list__logo .image_link{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+  
+  @media (max-width:480px){
+    .section-logo-list .icon-text-list .container .logo-list-container li{
+        border: 1px solid #172f4b;
+        height: 12px;
+        width: 12px;
+        border-radius:100%;
+        margin:0 4px
+     }
+    .section-logo-list .icon-text-list .container .logo-list-container li.slick-active{
+       background-color:#182f4b;   
+    }
+    
+    .logo-list .logo-list__logo-image .rimage-outer-wrapper .rimage-wrapper{
+        padding-bottom: 130% !important;
+    }
+    
+  }
+  
+</style>

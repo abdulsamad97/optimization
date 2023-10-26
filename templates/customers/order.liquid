@@ -1,0 +1,77 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12">
+            <div class="breadcrumb">
+            <nav aria-label="breadcrumbs">
+            <a href="/" title="Home">Home</a>
+            <span class="seperator" aria-hidden="true">/</span>
+            <a href="/account">Orders</a>
+            <span class="seperator" aria-hidden="true">/</span>
+            <span>{{ 'customer.order.title' | t: name: order.name }}</span>
+            </nav>
+            </div><!-- breadcrumb -->
+        </div><!-- col-12 -->
+	</div><!-- row -->
+</div><!-- container -->
+
+
+<div class="container">
+    <div class="row">
+        <aside class="col-12 account-sidebar">
+            {% include 'account-sidebar' %}
+        </aside><!-- aside -->
+
+        <section class="col-12 order-container mt-md-4 px-0">
+
+            <div class="row">
+
+                <div class="col-12">
+                    <div class="order-wrapper">
+                        <div class="order-item">
+                            <div class="title">Shipping Address</div>
+                            <div class="content">{{ order.shipping_address | format_address }}</div>
+                        </div>
+                        <div class="order-item">
+                            <div class="title">Billing Address</div>
+                            <div class="content">{{ order.billing_address | format_address }}</div>
+                        </div>
+                        <div class="order-item">
+                            <div class="title">Shipping Method</div>
+                            <div class="content">{% for shipping_method in order.shipping_methods %}{{ shipping_method.title }}{% endfor %}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 mt-3 mt-md-0">
+                    <div class="product-wrapper">
+                    {% for line_item in order.line_items %}
+                        {% render 'product-listing' with line_item.product as product %}
+                    {% endfor %}
+                    </div>
+                </div>
+
+                <div class="col-12"> 
+                    <div class="total-wrapper">
+                        <div class="total-item">
+                            <div class="title">Sub Total</div>
+                            <div class="content">{{ order.subtotal_price | minus: order.tax_price | money }}</div>
+                        </div>
+                        <div class="total-item">
+                            <div class="title">Shipping</div>
+                            <div class="content">{{ order.shipping_price | money }}</div>
+                        </div>
+                        <div class="total-item">
+                            <div class="title">Tax</div>
+                            <div class="content">{{ order.tax_price | money }}</div>
+                        </div>
+                        <div class="total-item">
+                            <div class="title">Total</div>
+                            <div class="content">{{order.total_price | money}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- row -->
+
+        </section><!-- section -->
+    </div><!-- row -->
+</div><!-- container -->

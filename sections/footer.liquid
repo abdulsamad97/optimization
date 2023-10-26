@@ -1,0 +1,567 @@
+<style>
+
+  @media screen and (max-width: 767px){
+  .mobile-view-download-apple-and-google-icons-info .img-info img {
+    width: 100%;
+    height: auto;
+}
+    .mobile-view-download-apple-and-google-icons-info .img-info {
+      flex-basis: 40%;
+      margin-bottom: 8px;
+    }
+    .mobile-view-download-apple-and-google-icons-info {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0px auto;
+    justify-content: center;
+}
+  }
+
+  
+</style>
+
+
+<style>
+.modal-cookie{
+  opacity:0;
+  display:none;
+/*   position:absolute; */
+
+}
+
+  @media (max-width:767px){
+/* The Modal (background) */
+.modal-cookie {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 9999; /* Sit on top */
+  padding-top: 0px; /* Location of the box */
+  left: 0;
+  top: 0%;
+  width: 100%; /* Full width */
+  height: auto; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0); /* Black w/ opacity */
+  opacity:1;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 10px 15px;
+  border: 1px solid #888;
+  width: 90%;
+  display:flex;
+  position: fixed;
+  height:90px;
+  left:50%;
+  transform:translateX(-50%);
+    bottom: 0;
+/*     top: 56vh; */
+  top:calc(100vh - 100px - 120px);
+  border-radius:10px !important;
+  box-shadow:0 0 6px #797979;
+}
+
+/* The Close Button */
+.closemod {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.closemod:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+  .modal-content .closemod{
+    position:absolute;
+    right: -10px;
+    top: -10px;
+    display: flex;
+    background-color: #d7d7d7;
+    border-radius: 100%;
+    width: 25px !important;
+    height: 25px !important;
+  }
+
+  .content-holder{
+    display:flex;
+    align-items:center;
+    width:100%;
+    justify-content:space-between;
+  }
+
+  .content-holder .app-icons-info{
+    margin:5px 0;
+    background-color:#000;
+    color:#fff;
+    width:auto;
+    padding:5px 25px;
+    border-radius:30px;
+    line-height:28px;
+    font-size: 13px;
+    letter-spacing: 1px;
+    font-weight:700;
+  }
+  .modal-content .closemod::before, .modal-content .closemod::after{
+    position: absolute;
+    width: 2px;
+    height: 14px;
+    background: rgb(79, 79, 79);
+    content: " ";
+    top: 5.5px;
+    left:12px;
+  }
+  .modal-content .closemod::before {
+    transform: rotate(45deg);
+}
+  .modal-content .closemod::after{
+    transform: rotate(-45deg);
+  }
+
+  .content-holder h3 img{
+    width:160px;
+    
+  }
+
+  .content-holder p{
+    font-size:12px;
+    margin-bottom:5px;
+    line-height:18px;
+  }
+    .logo-image{
+      width:70px;
+      margin-right: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 7px #757575;
+      overflow: hidden;
+      
+      display:flex;
+      align-items:center;
+    }
+    .content-sec h3{
+      font-weight:600;
+      font-size:14px;
+      letter-spacing:0;
+      margin-bottom:2px;
+      text-transform:capitalize;
+    }
+    .content-sec{
+      margin-right:5px;
+      width:70%;
+    }
+    .download-btns a{
+      display:flex;
+      justify-content:center;
+      width:90px;
+    }
+  }
+
+  @media (max-width:750px) and (min-width:600px){
+    .modal-content{
+      top:30vh;
+    }
+    .content-holder .app-icons-info{
+      padding:5px 30px;
+    }
+  }
+
+  @media (max-width:375px){
+    .logo-image{
+      width:80px;
+      height::auto;
+    }
+  }
+</style>
+
+<div id="myModal" class="modal-cookie">
+  <div class="modal-content">
+    <span id="closepop" class="closemod"></span>
+    <div class="content-holder">
+      <div class="logo-image">
+        <img src="https://cdn.shopify.com/s/files/1/0361/8422/7971/files/black-logo.png?v=1685447901" alt="logo" class="img-fluid" width="55" height="55">
+      </div>
+      <div class="content-sec">
+      <h3>Public Desire
+<!--         <img src="https://cdn.shopify.com/s/files/1/0270/6584/3821/files/main-logo-svg_1024x1024.png?v=1676272216" alt="logo" class="img-fluid"> -->
+      </h3>
+      <p>Shop our Exclusive<br>Sales!</p>
+      </div>
+      <div class="download-btns">
+        <a class="my-btn" href="https://play.google.com/store/apps/details?id=com.publicdesire.android">
+          <div class="app-icons-info">Get</div>
+        </a>
+<!--         <a href="https://play.google.com/store/apps/details?id=com.publicdesire.android">
+            <div class="app-icons-info">
+               <img src="{{section.settings.googleimage | img_url:'original'}}">
+            </div>
+          </a>
+          <a href="https://apps.apple.com/app/public-desire/id1568106062">
+            <div class="app-icons-info">
+                <img src="{{section.settings.appleimage | img_url:'original'}}">
+            </div>
+          </a> -->
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<script>
+  
+// var modal = document.getElementById("myModal");
+// var span = document.getElementsByClassName("closemod")[0];
+// if($(document).width()<=767){  
+// modal.style.display = "block";
+// }
+// span.onclick = function() {
+//   modal.style.display = "none";
+// }
+jQuery(document).ready(function($) {
+  var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  if( userAgent.match( /iPad/i ) || userAgent.match( /iPhone/i ) || userAgent.match( /iPod/i ) )
+      { $(".my-btn").attr("href", "https://apps.apple.com/app/public-desire/id1568106062"); }
+      else if( userAgent.match( /Android/i ) )
+      { $(".my-btn").attr("href", "https://play.google.com/store/apps/details?id=com.publicdesire.android");}
+      else
+      { $(".my-btn").attr("href", "https://play.google.com/store/apps/details?id=com.publicdesire.android");} 
+    });
+
+
+  
+    jQuery(document).ready(function($) {
+   // Get CookieBox
+  var cookieBox = document.getElementById('myModal');
+	// Get the <span> element that closes the cookiebox
+  var closeCookieBox = document.getElementById("closepop");
+    closeCookieBox.onclick = function() {
+        cookieBox.style.display = "none";
+    };
+});
+  
+(function () {
+
+    /**
+     * Set cookie
+     *
+     * @param string name
+     * @param string value
+     * @param int days
+     * @param string path
+     * @see http://www.quirksmode.org/js/cookies.html
+     */
+    function createCookie(name, value, days, path) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toGMTString();
+        }
+        else expires = "";
+        document.cookie = name + "=" + value + expires + "; path=" + path;
+    }
+
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    // Set/update cookie
+    var cookieExpiry = 30;
+    var cookiePath = "/";
+
+    document.getElementById("closepop").addEventListener('click', function () {
+        createCookie('seen-cookiePopup', 'yes', cookieExpiry, cookiePath);
+    });
+
+   if($(document).width()<=767){ 
+    var cookiePopup = readCookie('seen-cookiePopup');
+    if (cookiePopup != null && cookiePopup == 'yes') {
+        myModal.style.display = 'none';
+    } else {
+        myModal.style.display = 'block';
+    }
+   }
+})();
+
+</script>
+
+
+<footer>
+    {% comment %}
+{% if section.settings.newsletter_show == true %}
+<section id="newsletter-signup">
+    <div class="container">
+    <div class="row align-items-center justify-content-center">
+        {% if section.settings.newsletter_title_one != blank %}
+        <div class="col-12 text-center text-uppercase">
+            <h4>{{section.settings.newsletter_title_one}}  {{section.settings.newsletter_title_two}}</h4>
+        </div><!-- col -->
+        {% endif %}
+        {% if section.settings.newsletter_gdpr != blank %}
+    	<div class="row">
+          <div class="col-12  mx-auto pb-2 pb-lg-4">
+           	 <div class="rte gdpr-text text-center">
+               	 {{ section.settings.newsletter_gdpr }}
+             </div> <!-- rte -->
+        	</div><!-- col -->
+    	</div><!-- row -->
+    	{% endif %}
+        <div class="col-12">
+            {% if shop.domain contains "au." %}
+                {% assign newsletterForm = "https://newsletter.publicdesire.com/newsletter/au" %}
+            {% elsif shop.domain contains "eu." %}
+                {% assign newsletterForm = "https://newsletter.publicdesire.com/newsletter/eu" %}
+            {% elsif shop.domain contains "us." %}
+                {% assign newsletterForm = "https://newsletter.publicdesire.com/newsletter/us" %}
+            {% else %}
+                {% assign newsletterForm = "https://newsletter.publicdesire.com/newsletter/uk" %}
+            {% endif %}
+
+            <form action="{{newsletterForm}}" method="post" target="_blank">
+                <div class="form-group">
+                    <label for="form-email" class="sr-only">Email Address </label>
+                    <input type="email" required="true" name="EMAIL" class="required email" id="form-email" placeholder="Sign up for our Newsletter">
+                </div><!-- form-group -->
+                <button type="submit" title="Submit">{% render 'icon-email-submit'%}</button>
+            </form>
+        </div><!-- col -->
+    </div><!-- row -->
+    
+    </div><!-- container -->
+</section>
+{% endif %}
+  {% endcomment %}
+ 
+  {% comment %} 
+  <div class="custom-klaviyo-start-wrapper">
+    <div class="custom-klaviyo-start-info">
+      <div class="container">
+        {% comment %}
+         <div class="klaviyo-form-YwyAt2"></div>
+        <div class="klaviyo-form-XWYzLR"></div>
+        {% endcomment%}
+        <div class="klaviyo-form-U5DhRc"></div>
+      </div>
+    </div>
+  </div>  
+  {% endcomment%}
+  
+  
+  <div class="footer-border">
+<div class="container">
+<div class="row">
+ 
+{% for block in section.blocks %}
+{% case block.type %}
+{% when 'social' %}
+    <div class="footer-content abc footer-social nocollapse text-center col-12 col-md-12 col-lg-12">
+        {%- assign social_accounts = 'Facebook, Twitter, Pinterest, Instagram, Snapchat, TikTok,' | split: ', ' -%}
+            <ul>
+                {% for social in social_accounts %}
+                {%- assign social_handle = social | handleize -%}
+                {% capture social_link %}social_{{ social_handle }}_link{% endcapture %}
+                {% capture social_icon %}icon-{{ social_handle }}{% endcapture %}
+
+                {% if settings[social_link] != blank %}
+                <li>
+                    <a href="{{ settings[social_link] }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: social }}" target="_blank">
+                        {% include social_icon %}
+                        <span class="icon-fallback-text">{{ social }}</span>
+                    </a>
+                </li>
+                {% endif %}
+
+            {% endfor %}
+            </ul>
+        </div>
+{% when 'menu' %}
+    <div class="footer-col col-6 col-md col-lg">
+        <h4 class="footer-title">{{ block.settings.title | escape }}</h4>
+        {%- assign footer_linklist = block.settings.menu -%}
+
+        {% if linklists[footer_linklist].links.size > 0 %}
+            <div class="footer-content">
+                <ul class="footer-links">
+                    {% for link in linklists[footer_linklist].links %}
+                        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+
+{% when 'social' %}
+    <div class="footer-col-social footer-col col-12 col-md-12 col-lg custom-footer-logo-and-icons-sections-info">
+        <div class="site-logo">
+            <a href="/">
+                {% render 'icon-logo'%}
+            </a>
+          <div class="mobile-view-info">
+            <div class="mobile-view-download-apple-and-google-icons-info">
+              <div class="img-info">
+                <a href="https://play.google.com/store/apps/details?id=com.publicdesire.android">
+                  <img class="lazyload" data-src="{{section.settings.googleimage | img_url:'original'}}"  width="140" height="44" alt="google">
+                </a>
+              </div>
+              <div class="img-info">
+                <a href="https://apps.apple.com/app/public-desire/id1568106062">
+                  <img class="lazyload" data-src="{{section.settings.appleimage | img_url:'original'}}"  width="140" height="44" alt="apple">
+                </a>
+              </div>
+               <div class="img-info">
+                <a href="/pages/klarna">
+                  <img class="lazyload" data-src="{{section.settings.klarnaimage | img_url:'original'}}"  width="140" height="44" alt="klarna">
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {% render 'payment-icons' %}
+    </div>
+{% endcase %}
+{% endfor %}
+  
+  
+    <div class="footer-col col-6 col-md col-lg desktop-custom-app-icons-info desktop-view-info">
+    <div class="footer-content">
+      <ul class="footer-links">
+        <li>
+          <a href="https://play.google.com/store/apps/details?id=com.publicdesire.android">
+            <div class="app-icons-info">
+              <img class="lazyload" data-src="{{section.settings.googleimage | img_url:'original'}}" width="120" height="38" alt="google">
+            </div>
+          </a>
+        </li>
+
+        <li> 
+          <a href="https://apps.apple.com/app/public-desire/id1568106062">
+            <div class="app-icons-info">
+             <img class="lazyload" data-src="{{section.settings.appleimage | img_url:'original'}}" width="120" height="38" alt="apple">
+            </div>
+          </a>
+        </li>
+        
+         <li> 
+          <a href="/pages/klarna">
+            <div class="app-icons-info">
+              <img class="lazyload" data-src="{{section.settings.klarnaimage | img_url:'original'}}" width="120" height="38" alt="klarna">
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  
+  
+</div><!-- row -->
+</div>
+  </div>
+	<div class="footer-copy">
+		<div class="container-fluid">
+			<div class="row align-items-center">
+				<div class="col-12">
+					{{ 'layout.footer.copyright' | t }} &copy; {{ 'now' | date: "%Y" }}, {{shop.name}}
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+
+{% schema %}
+  {
+    "name": "Footer",
+    "settings": [
+    {
+      "type": "header",
+      "content": "Newsletter Options"
+    },
+    {
+        "type": 	"checkbox",
+        "id": 		"newsletter_show",
+        "label": 	"Show Newsletter signup section",
+        "default": 	true
+    },
+    {
+        "type":     "image_picker",
+        "id":       "googleimage",
+        "label":    "Google logo"
+    },
+    {
+        "type":     "image_picker",
+        "id":       "appleimage",
+        "label":    "Apple logo"
+    },
+    {
+        "type":     "image_picker",
+        "id":       "klarnaimage",
+        "label":    "Klarna logo"
+    },
+    {
+	  	"type":      "text",
+	  	"id":        "newsletter_title_one",
+	  	"label":     "Newsletter Title One",
+	  	"default":   "Want"
+  	},
+    {
+        "type":     "image_picker",
+        "id":       "newsletter_image",
+        "label":    "Newsletter Percentage Off",
+        "info":     "Sits inbetween title one and title two."
+    },
+    {
+	  	"type":      "text",
+	  	"id":        "newsletter_title_two",
+	  	"label":     "Newsletter Title Two",
+	  	"default":   "Hell Yeah You Do!"
+  	},
+    {
+	  	"type":      "richtext",
+	  	"id":        "newsletter_gdpr",
+	  	"label":     "Newsletter GDPR",
+	  	"default":   "<p>We use MailChimp as our marketing automation platform. By submitting this form, you acknowledge that the information you provide will be transferred to MailChimp for processing in accordance with their Privacy Policy and Terms.</p>"
+  	}
+    ],
+    "blocks": [
+		{
+			"type": "menu",
+			"name": "Footer Menu",
+			"limit": 4,
+			"settings": [
+                {
+					"type":		"text",
+					"id":     "title",
+					"label":  "Title"
+				},
+				{
+					"type": 	"link_list",
+					"id": 		"menu",
+					"label": 	"Menu"
+				}
+			]
+		}, 
+		{
+			"type": "social",
+			"name": "Footer Social",
+			"limit": 1
+		}
+	]
+  }
+
+{% endschema %}

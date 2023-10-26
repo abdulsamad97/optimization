@@ -1,0 +1,142 @@
+<div class="container-fluid py-3">
+	<div class="row">
+		<div class="col-12 text-v-small">{% include 'breadcrumbs' %}</div>
+	</div><!-- row -->
+</div><!-- container -->
+
+<header class="page-header{% if section.settings.background %} image lazyload {%endif%}" {% if section.settings.background %} data-bgset="{% include 'responsive-bg-image', image: section.settings.background %}"{% endif %}>
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-12 mb-md-0 col-md-8 col-lg-6 mx-auto text-center">
+				<h1>{{ page.title }}</h1>
+			</div>
+		</div><!-- row -->
+	</div>
+</header>
+
+<div class="container">
+	<div class="row mt-4 mb-5">
+		<div class="col-12 col-md-6 mx-auto">
+			<div class="row no-gutters">
+				<div class="col-12">
+					<div class="rte text-md-center mb-4">
+						{{page.content}}
+					</div>
+				</div>
+				<div class="col-12">
+                  {% comment %}
+					<div class="contact-form">
+					{% form 'contact' %}
+					  <div class="row">
+						  <div class="col-12">
+						  {% if form.posted_successfully? %}
+							<p class="form-success">
+							  {{ 'contact.form.post_success' | t }}
+							</p>
+						  {% endif %}
+
+						  {{ form.errors | default_errors }}
+						 </div>
+
+						 <div class="form-group col-12">
+							<label for="ContactFormRequest" class="sr-only">Request</label>
+							<select id="ContactFormRequest" name="contact[request]" class="">
+								<option>SELECT TOPIC?</option>
+								{% for block in section.blocks %}
+									<option>{{block.settings.dropdown_option}}</option>
+								{% endfor %}
+							</select>
+						</div>
+
+						  <div class="form-group col-12">
+							  <label for="ContactFormName" class="sr-only required">{{ 'contact.form.name' | t }}</label>
+							  <input type="text"
+								name="contact[name]"
+								id="ContactFormName"
+								placeholder="{{ 'contact.form.name' | t }}"
+								value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}"
+								class="required">
+						   </div>
+
+						    <div class="form-group col-12">
+							  <label for="ContactFormOrderNumber" class="sr-only">{{ 'contact.form.phone' | t }}</label>
+							  <input type="text"
+								name="contact[ordernumber]"
+								id="ContactFormOrderNumber"
+								placeholder="{{ 'contact.form.order' | t }}">
+						   </div>
+
+						  <div class="form-group col-12">
+							  <label for="ContactFormEmail" class="sr-only required">{{ 'contact.form.email' | t }}</label>
+							  <input type="email"
+								name="contact[email]"
+								id="ContactFormEmail"
+								placeholder="{{ 'contact.form.email' | t }}"
+								value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+								spellcheck="false"
+								autocomplete="off"
+								autocapitalize="off"
+								class="required">
+						  </div>
+
+						  <div class="form-group col-12">
+							  <label for="ContactFormPhone" class="sr-only">{{ 'contact.form.phone' | t }}</label>
+							  <input type="tel"
+								name="contact[phone]"
+								id="ContactFormPhone"
+								placeholder="{{ 'contact.form.phone' | t }}"
+								value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+								pattern="[0-9\-]*">
+						   </div>
+
+						  <div class="form-group col-12">
+							  <label for="ContactFormMessage" class="sr-only">{{ 'contact.form.message' | t }}</label>
+							  <textarea rows="10" name="contact[body]" id="ContactFormMessage" placeholder="{{ 'contact.form.message' | t }}">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+						  </div>
+						  <div class="form-group col-12 text-center">
+								<button type="submit" class="btn btn-secondary btn-wide btn-account">{{ 'contact.form.send' | t }}</button>
+						  </div>
+
+						</div>
+					{% endform %}
+					</div><!-- contact-form -->
+                  {% endcomment %}
+                  <div data-reamaze-embed="contact" data-reamaze-embed-form-id="56695"></div>
+				</div><!-- col -->
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact Us",
+	"settings": [
+		{
+			"type": "image_picker",
+			"id": "background",
+			"label": "Header Background Image",
+			"info": "Optimal image size: 1920 x 350"
+		}
+	],
+	"blocks": [
+		{
+			"type": "dropdown_option",
+			"name": "Dropdown Option",
+			"settings": [
+		    	{
+				   "type":      "text",
+				   "id":        "dropdown_option",
+				   "label":     "Dropdown Option"
+				}
+			]
+		}
+	]
+}
+{% endschema %}
+<style>
+  .modal{
+    position:absolute;
+  }
+</style>

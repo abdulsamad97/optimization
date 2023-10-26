@@ -1,0 +1,114 @@
+<div class="custom-discounts-new-info desktop-view-info">
+  <div class="left-discounts-new-info">
+   <img src="{{ section.settings.left_img | img_url:'original' }}">
+  </div>
+  <div class="middle-discounts-new-info">
+     <img src="{{ section.settings.middle1_img | img_url:'original' }}" class="stu_discount-logo_info">
+    <h1 class="d-none"></h1>
+     <h2 class="d-none"></h2> 
+     <h2>{{ section.settings.text-box }}</h2>
+     <p>{{ section.settings.detail }}</p>
+    <div class="discount-offer">
+    <div class="discount-offer-first">
+      <h3>{{ section.settings.unidays_percentage | upcase}}</h3>
+      <p><span>with</span></p>
+    <img src="{{ section.settings.unidays_logo | img_url:'original'}}">
+     <a href="{{ section.settings.unidays_link }}">
+      {{ section.settings.unidays_text}}
+      </a>
+    </div>
+      {% comment %}
+    <div class="discount-offer-sec">
+      <h3>{{ section.settings.youthdiscount_off_percentage | upcase}}</h3>
+      <p><span>with</span></p>
+     <img src="{{ section.settings.youthdiscount_off_percentage_logo | img_url:'original'}}">
+     <a href="{{ section.settings.youthdiscount_off_percentage_link }}">
+     {{ section.settings.youthdiscount_off_percentage_text }}
+      </a>
+  </div>
+      {% endcomment %}
+    </div>
+  </div>
+  <div class="right-discounts-new-info">
+   <img src="{{ section.settings.right_img | img_url:'original' }}">
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom New Discounts",
+  "settings": [
+    {
+      "id": "left_img",
+      "type": "image_picker",
+      "label": "left Image"
+    },
+      {
+      "id": "middle1_img",
+      "type": "image_picker",
+      "label": "Logo image"
+    },
+    {
+      "id": "text-box",
+      "type": "text",
+      "label": "Main Heading"
+    },
+    {
+      "id": "detail",
+      "type": "html",
+      "label": "Description"
+    },
+     {
+      "id": "unidays_percentage",
+      "type": "text",
+      "label": "Unidays Percentage Text"
+    },
+   {
+      "id": "unidays_link",
+      "type": "url",
+      "label": "Unidays Link"
+    },
+   {
+      "id": "unidays_logo",
+      "type": "image_picker",
+      "label": "Unidays Logo"
+    },
+    {
+      "id": "youthdiscount_off_percentage",
+      "type": "text",
+      "label": "Youthdiscount Text"
+    },
+     {
+      "id": "youthdiscount_off_percentage_link",
+      "type": "url",
+      "label": "Youthdiscount Link"
+    },
+    {
+      "id": "youthdiscount_off_percentage_logo",
+      "type": "image_picker",
+      "label": "Youthdiscount Logo"
+    },
+    {
+      "id": "unidays_text",
+      "type": "text",
+      "label": "Unidays Login text"
+    },
+    {
+      "id": "youthdiscount_off_percentage_text",
+      "type": "text",
+      "label": "YouthDiscount Login Text"
+    },
+    {
+      "id": "right_img",
+      "type": "image_picker",
+      "label": "Right Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom New Discounts",
+      "category": "Promotional"
+    }
+  ]
+}
+{% endschema %}

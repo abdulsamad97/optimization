@@ -1,0 +1,563 @@
+<style>
+  .desktop-search-info form.site-search {
+    width: 240px;
+    display: flex;
+    border: solid 1px #000;
+}
+  .desktop-search-info form.site-search input {
+    height: 30px;
+    border: 0;
+}
+  .desktop-search-info form.site-search button {
+    border: 0;
+    background-color: #fff;
+    cursor: pointer;
+}
+  .desktop-search-info form.site-search button:focus {
+    outline: none;
+}
+  .desktop-search-info form.site-search input:focus {
+    box-shadow: none;
+}
+
+ 
+  @media(max-width:991.98px){
+    #shopify-section-header div#site-nav-mobile.container {
+      display: none;
+    }
+    body.nav-push #shopify-section-header div#site-nav-mobile {
+      display: block;
+    }
+    body.nav-push #shopify-section-header div#site-nav-mobile nav#site-navigation {
+      top: 0;
+  }
+  }
+</style>
+<header id="site-header">
+  {% comment %}
+  {% if template contains 'index' %}
+
+  <div class="container-fluid christmasbanner">
+
+    <div class="row align-items-center py-2 py-lg-4">
+      <div class="col-lg-6 haul-div">
+        <a href="https://au.publicdesire.com/collections/new-in"> 
+          {% if section.settings.christmas_left_banner != '' %}
+          {{section.settings.christmas_left_banner}}
+          {% else %}
+          <p>Need your haul in the time for christmas?</p>
+          <p>Order by midnight on december 22ND with next day shipping</p> 
+          {% endif %}
+        </a>
+      </div>
+
+
+      <div class="col-lg-6 fyi-div">
+        <a href="https://au.publicdesire.com/pages/returns"> 
+          {% if section.settings.christmas_right_banner != '' %}
+          {{section.settings.christmas_right_banner}}
+          {% else %}
+          <p>Fyi, we've extended our returns policy</p>
+          <p>60 day christmas returns</p> 
+
+          {% endif %}
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+
+  {% endif %}
+  {% endcomment %}
+
+  <div class="container-fluid">
+    <div class="row align-items-center py-2 py-lg-4">
+
+      <div class="col-4">
+         <!--------start----------------->
+     
+        <div class="desktop-search-info desktop-view-info">
+        <form action="/search" class="site-search {% if predictive_search == true %}predictive-search-form{%endif%}" method="get" role="search">
+          <label class="label-hidden">
+            {{ 'general.search.placeholder' | t }}
+          </label>
+
+          <input type="search" name="q" class="{% if predictive_search == true %}input-search{%endif%}" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}">
+          <button type="submit">{% render 'icon-search' %}<span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
+          </button>
+          {% if predictive_search == true %}
+          <div class="predictive-search-results d-none">
+            <ul class="results">
+
+            </ul>
+            <span class="clear-input">Clear Suggestions</span>
+          </div><!-- predictive-search-results -->
+          {% endif %}
+        </form>
+        </div>
+       
+      
+         <!--------end--------------->
+        
+        
+        <div class="header-actions justify-content-start">
+          <div class="mobile-menu d-lg-none">
+            <span class="burger"></span>
+          </div>
+ 		<div class="header-search-icon d-lg-none google-optimized-search"  style="display:none;">
+            {% render 'icon-search' %}
+            {% render 'icon-close' %}
+          </div> 
+
+        </div>
+      </div>
+
+      <div class="col-4 text-center">
+        <div class="site-logo">
+          <a href="/">
+           {% render 'icon-logo'%}
+            {% comment %} 
+            <img src="{{ section.settings.logo_img | img_url:'original' }}" class="desktop-view-info" style="width:{{ section.settings.logo_max_width | append:'px' }}">
+          
+            
+             <img src="{{ section.settings.logo_img | img_url:'original' }}" class="mobile-view-info" style="width:{{ section.settings.mobile_logo_width | append:'px' }}">
+          
+          {% endcomment %}
+            
+            
+          </a>
+        </div>
+      </div><!-- col -->
+
+      <div class="col-4">
+        <div class="header-actions justify-content-end">
+          <div class="blog-sp d-none d-lg-block">
+            <a href="/blogs/blog" title="Blog">Blog</a>
+          </div>
+
+          <div class="header-search-icon d-none d-lg-block" style="display:none;">
+            {% render 'icon-search' %}
+            {% render 'icon-close' %}
+          </div>	
+
+          <div class="header-account d-none d-lg-block">
+            <a href="/account" title="My Account">
+              <span aria-label="My Account">{% render 'icon-account'%}</span>
+            </a>
+          </div><!--header-account -->
+
+         <div id="store-select-desktop" class="header-store-select select-store-mobile custom-country">
+            {% assign storeEU = 'https://eu.publicdesire.com/' %}
+            {% assign storeAU = 'https://au.publicdesire.com/' %}
+            {% assign storeUS = 'https://us.publicdesire.com/' %}
+            {% assign storeUK = 'https://www.publicdesire.com/' %}
+             {% if shop.domain contains "au." %}
+                {% assign storecurrency= 'AUD $' %}
+             {% elsif shop.domain contains "eu." %}
+                {% assign storecurrency= 'EUR €' %}
+             {% elsif shop.domain contains "us." %}
+                {% assign storecurrency= 'USD $' %}
+             {% else %}
+                {% assign storecurrency= 'GBP £' %}
+              {% endif %}
+              {% if shop.domain contains "au." %}
+                <ul class="store-select">
+                    {% comment %}<li><span class="flag-au">{% render 'icon-flag-au' %}</span><span class="icon">{% render 'icon-sort-down-solid' %}</span>{% endcomment %}
+                    <li><span class="flag-au">{{ storecurrency }}</span><span class="icon">{% render 'icon-sort-down-solid' %}</span>    
+                      <ul class="store-options">
+                            <li><a href="{{storeEU}}{{ canonical_url | remove: storeAU }}" data-store-id="EUR">EUR €</a></li>
+                            <li><a href="{{storeUS}}{{ canonical_url | remove: storeAU }}" data-store-id="USA">USA $</a></li>
+                            <li><a href="{{storeUK}}{{ canonical_url | remove: storeAU }}" data-store-id="GBP">GBP £</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                {% elsif shop.domain contains "eu." %}
+                <ul class="store-select">
+                    <li><span class="flag-eu">{{ storecurrency }}</span><span class="icon">{% render 'icon-sort-down-solid' %}</span>
+                        <ul class="store-options">
+                            <li><a href="{{storeAU}}{{ canonical_url | remove: storeEU }}" data-store-id="AUS">AUS $</a></li>
+                            <li><a href="{{storeUS}}{{ canonical_url | remove: storeEU }}" data-store-id="USA">USA $</a></li>
+                            <li><a href="{{storeUK}}{{ canonical_url | remove: storeEU }}" data-store-id="GBP">GBP £</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                {% elsif shop.domain contains "us." %}
+                <ul class="store-select">
+                    <li><span class="flag-us">{{ storecurrency }}</span><span class="icon">{% render 'icon-sort-down-solid' %}</span>
+                        <ul class="store-options">
+                            <li><a href="{{storeAU}}{{ canonical_url | remove: storeUS }}" data-store-id="AUS">AUS $</a></li>
+                            <li><a href="{{storeEU}}{{ canonical_url | remove: storeUS }}" data-store-id="EUR">EUR €</a></li>
+                            <li><a href="{{storeUK}}{{ canonical_url | remove: storeUS }}" data-store-id="GBP">GBP £</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                {% else %}
+                <ul class="store-select">
+                    <li><span class="flag-uk">{{ storecurrency }}</span><span class="icon">{% render 'icon-sort-down-solid' %}</span>
+                        <ul class="store-options">
+                            <li><a href="{{storeAU}}{{ canonical_url | remove: storeUK }}" data-store-id="AUS">AUS $</a></li>
+                            <li><a href="{{storeEU}}{{ canonical_url | remove: storeUK }}" data-store-id="EUR">EUR €</a></li>
+                            <li><a href="{{storeUS}}{{ canonical_url | remove: storeUK }}" data-store-id="USA">USA $</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                {% endif %}
+          </div>
+
+          
+          
+          <div class="header-wishlist">
+            <a href="/a/wishlist">{% include 'icon-wishlist' %}</a>
+          </div>
+
+          <div class="header-basket">
+            <a href="/cart" title="Cart">
+              <span class="cart-icon">
+                <span aria-label="Cart">{% render 'icon-bag' %}</span>
+                {% comment %}
+                <span class="cart-count {% if cart.item_count == 0 %}no-items{% endif %}">{{ cart.item_count }}</span>
+              {% endcomment %}
+               <span class="cart-count {% if cart.item_count == 0 %}no-items{% endif %}" data-cart-count>{{ cart.item_count }}</span>
+              </span>
+            </a>
+            <div class="cart-mini-contents">
+              <div class="cart-row">
+                {% for item in cart.items %}
+                <div class="cart-item" id="mini-{{item.variant_id}}" data-variant-id="{{item.variant_id}}">
+                  <div class="cart-item-left">
+                    <div class="cart-prod-img">
+                      {% if item.image != blank %}
+                      <a href="{{ item.url | within: collections.all }}">
+                        {{ item | img_url: '50x50' | img_tag: item.title, 'img-fluid' }}
+                      </a>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="cart-item-right">
+                    <div class="cart-prod-name">
+                      <a href="{{ item.url }}">{{ item.product.title }}</a>
+                    </div>
+                    <div class="cart-prod-price">
+                      <span class="money">{{ item.price | money }}</span>
+                    </div>
+                    <div class="cart-prod-variant">
+                      {% unless item.product.has_only_default_variant %}
+                      <span>{{ item.variant.title }}</span>
+                      {% endunless %}
+                    </div>
+                    <div class="cart-prod-quantity">
+                      <span class="label">Quantity:</span><span class="quantity-value">{{ item.quantity}}</span>
+                    </div>
+                     <span class="preorder-note-text"></span>
+                    <div class="cart-prod-remove">
+                      <span data-variant-id="{{item.variant_id}}">Remove</span>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+              <div class="cart-mini-actions">
+                <div class="cart-mini-total">
+                  <span class="mini-cart-label">Subtotal:</span> <span class="mini-cart-total"><span class="money">{{ cart.total_price | money }}</span></span>
+                </div>
+                <a href="/checkout" class="btn btn-secondary">Checkout</a>
+              </div>
+            </div>
+          </div>
+          
+          
+          
+          
+          <!--------mobile-view-currency start------------>
+           <div id="store-select-mobile" class="header-store-select select-store-mobile custom-country">
+            {% assign storeEU = 'https://eu.publicdesire.com/' %}
+            {% assign storeAU = 'https://au.publicdesire.com/' %}
+            {% assign storeUS = 'https://us.publicdesire.com/' %}
+            {% assign storeUK = 'https://www.publicdesire.com/' %}
+             {% if shop.domain contains "au." %}
+                {% assign storecurrency= 'AUD $' %}
+             {% elsif shop.domain contains "eu." %}
+                {% assign storecurrency= 'EUR €' %}
+             {% elsif shop.domain contains "us." %}
+                {% assign storecurrency= 'USD $' %}
+             {% else %}
+                {% assign storecurrency= 'GBP £' %}
+              {% endif %}
+              {% if shop.domain contains "au." %}
+                <ul class="store-select">
+                    {% comment %}<li><span class="flag-au">{% render 'icon-flag-au' %}</span><span class="icon">{% render 'icon-sort-down-solid' %}</span>{% endcomment %}
+                    <li><span class="flag-au">{{ storecurrency }}</span><span class="icon">{% render 'icon-sort-down-solid' %}</span>    
+                      <ul class="store-options">
+                            <li><a href="{{storeEU}}{{ canonical_url | remove: storeAU }}" data-store-id="EUR">EUR €</a></li>
+                            <li><a href="{{storeUS}}{{ canonical_url | remove: storeAU }}" data-store-id="USA">USA $</a></li>
+                            <li><a href="{{storeUK}}{{ canonical_url | remove: storeAU }}" data-store-id="GBP">GBP £</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                {% elsif shop.domain contains "eu." %}
+                <ul class="store-select">
+                    <li><span class="flag-eu">{{ storecurrency }}</span><span class="icon">{% render 'icon-sort-down-solid' %}</span>
+                        <ul class="store-options">
+                            <li><a href="{{storeAU}}{{ canonical_url | remove: storeEU }}" data-store-id="AUS">AUS $</a></li>
+                            <li><a href="{{storeUS}}{{ canonical_url | remove: storeEU }}" data-store-id="USA">USA $</a></li>
+                            <li><a href="{{storeUK}}{{ canonical_url | remove: storeEU }}" data-store-id="GBP">GBP £</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                {% elsif shop.domain contains "us." %}
+                <ul class="store-select">
+                    <li><span class="flag-us">{{ storecurrency }}</span><span class="icon">{% render 'icon-sort-down-solid' %}</span>
+                        <ul class="store-options">
+                            <li><a href="{{storeAU}}{{ canonical_url | remove: storeUS }}" data-store-id="AUS">AUS $</a></li>
+                            <li><a href="{{storeEU}}{{ canonical_url | remove: storeUS }}" data-store-id="EUR">EUR €</a></li>
+                            <li><a href="{{storeUK}}{{ canonical_url | remove: storeUS }}" data-store-id="GBP">GBP £</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                {% else %}
+                <ul class="store-select">
+                    <li><span class="flag-uk">{{ storecurrency }}</span><span class="icon">{% render 'icon-sort-down-solid' %}</span>
+                        <ul class="store-options">
+                            <li><a href="{{storeAU}}{{ canonical_url | remove: storeUK }}" data-store-id="AUS">AUS $</a></li>
+                            <li><a href="{{storeEU}}{{ canonical_url | remove: storeUK }}" data-store-id="EUR">EUR €</a></li>
+                            <li><a href="{{storeUS}}{{ canonical_url | remove: storeUK }}" data-store-id="USA">USA $</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                {% endif %}
+          </div>
+          
+         <!--------mobile-view-currency end------------>
+          
+        </div>
+      </div><!-- col -->
+    </div><!-- row -->
+  </div><!-- container-fluid -->
+
+  <div id="site-nav-desktop">
+  </div><!-- #site-nav-desktop -->
+
+  <div class="search-bar">
+    <div class="container">
+      <div class="row">
+        <div class="col col-sm-10 col-lg-6 mx-auto">
+          <div id="header-search-mobile">
+            {% render 'search', predictive_search: false %}
+          </div>
+        </div>
+      </div>
+    </div><!-- container -->
+  </div><!-- search-bar -->
+ 
+</header>
+
+<div class="search mobile-info mobile-view-info">
+  <div class="search-bar-info">
+    <div class="container">
+      <div class="row">
+        <div class="col col-sm-10 col-lg-6 mx-auto">
+          <div id="header-search-mobile">
+            {% render 'search', predictive_search: false %}
+          </div>
+        </div>
+      </div>
+    </div><!-- container -->
+  </div><!-- search-bar -->
+</div>
+
+<div id="site-nav-mobile" class="container">
+  {% include 'site-navigation' %}
+</div>
+{% comment %} <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> {% endcomment %}
+<script> 
+  $( document ).ready(function() {
+  setTimeout(function(){ 
+    $("#shopify-section-header .header-basket .cart-item").each(function() {
+      var selectdVariant = $(this).attr('data-variant-id');
+     // console.log("pid info---"+ selectdVariant);
+      var CookieValue=getCookie('preorder_text'+selectdVariant);
+      var cookiesVar = getCookie('preorder_text'+selectdVariant);
+      if(CookieValue){
+        //console.log("Preorder Exist--"+selectdVariant +'-----'+CookieValue);
+        $('#mini-'+selectdVariant).find('.preorder-note-text').append('<textarea name="note" id="CartNote" style="display:none;">Pre-order</textarea>');
+      } else{
+        //console.log("Preorder NOt Exist--"+selectdVariant +'-----'+CookieValue);
+        $('#mini-'+selectdVariant).find('.cart-prod-img a.gPreorderImageWrapper span.gPreorderBadge').css("display","none");
+       }
+
+
+    });
+  }, 1000); 
+});
+</script>
+
+{% schema %}
+{
+"name": "Header",
+"settings":[
+{
+"type": "image_picker",
+"id": "logo_img",
+"label": "Logo Image"    
+},
+{
+  "type": "range",
+  "id": "logo_max_width",
+  "min": 50,
+  "max": 450,
+  "step": 10,
+  "unit": "px",
+  "label": "Desktop logo width",
+  "default": 250
+},
+
+{
+  "type": "range",
+  "id": "mobile_logo_width",
+  "min": 50,
+  "max": 450,
+  "step": 10,
+  "unit": "px",
+  "label": "Mobile logo width",
+  "default": 250
+}
+
+],
+
+"blocks": [
+{
+"type": "nav_one",
+"name": "Nav (Text & Images)",
+"settings": [
+{
+"type": 	"header",
+"content": 	"Top Level Navigation"
+},
+{
+"type": 	"paragraph",
+"content": 	"The below options determine what is displayed on the top level navigation. When hovering on the below title the megamenu will appear."
+},
+{
+"type":      "text",
+"id":        "title",
+"label":     "Navigation Title",
+"info": 		"Hovering on this Title will display the megamenu"
+},
+  {
+"type":      "image_picker",
+"id":        "title_image",
+"label":     "Navi Title Image"
+},
+{
+"type":      "url",
+"id":        "first_level_url",
+"label":     "Navigation URL",
+"info": 		"When clicking Navigation Title, where should it link too?"
+},
+{
+"type": "header",
+"content": "Sub Menus"
+},
+{
+"type": 	"paragraph",
+"content": 	"The Sub Menus will appear when the user hovers on the Navigation Title"
+},
+{
+"type":     "link_list",
+"id":       "submenu",
+"label":    "Sub Menu"
+},
+{
+"type": 	"header",
+"content": 	"Featured Link"
+},
+{
+"type": 	"paragraph",
+"content": 	"If enabled, the featured link can have a title,image, and CTA"
+},
+{
+"type": 	"checkbox",
+"id": 		"featured_menu_one",
+"label": 	"Display Featured Menu One?",
+"default": 	true
+},
+{
+"type": 	"image_picker",
+"id": 		"featured_menu_image_one",
+"label": 	"Featured Menu Image One",
+"info": 	"Optimal image size: 400 x 600"
+},
+{
+"type":      "url",
+"id":        "featured_menu_link_one",
+"label":     "Featured Menu URL One"
+},
+{
+"type": 	"checkbox",
+"id": 		"featured_menu_two",
+"label": 	"Display Featured Menu Two?",
+"default": 	true
+},
+{
+"type": 	"image_picker",
+"id": 		"featured_menu_image_two",
+"label": 	"Featured Menu Image Two",
+"info": 	"Optimal image size: 400 x 600"
+},
+{
+"type":      "url",
+"id":        "featured_menu_link_two",
+"label":     "Featured Menu URL Two"
+}
+]
+},
+{
+"type": "nav_three",
+"name": "Nav (Text Only)",
+"settings": [
+{
+"type": 	"header",
+"content": 	"Top Level Navigation"
+},
+{
+"type": 	"paragraph",
+"content": 	"The below options determine what is displayed on the top level navigation. When hovering on the below title the megamenu will appear."
+},
+{
+"type":      "text",
+"id":        "title",
+"label":     "Navigation Title",
+"info": 		"Hovering on this Title will display the megamenu"
+},
+{
+"type":      "url",
+"id":        "first_level_url",
+"label":     "Navigation URL",
+"info": 		"When clicking Navigation Title, where should it link too?"
+},
+{
+"type":     "link_list",
+"id":       "submenu",
+"label":    "Sub Menu"
+}
+]
+}
+]
+}
+{% endschema %}
+
+
+<script type="text/javascript">
+  var _support = _support || { 'ui': {}, 'user': {} };
+  _support['account'] = 'publicdesire-usa';
+  _support['contact_custom_fields'] = _support['contact_custom_fields'] || {};
+  _support['contact_custom_fields']['rmz_form_id_56695'] = {
+      '__order_number': {
+        pos: 1630783733515,
+        type: 'order_number',
+        required: false,
+        placeholder: 'Order Number',
+      }
+  };
+</script>

@@ -1,0 +1,154 @@
+<div class="container-fluid py-3">
+	<div class="row">
+		<div class="col-12 text-v-small">{% include 'breadcrumbs' %}</div>
+	</div><!-- row -->
+</div><!-- container -->
+
+<header class="page-header{% if section.settings.background %} image lazyload {%endif%}" {% if section.settings.background %} data-bgset="{% include 'responsive-bg-image', image: section.settings.background %}"{% endif %}>
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-12 mb-md-0 col-md-8 col-lg-6 mx-auto text-center">
+				<h1>{{ page.title }}</h1>
+			</div>
+		</div><!-- row -->
+	</div>
+</header>
+
+<div class="container">
+	<div class="row mb-5">
+		<div class="col-12 mx-auto">
+			<div class="row no-gutters">
+				{% if page.content != blank %}
+					<div class="col-12 mt-4">
+						<div class="rte text-md-center mb-4 size-guide-rte">
+							{{page.content}}
+						</div>
+					</div>
+				{% endif %}
+                <div class="col-12 delivery-section mt-3 mt-md-5">
+                    <div class="delivery-dropdown-wrapper">
+                        {% comment %} LM: Capture all countries that have been set in the blocks {% endcomment %}
+                        {% capture countries %}{% for block in section.blocks %}{{block.settings.select_option | upcase }}, {% endfor %}{% endcapture %}
+                        {% comment %} LM: Remove all duplicates {% endcomment %}
+                        {% assign countriesReduced = countries | split: ", " | uniq %}
+                        {% comment %} LM: For each country - set as an option with the country select {% endcomment %}
+                        <div class="rte mb-2">DELIVERY OPTIONS TO:</div>
+                        <div class="country-select">
+                            <select>
+                            {% for country in countriesReduced %}
+                                <option value="{{country}}">{{country | upcase}}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                      <div class="rte mt-3 mb-4 mt-md-5 mb-md-4">Orders placed during the weekend or bank holidays will be dispatched the next working day.<br/><br/>When you purchase you must do so knowing the import rules of your country. We cannot circumvent these rules nor can we estimate customs charges in your country. All customs charges must be met by the customer.<br/><br/><strong>Please note:</strong> All delivery times are an estimate with the courier. Depending upon certain factors with their processes, this may slow or speed up the process and Public Desire cannot be held accountable. 
+                      <br/> Due to the global pandemic, your parcel may be subject to delay in customs. For further information and updates on your parcel please contact the Customer Service Team. Public Desire can not be held accountable for any delays.
+                      </div>
+                        {% for block in section.blocks %}
+                            {% case block.type %}
+                            {% when 'delivery_option' %}
+                            <div class="delivery-option" data-country="{{block.settings.select_option | upcase}}">
+                                {% if block.settings.delivery_logo != blank %}
+                                    <div class="delivery-logo">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ block.settings.delivery_logo | img_url: '50x' }}" class="img-fluid lazyload" alt="{{ block.settings.delivery_logo.alt }}">
+                                    </div>
+                                {% endif %}
+                                <div class="delivery-info">
+                                    <div class="delivery-title mb-1">{{block.settings.delivery_title}}</div>
+                                    <div class="delivery-content">{{block.settings.delivery_info}}</div>
+                                </div>
+                                <div class="delivery-price-wrapper">
+                                    <div class="delivery-price mb-1">{{block.settings.delivery_price}}</div>
+                                    <div class="delivery-price-info">{{block.settings.delivery_price_info}}</div>
+                                </div>
+                            </div>
+                            {% endcase %}
+                        {% endfor %}
+                    </div>
+                    <div class="mt-4 mt-md-5">
+                        {% for block in section.blocks %}
+                            {% case block.type %}
+                            {% when 'delivery_info' %}
+                                <div class="delivery-extra-info1 rte" data-country="{{block.settings.select_option | upcase}}">{{block.settings.delivery_info}}
+                      <p class="christmas_deliveries_info">{{block.settings.christmas_deliveries_info}}</p>
+                      </div>
+                            {% endcase %}
+                        {% endfor %}
+                    </div>
+                </div>
+				</div>
+			</div>		
+		</div>
+	</div>
+
+{% schema %}
+{
+  "name": "Delivery",
+	"settings": [
+		{
+			"type": "image_picker",
+			"id": "background",
+			"label": "Header Background Image",
+			"info": "Optimal image size: 1920 x 350"
+		}
+	],
+  "blocks": [
+		{
+            "type": "delivery_option",
+            "name": "Delivery Option",
+            "settings": [
+                {
+                    "type":      "text",
+                    "id":        "select_option", 
+                    "label":     "Select Option"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "delivery_logo",
+                    "label": "Delivery Logo"
+                },
+                {
+                    "type":      "text",
+                    "id":        "delivery_title", 
+                    "label":     "Delivery Title"
+                },
+                {
+                    "type":      "richtext",
+                    "id":        "delivery_info", 
+                    "label":     "Delivery Information"
+                },
+                {
+                    "type":      "text",
+                    "id":        "delivery_price", 
+                    "label":     "Delivery Price"
+                },
+                {
+                    "type":      "richtext",
+                    "id":        "delivery_price_info", 
+                    "label":     "Delivery Price Information"
+                }
+            ]
+        },
+        {
+            "type": "delivery_info",
+            "name": "Delivery Information",
+            "settings": [
+                {
+                    "type":      "text",
+                    "id":        "select_option", 
+                    "label":     "Select Option"
+                },
+                {
+                    "type":      "richtext",
+                    "id":        "delivery_info", 
+                    "label":     "Delivery Extra Information"
+                },
+                {
+                    "type":      "richtext",
+                    "id":        "christmas_deliveries_info", 
+                    "label":     "Christmas Deliveries"
+                }
+            ]
+        }
+  ]
+}
+{% endschema %}

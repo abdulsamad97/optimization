@@ -1,0 +1,63 @@
+<div class="container-fluid py-3">
+	<div class="row">
+		<div class="col-12 text-v-small">{% include 'breadcrumbs' %}</div>
+	</div><!-- row -->
+</div><!-- container -->
+
+<header class="page-header{% if section.settings.background %} image lazyload {%endif%}" {% if section.settings.background %} data-bgset="{% include 'responsive-bg-image', image: section.settings.background %}"{% endif %}>
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-12 mb-md-0 col-md-8 col-lg-6 mx-auto text-center">
+				<h1>{{ page.title }}</h1>
+			</div>
+		</div><!-- row -->
+	</div>
+</header>
+
+<div class="container">
+	<div class="row mt-4 mb-5">
+		<div class="col-12 col-md-8 mx-auto vipd-pass-wrapper text-align-center text-center">
+            <div class="d-none d-md-block crown-icon">{% include 'icon-crown' %}</div>
+            <div class="vipd-pass-title">{{section.settings.delivery_title}}</div>
+            <div class="vipd-pass-text">{{section.settings.delivery_description}}</div>
+            <div class="vipd-pass-price">Only £{{section.settings.delivery_price}}*</div>
+            <a class="vipd-button btn btn-secondary">Add to Bag</a>
+            <div class="vipd-pass-terms text-center">{{section.settings.delivery_terms}}</div>
+		</div>
+	</div>
+</div>
+
+{% schema %}
+{
+  "name": "VIPD Pass",
+	"settings": [
+		{
+			"type": "image_picker",
+			"id": "background",
+			"label": "Header Background Image",
+			"info": "Optimal image size: 1920 x 350"
+		},
+        {
+            "type": "text",
+            "id": "delivery_title",
+            "label": "Delivery title",
+            "default": "UNLIMITED NEXT DAY DELIVERY"
+        },
+        {
+            "type": "richtext",
+            "id": "delivery_description",
+            "label": "Delivery Description"
+        },
+        {
+            "type": "text",
+            "id": "delivery_price",
+            "label": "Delivery Price"
+        },
+        {
+            "type": "richtext",
+            "id": "delivery_terms",
+            "label": "Delivery T&C's"
+        }
+	]
+}
+{% endschema %}

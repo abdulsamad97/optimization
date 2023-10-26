@@ -1,0 +1,102 @@
+<section class="black-friday-bg">
+  <div class="container">
+    <div class="black-friday-signup-wrap">
+      <div class="black-friday-signup-container">
+      <div class="black-friday-signup-top text-center">
+        {% if section.settings.background != '' %}
+        	<img src="{{section.settings.background | img_url: 'master'}}" alt="">
+        {% else %}
+        	<img src="https://cdn.shopify.com/s/files/1/0359/5049/3835/files/black-friday.png?v=1604498286" alt="">
+        {% endif %}
+      	
+        
+      </div>
+      <div class="black-friday-signup-content text-center">
+        
+        <p class="text-white text-uppercase">{{section.settings.header_banner_text_first}}</p>
+        
+        <p class="text-white text-uppercase">{{section.settings.header_banner_text_second}}</p>
+      </div>
+      <div class="black-friday-signup-form-wrap">
+        <p class="black-friday-signup-form-title text-center text-teal text-uppercase">{{section.settings.newsletter_form_heading}}</p>
+      </div>
+      </div>
+    </div><!-- 	black-friday-signup-wrap -->
+    <div id="newsletter-blackfriday">
+        <div class="row align-items-center justify-content-center">     
+            <div class="col-lg-6 mx-auto">
+                {% if shop.domain contains "au." %}
+                    {% assign newsletterForm = "https://newsletter.publicdesire.com/newsletter/au" %}
+                {% elsif shop.domain contains "eu." %}
+                    {% assign newsletterForm = "https://newsletter.publicdesire.com/newsletter/eu" %}
+                {% elsif shop.domain contains "us." %}
+                    {% assign newsletterForm = "https://newsletter.publicdesire.com/newsletter/us" %}
+                {% else %}
+                    {% assign newsletterForm = "https://newsletter.publicdesire.com/newsletter/uk" %}
+                {% endif %}
+					
+                <form action="{{newsletterForm}}" method="post" target="_blank" novalidate>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="form-group mb-4">
+                          <input type="email" value="" name="EMAIL" class="required email form-control" id="form-email" placeholder="Email">
+                      </div><!-- form-group -->
+                    </div>
+                    <div class="col-12">
+                      <div class="form-group mb-4">
+                          <input type="text" value="" name="FNAME" class="required name form-control" id="form-fname" placeholder="First Name">
+                      </div><!-- form-group -->
+                    </div>
+                    <div class="col-12">
+                      <div class="form-group mb-5">
+                        <div class="custom-checkbox">
+                          <input type="checkbox" value="" name="SUBSCRIBE" class="custom-checkbox-input" id="form-subscribe">
+                          <label for="form-subscribe" class="custom-checkbox-label">By Clicking Subscribe, you are opting into public desire marketting communication and agree our terms and conditions, privacy &amp; cookie policy.</label>
+                        </div>
+                      </div><!-- form-group -->
+                    </div>
+                    <div class="col-12">
+                      <div class="form-group text-center mb-5">
+                    	<button type="submit" title="Sign Me Up" class="form-submit">Sign Me Up</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+            </div><!-- col -->
+        </div><!-- row -->
+    </div><!-- 	newsletter-blackfriday -->
+  </div>
+</section>
+{% comment %}
+{% include 'page-standard' %}
+{% endcomment %}
+
+{% schema %}
+{
+  "name": "Cyber Page Settings",
+	"settings": [
+		{
+			"type": "image_picker",
+			"id": "background",
+			"label": "Header Background Image"
+		},
+		{
+			"type": "text",
+			"id": "header_banner_text_first",
+			"label": "Below Banner Text First",
+			"default": "It’s 2020 and the world is a little bit cray right now, but if there is one thing we can rely on this November it’s that Black Friday is 100% happenin’. The deals and discounts are back, plus they are bigger and better than ever. Like you need convincing but you can shop from the safety of your sofa babe! It’s official, we are counting down the days to Black Friday and Cyber Monday 2020."
+		},
+		{
+			"type": "text",
+			"id": "header_banner_text_second",
+			"label": "Below Banner Text Second",
+			"default": "When is Black Friday 2020? Don’t worry babe, not yet! Sign up now for early access and get set to save yourself up to 70% off your PD wishlist! Better start addin’ to it!"
+		},
+		{
+			"type": "text",
+			"id": "newsletter_form_heading",
+			"label": "Form Heading Text"
+		}
+	]
+}
+{% endschema %}

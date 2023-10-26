@@ -1,0 +1,38 @@
+{% render 'page-return-accordion', blocks: {{section.blocks}} %}
+
+{% schema %}
+{
+  "name": "Returns Page",
+	"settings": [
+		{
+			"type": "image_picker",
+			"id": "background",
+			"label": "Header Background Image",
+			"info": "Optimal image size: 1920 x 350"
+		},
+        {
+			"type": "html",
+			"id": "main-text-info",
+			"label": "Main Header"
+		}
+	],
+  "blocks": [
+		{
+			"type": "tab",
+			"name": "Tabs",
+			"settings": [
+				{
+					"type": "text",
+					"id": "tab_title",
+					"label": "Tab Title"
+				},
+				{
+					"type": "richtext",
+					"id": "tab_content",
+					"label": "Tab Content"
+				}
+			]
+		}
+  ]
+}
+{% endschema %}

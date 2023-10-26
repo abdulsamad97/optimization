@@ -1,0 +1,90 @@
+<section class="fs-section">
+  <div class="feed_wrap">
+  {% if section.settings.title != blank %}
+<h1 class="fs-title">{{ section.settings.title | escape }}</h1>
+  {% endif %}
+  
+     <div class="col-12 text-center text-uppercase">
+        <a href="https://www.instagram.com/publicdesire/" title="Public Desire IG" class="">@PUBLICDESIRE</a>
+    </div>
+
+  <br>
+<br>
+  
+{{ section.settings.code }}
+  
+<div class="fsbtn"><a class="foursixty-btn" href="/pages/on-instagram">SHOW ALL</a></div>
+  </div>
+</section>
+<style>
+.fs-section { padding-top: 20px; padding-bottom: 20px; text-align: center; }
+.fs-title { padding-bottom: 20px;  text-align: center !important; font-weight: 700 !important; }
+.fsbtn { padding: 15px 0; text-align: center; }  
+ .foursixty-btn {
+  padding-top: 15px;
+  position: relative;
+  display: inline-block;
+  padding: 19px 45px;
+  line-height: normal;
+  border: 3px solid #d0bedd;
+  border-radius: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0;
+  font-family: $button-font-family;
+  background-color: #d0bedd;
+  color: #fff;
+  font-weight: 700;
+  -webkit-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+  z-index: 1;
+  -webkit-tap-highlight-color: initial;
+
+  &[disabled] {
+    cursor: not-allowed;
+  }
+} 
+.foursixty-btn:hover {
+  border: 3px solid #d0bedd !important;
+  background-color: transparent;
+  color: #fff !important;
+}  
+
+ h1.fs-title{
+  font-size: 2.5rem;
+  line-height: 1.2;
+  font-family: Helvetica, Sans-Serif;
+  text-align: center !important;
+  padding-top: 40px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  margin-top: 0;
+  color: black !important;
+  text-transform: uppercase;
+  font-weight: 700 !important;
+}
+@media (max-width: 575.98px){
+  h1.fs-title{
+    font-size: 1.5rem;
+  }
+}
+</style>
+{% schema %}
+  {
+    "name": "Foursixty",
+    "class":"instafeed_home",
+    "settings": [ 
+      { "type": "text", "id": "title", "default": "Shop Our Instagram", "label": "Title" },
+      { "type": "textarea", "id": "code", "default": "Paste your generated Foursixty code here.", "label": "Embed Code" }
+	],
+    "presets": [{
+        "name": "Front Page Gallery",
+        "category": "Foursixty"
+    }]
+  }
+{% endschema %}
+{% stylesheet %}
+{% endstylesheet %}
+{% javascript %}
+{% endjavascript %}

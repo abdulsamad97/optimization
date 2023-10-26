@@ -1,0 +1,17 @@
+<form action="/search" class="site-search {% if predictive_search == true %}predictive-search-form{%endif%}" method="get" role="search">
+	<label class="label-hidden">
+		{{ 'general.search.placeholder' | t }}
+	</label>
+	
+	<input type="search" name="q" class="{% if predictive_search == true %}input-search{%endif%}" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}">
+        <button type="submit">{% render 'icon-search' %}<span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
+        </button>
+    {% if predictive_search == true %}
+    <div class="predictive-search-results d-none">
+        <ul class="results">
+
+        </ul>
+         <span class="clear-input">Clear Suggestions</span>
+    </div><!-- predictive-search-results -->
+    {% endif %}
+</form>

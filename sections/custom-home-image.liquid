@@ -1,0 +1,33 @@
+<section class="custom-home-image-banner">
+  <div class="custom-home-image_wrap">
+    <div class="banner_img_mobile mobile-view-info">
+       <img data-src="{{ section.settings.mobile_hero_image | img_url: 'original' }}" class="lazyload">
+    </div>
+  </div>
+</section>
+{% schema %}
+  {
+    "name": "Home Image",
+    "settings": [
+	
+    {   
+		"type": "image_picker", 
+		"id": "mobile_hero_image",
+		"label": "Mobile Image" 
+	}
+	],
+	"presets" :[
+	{
+		"name": "Home Image",
+        "category": "Home Image"
+	}
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+

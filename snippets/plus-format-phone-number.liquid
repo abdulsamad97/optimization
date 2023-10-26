@@ -1,0 +1,145 @@
+<script>
+  (function($) {
+    window.PhoneNumberInputFormatter=function(){return false;};
+    $(document).on('page:load page:change', function() {
+      if (Shopify.Checkout.step === 'contact_information') {
+        var divHtml = '<p class="zipField">PLEASE NOTE WE CANNOT SHIP ORDERS TO UAE UNLESS A PO BOX HAS BEEN ENTERED</p>';
+        var companyFieldVal = $('[data-step] form #checkout_shipping_address_country').find(":selected").val();
+        if(companyFieldVal == 'United Arab Emirates'){
+          console.log('default UAE');
+          $(".section--shipping-address .section__header").append(divHtml);
+          $(".address-fields").find("[data-address-field='zip']").removeClass('hidden');
+          $('#checkout_shipping_address_zip').removeAttr("disabled");
+          $('#checkout_shipping_address_zip').attr("placeholder", "PO BOX");
+          $(".address-fields").find("[data-address-field='country']").removeClass('field--half');
+          $(".address-fields").find("[data-address-field='country']").addClass('field--third');
+          $(".address-fields").find("[data-address-field='province']").removeClass('field--half');
+          $(".address-fields").find("[data-address-field='province']").addClass('field--third');
+        }
+        
+        var $phoneField = $('[name="checkout[shipping_address][phone]"]:not([tabindex="-1"])'),
+            phoneFormatValidated = false;
+        // Remove automatic formatting triggers 
+        $phoneField.removeAttr('data-phone-formatter data-phone-formatter-country-select');
+        // Set maxium size
+        $phoneField.attr('maxlength', 20);
+        function phoneNumberValidation() {
+          phoneFormatValidated = false;
+          var phoneFieldVal = $phoneField.val();
+          // Strip out any non-numeric characters
+          var formattedPhoneValue = phoneFieldVal.replace(/[^0-9]/g, '');
+          $phoneField.val(formattedPhoneValue);
+          phoneFormatValidated = true;
+        }
+        // Run validator if there is a previously cached phone number
+        if ($phoneField.val() != "") { phoneNumberValidation() };
+        // Run validator when the user has switched focus from the phone field
+        $phoneField.on('blur', phoneNumberValidation);
+        
+             
+        
+        // Run the function when the continue button is clicked or the enter key is pressed
+        $('[data-step] form [type="submit"]').on('click', function(e) {
+          var countryval = $('[data-step] form #checkout_shipping_address_country').val();
+           e.preventDefault();
+            if(countryval == 'United Arab Emirates'){
+              var zipFieldVal = $('#checkout_shipping_address_zip').val();
+              if(zipFieldVal == '' || zipFieldVal == null){
+                $(".address-fields").find("[data-address-field='zip']").addClass('field--error');
+                if(!$(".address-fields").find("[data-address-field='zip']").closest('.zipFielderror').length){
+                   $(".address-fields").find("[data-address-field='zip']").append('<p class="field__message field__message--error zipFielderror" id="error-for-zip">Enter a PO BOX</p>');
+                }
+                return false;
+              } else {
+                $('.companyField').removeClass('field--error');
+                $('.companyFielderror').remove();
+              }
+            }
+           phoneNumberValidation();
+           if (phoneFormatValidated) {
+             $('[data-step] form').trigger('submit');
+           }
+         });
+        
+        $('[data-step] form').on('keypress', function(e) {
+          if (e.keyCode === 13) {
+            e.preventDefault();
+            $('[data-step] form [type="submit"]').trigger('click');
+          }
+        });
+        $('[data-step] form #checkout_shipping_address_country').on('change', function() {
+          var countryVal = this.value;
+          $('.zipField').remove();
+          if(countryVal == 'Hong Kong' || countryVal == 'Qatar'){
+            $('[data-step] form #checkout_shipping_address_zip').val('000000');
+          } else if(countryVal == 'United Arab Emirates'){ 
+            if(!$('.zipField').length){
+              setTimeout(function(){
+                $(".section--shipping-address .section__header").append(divHtml);
+                $(".address-fields").find("[data-address-field='zip']").removeClass('hidden');
+                $('#checkout_shipping_address_zip').removeAttr("disabled");
+                $('#checkout_shipping_address_zip').attr("placeholder", "PO BOX");
+                $(".address-fields").find("[data-address-field='country']").removeClass('field--half');
+                $(".address-fields").find("[data-address-field='country']").addClass('field--third');
+                $(".address-fields").find("[data-address-field='province']").removeClass('field--half');
+                $(".address-fields").find("[data-address-field='province']").addClass('field--third');
+              }, 500);
+            }
+          } else {
+            $('[data-step] form #checkout_shipping_address_zip').val('');
+          }
+        });
+        
+        $('[data-step] form #checkout_shipping_address_address1').on('blur', function() {
+          var address = this.value;
+          var add_Length = address.length;
+          if(add_Length > 32){
+            var add1 = address.substring(0, 32);
+            var add2 = address.substring(32);
+            $('[data-step] form #checkout_shipping_address_address1').val(add1);
+            $('[data-step] form #checkout_shipping_address_address2').val(add2);
+          }
+        });
+      }
+    });
+  })(Checkout.$);
+</script>
+
+{% comment %}
+{%- for item in checkout.line_items -%}
+   {% for variant in item.product.variants %}
+      {% if variant.inventory_quantity > 0 and variant.inventory_policy == "continue" %}
+         {% if item.variant.id == variant.id %}
+            {% assign vid = item.variant.id %}
+            {% assign preOrderDate = variant.next_incoming_date | date:'%B %d, %Y' %}
+            <script>
+              (function($) {
+                $(document).on('page:load', function() {
+                  $('.product-table tbody').find("tr[data-variant-id='" + {{vid}}+ "'] .product__description").append("<span class='preorder-message'><p>Available for pre-order, dispatched by <strong>{{preOrderDate}}</strong></p></span>");
+                  $('.product-table tbody').find("tr[data-variant-id='" + {{vid}}+ "'] .product__description .product__description__property").hide();
+                });
+              })(Checkout.$);
+            </script>
+          {%endif%}
+       {%endif%}
+   {% endfor %}
+{%- endfor -%}
+{% endcomment %}
+
+{%- for item in checkout.line_items -%}
+  {% assign vid = item.variant.id %}
+  {% unless item.properties == empty %}
+  {% for property in item.properties %}
+    {% if property.first == 'preDate' %}
+    <script>
+      (function($) {
+        $(document).on('page:load', function() {
+          $('.product-table tbody').find("tr[data-variant-id='" + {{vid}}+ "'] .product__description").append("<span class='preorder-message'><p>Available for pre-order, dispatched by <strong>{{property.last}}</strong></p></span>");
+          $('.product-table tbody').find("tr[data-variant-id='" + {{vid}}+ "'] .product__description .product__description__property").hide();
+        });
+      })(Checkout.$);
+  	</script>
+	{%endif%}
+  {% endfor %}
+  {% endunless %}
+{%- endfor -%}

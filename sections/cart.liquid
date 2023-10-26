@@ -1,0 +1,385 @@
+<style>
+  .template-cart .title-bg{ width: 100%; }
+</style>
+
+<div class="container-fluid py-3">
+	<div class="row">
+		<div class="col-12 text-v-small">
+			<div class="breadcrumb">
+				<nav aria-label="breadcrumbs">
+					<a href="/" title="Home">Home</a>
+					<span class="seperator" aria-hidden="true">/</span>
+					<span>{{ 'cart.general.title' | t }}</span>
+				</nav>
+			</div>
+		</div>
+	</div><!-- row -->
+</div><!-- container -->
+<div class="container no-gutters gutters-md">
+	<div class="row">
+		<section id="basket-main" class="col-12" data-preorder-default="{{ 'products.product.pre-order-default' | t }}" data-preorder-date-message="{{ 'products.product.pre-order-date-one' | t }}" data-preorder-default-last="{{ 'products.product.pre-order-default-last' | t }}">
+          <div class="container">
+            {% comment %}
+            <p>{{ section.settings.cart_content | upcase }}</p>
+             {% endcomment %}
+            <span class="free-shipping-info" style="margin-bottom:1em;width:100%; display:inline-block;"></span>
+          </div>  
+          <div class="title-bg">
+                <h1 class="bag-title">{{ 'cart.general.title' | t }}{{ cart.item_count | append: ' ' |prepend: ' - ' }}{{ cart.item_count | pluralize: 'item', 'items' }}</h1>
+                <a href="/" class="continue-shopping">Continue Shopping</a>
+            </div><!-- title-bg -->
+			{%- if cart.item_count > 0 -%}
+
+            <form action="/cart" method="post" class="check-form">
+			{%- for item in cart.items -%}
+			<div class="basket-item" data-product-id="{{item.product_id}}" data-variant-id="{{item.variant.id}}" id="{{item.variant.id}}">
+				<div class="basket-item-image">
+				<a href="{{ item.url | within: collections.all }}">
+					{% include 'responsive-image' with image: item.image, image_class: "img-fluid", max_width: 900, max_height: 1125 %}
+				</a>
+				</div>
+				<div class="basket-item-details">
+					<h3 class="product-title"><a href="{{ item.url | within: collections.all }}">{{ item.product.title }}</a></h3>
+
+                    {% assign property_size = item.properties | size %}
+                    {% if property_size > 0 %}
+                      {% for p in item.properties %}
+                        {% assign first_character_in_key = p.first | truncate: 1, '' %}
+                        {% unless p.last == blank or p.first == '_preorder_locale' %}
+                          {% if p.first == '_is_preorder' %}
+                            <small>{{ p.last }}</small>
+                          {% endif %}
+                        {% endunless %}
+                      {% endfor %}
+                    {% endif %}
+
+                    <div class="product-price-container">
+                    {% if item.product.compare_at_price_max > item.price %}
+                        <div class="product-price sale">
+                            <span class="money">{{ item.price | money }}</span>
+                            <span class="original-price money">{{item.product.compare_at_price_max | money }}</span>
+                        </div><!-- product-price -->
+                    {% else %}
+                        <div class="product-price">
+                                <span class="money">{{ item.price | money }}</span>
+                        </div><!-- product-price -->
+                    {% endif %}
+                    </div><!-- product-price-container -->
+
+                    <div class="basket-item-variants">
+                       {% comment %}
+                        {% for tag in item.product.tags %}
+                        {% if tag contains 'colour_' %}
+                        {% assign product_colour = tag | remove: "colour_" %}
+                            <span class="product-colour-variant">{{product_colour}}</span>
+                        {% endif%}
+                        {% endfor %}
+                      {% endcomment %}
+
+                        {% unless item.product.has_only_default_variant %}
+                        <select class="product-variant" name="id" data-option-title="{% if item.product.options.size == 1 %}{{ item.product.options.first }}{% else %}Variants{% endif %}">
+                        {% for variant in item.product.variants %}
+                            <option value="{{variant.id}}" data-preorder="{% if variant.inventory_quantity > 0 and variant.inventory_policy == "continue" %}true{% else %}false{% endif %}" data-price="{{variant.price}}" {% if variant.compare_at_price %}data-compare-at-price="{{variant.compare_at_price}}"{%endif%} {% if variant.incoming %}data-incoming-date="{{ variant.next_incoming_date | date:'%B %d, %Y'}}"{% endif %} {% if variant.inventory_quantity <= 0 %}disabled{% endif %} {% if item.variant.id == variant.id %}selected{% endif %}>{{variant.title | escape }}{% if variant.inventory_quantity > 0 and variant.inventory_policy == "continue" %} (pre-order){% endif %}</option>
+                        {% endfor %}
+                        </select>
+                        {% endunless %}
+                        <div class="product-quantity">
+                            <span class="label">Qty:</span>
+                            <select name="quantity" class="product-quantity-select" data-variant-id="{{item.id}}">
+                                <option value="1" {% if item.quantity == 1 %}selected{% endif %}>1</option>
+                                <option value="2" {% if item.quantity == 2 %}selected{% endif %}>2</option>
+                                <option value="3" {% if item.quantity == 3 %}selected{% endif %}>3</option>
+                                <option value="4" {% if item.quantity == 4 %}selected{% endif %}>4</option>
+                                <option value="5" {% if item.quantity == 5 %}selected{% endif %}>5</option>
+                                <option value="6" {% if item.quantity == 6 %}selected{% endif %}>6</option>
+                                <option value="7" {% if item.quantity == 7 %}selected{% endif %}>7</option>
+                                <option value="8" {% if item.quantity == 8 %}selected{% endif %}>8</option>
+                                <option value="9" {% if item.quantity == 9 %}selected{% endif %}>9</option>
+                                <option value="10"{% if item.quantity == 10 %}selected{% endif %}>10</option>
+                            </select>
+                        </div><!-- product-quantity -->
+
+
+                    </div><!-- basket-item-variants -->
+
+                    <div class="ajax-feedback cart-page"></div>
+                    <div class="preorder-message"></div>
+
+                    <div class="basket-actions-alt">
+                        <div class="cart-wishlist">
+                            <span class="smartwishlist cartwishlist" data-product="{{ item.product_id }}" data-variant="{{ item.variant_id }}"></span>
+                        </div><!-- cart-wishlist -->
+                        <button class="btn-plain remove">Remove</button>
+                       <span class="preorder-note-text"></span>
+                    </div><!-- basket-actions-alt -->
+                    
+				</div>
+                
+				<div class="basket-actions">
+                    <button class="btn-plain btn-cart-action edit"><span class="label">Edit</span>{% render 'icon-edit' %}</button>
+
+					<button class="btn-plain btn-cart-action remove"><span class="label">Remove</span>{% render 'icon-close'%}</button>
+
+				</div>
+			</div><!-- basket-item -->
+			{%- endfor -%}
+            <div class="btn-checkout"><input id="btn-checkout" class="btn btn-primary fixed" type="submit" name="checkout" value="{{ 'cart.general.checkout_btn' | t }}"></div>
+            {% comment %} <textarea name="note" id="CartNote">{%- for item in cart.items -%}{% for variant in item.product.variants %}{% if variant.inventory_quantity > 0 and variant.inventory_policy == "continue" %}{% if item.variant.id == variant.id %}Pre-Order Product: {{ item.product.title }} - {{variant.title | escape }}{%endif%}{%endif%}{% endfor %}{%- endfor -%}</textarea> {% endcomment %}
+             {% comment %}
+              <div name="note" id="CartNote" style="visibility: hidden;">
+              </div>
+                {% endcomment %}
+            {% if section.settings.show_upsell == true %}
+                <div id="cart-upsell">
+                    <div class="upsell-content-container">
+                        <div class="upsell-icon">
+                            <img src="{{section.settings.upsell_icon | img_url: '75x' }}" alt="{{section.settings.upsell_icon.alt}}" class="img-fluid">
+                        </div><!-- upsell-icon -->
+
+                        <div class="upsell-details">
+                            <h4>{{section.settings.upsell_title}}</h4>
+                            <div class="rte">
+                                {{section.settings.upsell_richtext}}
+                            </div>
+                            <div class="upsell-price-from">
+                                <span class="label">{{section.settings.upsell_from}}</span>
+                                <img src="{{section.settings.upsell_price | img_url: '150x' }}" alt="{{section.settings.upsell_price.alt}}" class="img-fluid">
+                            </div>
+                        </div><!-- upsell-details -->
+                    </div><!-- cart-upsell-content -->
+                    {%- assign product = all_products[section.settings.upsell_product] -%}
+                    <div class="upsell-cta">
+                        <button id="btn-basket" class="btn-plain upsell-add" data-variant-id="{{product.variants.first.id}}">{{section.settings.upsell_cta_button}}</button>   
+                    </div>
+                </div><!-- cart-upsell -->
+            {% endif %}
+
+
+			{%- else -%}
+			<p class="mt-3">The cart is empty. <a href="/collections/all">Continue shopping</a></p>
+			{%- endif -%}
+
+		</section><!-- basket-main -->
+        <div class="col-12">
+            <div class="col-12">
+          		 <div class="row">
+                   	<div class="title-bg mob-hide d-lg-block col-7"></div>
+                    <div class="title-bg  basket-total col-5">
+                      <h2 class="bag-title">{{ 'cart.general.sidebar_title' | t | prepend : 'ORDER ' }}</h2>
+                   	  <h2  class="bag-title" style="text-align:right;"><span id="basket-total-value" class="money">{{ cart.total_price | money }}</span></h2> 
+                   </div>
+                  </div>
+          	</div>
+            <div class="row">
+            <div class="col-lg-7">
+              {% comment %}<h2 class="bag-title 123">{{ 'cart.general.sidebar_title' | t  | prepend : 'ORDER '}}{% endcomment %}</h2>
+            </div>
+            
+            <aside id="basket-sidebar" class="col-12 col-lg-5">
+              	
+                <div class="basket-checkout">
+                  <p>{{ section.settings.interest_free_text }}</p>
+                    <input id="btn-checkout" class="btn btn-primary" type="submit" name="checkout" value="{{ 'cart.general.checkout_btn' | t }}">
+                    <span id="checkout-btn-placeholder mob-hide"></span>
+                  <span class="d-block mt-3 text-small discount-text">{{'cart.general.discount_text' | t}}</span>
+                </div><!-- basket-checkout -->
+
+                <div class="basket-sidebar-section">
+                    <h4>We Accept</h4>
+                    <div class="content">
+                        {% include 'payment-icons' %}
+                    </div>
+                    {% comment %}<span class="d-block mt-3 text-small discount-text">{{'cart.general.discount_text' | t}}</span>{% endcomment %}
+                </div><!-- basket-sidebar-section -->
+			</aside><!-- basket-sidebar -->
+          </div>
+        </div>
+          
+          
+    {% comment %}     
+	<div class="row col-12">
+          <div class="title-bg d-none col-lg-7 d-lg-block">
+            <h2></h2>
+          </div>
+          <div class="title-bg d-none col-lg-5 d-lg-block">
+            <h2 class="bag-title 123">{{ 'cart.general.sidebar_title' | t  | prepend : 'ORDER '}}</h2>
+          </div>
+          <div class="col-12 col-lg-8">
+            <div class=""><span id="basket-total-value" class="money">{{ cart.total_price | money }}</span> </div>
+          </div>
+		<aside id="basket-sidebar" class="col-12 col-lg-4">
+            <div class="title-bg d-none d-lg-block">
+                <h2 class="bag-title">{{ 'cart.general.sidebar_title' | t }}</h2>
+                <div class="basket-total">
+                  <span class="label"><span class="d-none d-lg-inline-block mr-1">Grand </span>Total</span>
+                  <span id="basket-total-value" class="money">{{ cart.total_price | money }}</span>
+              </div>
+            </div>
+			<div class="basket-checkout">
+				
+				<input id="btn-checkout" class="btn btn-primary fixed" type="submit" name="checkout" value="{{ 'cart.general.checkout_btn' | t }}">
+                <span id="checkout-btn-placeholder"></span>
+			</div><!-- basket-checkout -->
+
+			<div class="basket-sidebar-section">
+				<h4>We Accept</h4>
+				<div class="content">
+					{% include 'payment-icons' %}
+				</div>
+                <span class="d-block mt-3 text-small discount-text">{{'cart.general.discount_text' | t}}</span>
+			</div><!-- basket-sidebar-section -->
+		</aside><!-- basket-sidebar -->
+  </div>
+  {% endcomment %}     
+        </form>
+	</div>
+
+<div id="mobileEditOverlay"></div>
+
+<div id="mobileEditProductMenu">
+    <button class="closeMobileEditProductMenu">Close</button>
+    <div class="mobileEditWishlist">
+        <span class="smartwishlist cartwishlist" data-product="{{ item.product_id }}" data-variant="{{ item.variant_id }}"></span>
+    </div>
+    <span class="product-colour-variant">Colour</span>
+    <div id="quantity-select" class="select-wrapper">
+        <select class="product-variant">
+             <option value="1" selected>1</option>
+        </select>  
+    </div>
+    <div id="variant-select" class="select-wrapper">
+        <select id="quantity" class="product-quantity-select">
+            <option value="selectsize">Size</option>
+        </select>
+    </div>
+    <button class="removeMobileProduct">delete</button>
+</div><!-- mobileEditProductMenu -->
+
+</div><!-- container -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script> $( document ).ready(function() {
+  setTimeout(function(){ 
+    $(".basket-item-variants select.product-variant option:selected").each(function() {
+      var selectdVariant = this.value;
+      var CookieValue=getCookie('preorder_text'+selectdVariant);
+      var cookiesVar = getCookie('preorder_text'+selectdVariant);
+       console.log('--->cookies----'+cookiesVar +'---'+selectdVariant); 
+      if(CookieValue){ console.log('I am in pre order');
+        $('#'+selectdVariant+" .preorder-message").text(CookieValue);
+        $('#'+selectdVariant+" .basket-item-image a").append('<span class="gPreorderBadge rectangle top-right cartpage-preorder-info"><span>Pre-order</span><span class="unvisible">Pre-order</span></span>');
+        $('#'+selectdVariant).find('.preorder-note-text').append('<textarea name="note" id="CartNote" style="visibility:hidden;">Pre-order</textarea>');
+
+      } else { console.log('I am not in pre order');
+        $('#'+selectdVariant+" .preorder-message").css("display","none");
+        $('#'+selectdVariant+" .basket-item-image a span.gPreorderBadge").css("display","none");
+      }
+
+    });
+  }, 1000);  
+   
+});
+</script>
+
+
+<!--script>
+  $( document ).ready(function() {
+    setTimeout(function(){ 
+  var preorder_text= $(".gPreorderBadge .unvisible").html();
+     // alert(preorder_text);
+      $("div#CartNote").html(preorder_text);
+  }, 3000);
+  });
+
+
+</script-->
+
+<script>
+  $( document ).ready(function() {
+ $("button.btn-plain.remove").click(function(){
+   setTimeout(function(){
+  location.reload();
+      }, 1000);
+});
+  
+$("select.product-quantity-select").click(function(){
+    setTimeout(function(){ 
+      location.reload();
+    }, 1500);
+});
+  });
+  
+  
+</script>
+
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": [
+        {
+			"type":     "checkbox",
+			"id":       "show_upsell",
+			"label":    "show VIP upsell?",
+			"default":  true
+        },
+         {
+            "type":     "image_picker",
+            "id":       "upsell_icon",
+            "label":    "Icon"
+        },
+        {
+            "type":     "text",
+            "id":       "upsell_title",
+            "default":  "VIPD Pass",
+            "label":    "Title"
+        },
+        {
+            "type":      "richtext",
+            "id":        "upsell_richtext",
+            "label":     "Content",
+            "default":   "<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem nam eius voluptates vel molestias, ipsa labore esse ab doloribus. Nam.</p>"
+        },
+        {
+            "type":     "text",
+            "id":       "upsell_from",
+            "default":  "Only",
+            "label":    "Price Label"
+        },
+        {
+            "type":     "image_picker",
+            "id":       "upsell_price",
+            "label":    "Price",
+            "info":     "sits beside the Price Label"
+        },
+        {
+            "type":     "text",
+            "id":       "upsell_cta_button",
+            "default":  "Add to basket",
+            "label":    "Button Text"
+        },
+        {
+            "type":      "product",
+            "id":        "upsell_product",
+            "label":     "Product",
+            "info":      "Upsell product"
+        },
+		{
+            "type": "html",
+            "id": "interest_free_text",
+            "label": "Interest free  Content",
+            "default": "<p>Content before logo</p>"
+        },
+		{
+            "type": "text",
+            "id": "cart_content",
+            "label": "Cart Content",
+            "default": "Enter Content here"
+        }
+  ]
+}
+{% endschema %}
+
+
+
+<!-- GPO installed -->

@@ -1,0 +1,230 @@
+<div class="signup-form-page-wrapper">
+  <div class="signup-form-page-info">
+
+    <div class="signup-form-banner-info">
+      <div class="banner-info">
+          <div class="img-with-content-over-info desktop-view-info">
+             <h2 style="font-size:{{section.settings.font_size}}px">{{section.settings.top-heading}}</h2>
+         	 <h3 style="font-size:{{section.settings.font_size1}}px">{{section.settings.main-heading}}</h3>
+         	 <p style="font-size:{{section.settings.font_size2}}px">{{section.settings.sub-heading}}</p>
+        </div>
+        
+         <div class="img-with-content-over-info mobile-view-info">
+             <h2 style="font-size:{{section.settings.font_size3}}px">{{section.settings.top-heading}}</h2>
+         	 <h3 style="font-size:{{section.settings.font_size4}}px">{{section.settings.main-heading}}</h3>
+         	 <p style="font-size:{{section.settings.font_size5}}px">{{section.settings.sub-heading}}</p>
+        </div>
+        <div class="desktop-view-info">  
+          <img src="{{section.settings.desktop-image | img_url :'original' }}" alt="desktop-banner">
+        </div>
+        <div class="mobile-view-info">
+          <img src="{{section.settings.mobile-image | img_url :'original' }}" alt="mobile-banner">
+        </div>
+      </div>
+
+
+
+      <div class="signup-form-info">
+        
+     <div class="klaviyo-form-QYaG2a"></div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<style>
+#signup .custom-klaviyo-start-wrapper {display: none;}
+.img-with-content-over-info {position: absolute;left: 0;right: 0;margin:0px auto;text-align: center;z-index: 1;width: 100%;}
+.img-with-content-over-info p {margin-bottom: 5px;color: #fff;font-family: Helvetica Neue Extra Bold;word-spacing: 4px;}
+.img-with-content-over-info h2 {margin-top: 0px;font-family: Helvetica Neue Extra Bold;word-spacing: 3px;color: #fff;}
+.banner-info .desktop-view-info:before, .banner-info .mobile-view-info:before {content: " ";width: 100%;height: 100%;background-color: #00000038;position: absolute;}
+.signup-form-page-wrapper .signup-form-page-info .signup-form-banner-info .signup-form-info {width: 100%;left: 0px;right: 0px;margin: 0px auto;}  
+  .banner-info .img-with-content-over-info {
+    max-width: 80%;
+  }
+  .banner-info .img-with-content-over-info h2 {
+/*     font-size: 56px; */
+    margin-bottom: 10px;
+  }
+  .banner-info .img-with-content-over-info h3 {
+    color: #fff;
+/*     font-size: 34px; */
+    line-height: 1.2;
+  }
+  .banner-info .img-with-content-over-info p {
+/*     font-size: 26px; */
+  }
+  .signup-form-page-wrapper .signup-form-page-info .signup-form-banner-info .signup-form-info form.needsclick {
+    min-height: 140px;
+}
+  
+ #shopify-section-custom-tarasignup .banner-info {
+    position: relative;
+}
+#shopify-section-custom-tarasignup .desktop-view-info:before {
+    display: none;
+}
+#shopify-section-custom-tarasignup .banner-info:before {
+    content: " ";
+    width: 100%;
+    height: 100%;
+    background-color: #00000038;
+    position: absolute;
+    top: 0;
+    left: 0;
+} 
+#shopify-section-custom-tarasignup .banner-info .mobile-view-info:before {
+    display: none;
+}  
+  
+  
+@media screen and (min-width: 501px){
+  .img-with-content-over-info {bottom: 30%;}
+}
+@media screen and (min-width: 800px){
+  .img-with-content-over-info h2 {font-size: 71px;}
+  .img-with-content-over-info p {font-size: 21px;}
+}
+@media screen and (min-width: 1500px){
+  .img-with-content-over-info {bottom: 25%;}
+} 
+@media screen and (max-width: 799px){
+  .img-with-content-over-info {bottom: 110px;}
+  .img-with-content-over-info h2 {font-size: 41px;}
+  .img-with-content-over-info p {font-size: 18px;}
+  .banner-info .img-with-content-over-info h2 {
+/*     font-size: 24px; */
+  }
+  .banner-info .img-with-content-over-info h3 {
+/*     font-size: 13px; */
+    line-height: 1.2;
+  }
+  .banner-info .img-with-content-over-info p {
+/*     font-size: 10px; */
+  }
+  .banner-info .img-with-content-over-info {
+    max-width: 96%;
+  }
+  .signup-form-page-wrapper .signup-form-page-info .signup-form-banner-info .signup-form-info {
+    bottom: 4%;
+  }
+  .signup-form-page-wrapper .signup-form-page-info .signup-form-banner-info .signup-form-info form.needsclick .needsclick.kl-private-reset-css-Xuajs1 .needsclick {
+    top: 20px;
+}
+
+}
+@media screen and (max-width: 500px){  
+  .img-with-content-over-info {bottom: 130px;}
+}
+</style>
+
+
+
+
+
+{% schema %}
+{
+  "name": "Tara Signup",
+  "settings": [
+{
+      "id": "top-heading",
+      "type": "text",
+      "label": "Heading"
+    },
+{
+    "type": "range",
+    "id": "font_size",
+    "min":  10,
+    "max":  70,
+    "step":  1,
+    "unit": "px" ,
+    "label": "Desktop Heading size",
+    "default":  10
+    },
+
+ {
+    "type": "range",
+    "id": "font_size1",
+    "min":  10,
+    "max":  70,
+    "step":  1,
+    "unit": "px" ,
+    "label": "Desktop Subheading size",
+    "default":  10
+    },
+
+
+ {
+    "type": "range",
+    "id": "font_size2",
+    "min":  10,
+    "max":  70,
+    "step":  1,
+    "unit": "px" ,
+    "label": "Desktop Subheading2 size",
+    "default":  10
+    },
+
+ {
+    "type": "range",
+    "id": "font_size3",
+    "min":  10,
+    "max":  70,
+    "step":  1,
+    "unit": "px" ,
+    "label": "Mobile Heading size",
+    "default":  10
+    },
+
+ {
+    "type": "range",
+    "id": "font_size4",
+    "min":  10,
+    "max":  70,
+    "step":  1,
+    "unit": "px" ,
+    "label": "Mobile Subheading size",
+    "default":  10
+    },
+ {
+    "type": "range",
+    "id": "font_size5",
+    "min":  10,
+    "max":  70,
+    "step":  1,
+    "unit": "px" ,
+    "label": "Mobile Subheading2 size",
+    "default":  10
+    },
+{
+      "id": "main-heading",
+      "type": "html",
+      "label": "Main Heading"
+    },
+{
+      "id": "sub-heading",
+      "type": "html",
+      "label": "Sub Heading"
+    },
+    {
+      "id": "desktop-image",
+      "type": "image_picker",
+      "label": "Desktop image"
+    },
+     {
+      "id": "mobile-image",
+      "type": "image_picker",
+      "label": "Mobile image"
+    }
+  ]
+  ,
+  "presets": [
+    {
+      "name": "Tara Signup",
+      "category": "Promotional"
+    }
+  ]
+}
+{% endschema %}

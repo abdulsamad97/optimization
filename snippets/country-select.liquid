@@ -1,0 +1,41 @@
+{% if shop.domain contains "au." %}
+<ul class="current-country">
+    <li><span>AU {% include 'icon-chevron-down' %}</span>
+        <ul class="country-select">
+            <li><a href="#">Euro</a></li>
+            <li><a href="#">US Dollar</a></li>
+            <li><a href="#">British Pound</a></li>
+        </ul>
+    </li>
+</ul>
+{% elsif shop.domain contains "eu." %}
+<ul class="current-country">
+    <li><span>EU {% include 'icon-chevron-down' %}</span>
+        <ul class="country-select">
+            <li><a href="#">Australian Dollar</a></li>
+            <li><a href="#">US Dollar</a></li>
+            <li><a href="#">British Pound</a></li>
+        </ul>
+    </li>
+</ul>
+{% elsif shop.domain contains "us." %}
+<ul class="current-country">
+    <li><span>US {% include 'icon-chevron-down' %}</span>
+        <ul class="country-select">
+            <li><a href="#">Australian Dollar</a></li>
+            <li><a href="#">Euro</a></li>
+            <li><a href="#">British Pound</a></li>
+        </ul>
+    </li>
+</ul>
+{% else %}
+<ul class="current-country">
+    <li><span>GB {% include 'icon-chevron-down' %}</span>
+        <ul class="country-select">
+            <li><a href="#">Australian Dollar</a></li>
+            <li><a href="#">Euro</a></li>
+            <li><a href="#">US Dollar</a></li>
+        </ul>
+    </li>
+</ul>
+{% endif %}

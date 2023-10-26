@@ -1,0 +1,12 @@
+{% layout none %}{
+    "products": [
+        {% for product in collection.products %}
+        {
+            "id":"{{product.id}}",
+            "title":"{{product.title}}",
+            "available": "{{product.available}}",
+            "url":{% if collection.handle ==  'all'%}"{{ product.url }}",{% else%}"{{ product.url | within: collection }}",{%endif%}
+            "colour":{% for tag in product.tags %}{% if tag contains 'color_' %}"{{tag | remove: "color_" | replace: " ", "_" | downcase }}"{% break %}{% endif %}{% endfor %}
+        }{% if forloop.last == false %},{% endif %}{% endfor %}
+    ]
+}

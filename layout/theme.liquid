@@ -1,0 +1,448 @@
+<!doctype html>
+<!--[if IE 9]> <html class="ie9 no-js supports-no-cookies" lang="{{ shop.locale }}"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js supports-no-cookies {% if template == 'index' %} index {% endif %}" lang="{{ shop.locale }}"> <!--<![endif]-->
+<script src="https://www.googleoptimize.com/optimize.js?id=OPT-K86R849"></script>
+<head>
+<link rel='preconnect dns-prefetch' href='https://api.config-security.com/' crossorigin />
+<link rel='preconnect dns-prefetch' href='https://conf.config-security.com/' crossorigin />
+<link rel='preconnect dns-prefetch' href='https://triplewhale-pixel.web.app/' crossorigin />
+<script>
+/* >> TriplePixel :: start*/
+window.TriplePixelData={TripleName:"public-desire-usa.myshopify.com",ver:"1.9"},function(W,H,A,L,E,_,B,N){function O(U,T,P,H,R){void 0===R&&(R=!1),H=new XMLHttpRequest,P?(H.open("POST",U,!0),H.setRequestHeader("Content-Type","application/json")):H.open("GET",U,!0),H.send(JSON.stringify(P||{})),H.onreadystatechange=function(){4===H.readyState&&200===H.status?(R=H.responseText,U.includes(".txt")?eval(R):P||(N[B]=R)):(299<H.status||H.status<200)&&T&&!R&&(R=!0,O(U,T-1))}}if(N=window,!N[H+"sn"]){N[H+"sn"]=1;try{A.setItem(H,1+(0|A.getItem(H)||0)),(E=JSON.parse(A.getItem(H+"U")||"[]")).push(location.href),A.setItem(H+"U",JSON.stringify(E))}catch(e){}var i,m,p;A.getItem('"!nC`')||(_=A,A=N,A[H]||(L=function(){return Date.now().toString(36)+"_"+Math.random().toString(36)},E=A[H]=function(t,e){return"State"==t?E.s:(W=L(),(E._q=E._q||[]).push([W,t,e]),W)},E.s="Installed",E._q=[],E.ch=W,B="configSecurityConfModel",N[B]=1,O("https://conf.config-security.com/model",5),i=L(),m=A[atob("c2NyZWVu")],_.setItem("di_pmt_wt",i),p={id:i,action:"profile",avatar:_.getItem("auth-security_rand_salt_"),time:m[atob("d2lkdGg=")]+":"+m[atob("aGVpZ2h0")],host:A.TriplePixelData.TripleName,url:window.location.href,ref:document.referrer,ver:window.TriplePixelData.ver},O("https://api.config-security.com/",5,p),O("https://triplewhale-pixel.web.app/dot1.9.txt",5)))}}("","TriplePixel",localStorage);
+/* << TriplePixel :: end*/
+</script>
+<!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZJKKGGH6X"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-ZZJKKGGH6X'); </script>
+  {% if template contains 'index' or template contains 'product' or template contains 'collection' %}
+{% render 'speed-opt' %}
+  {% endif %}
+  {% render 'elevar-head-listener' %}
+  {% render 'elevar-head' %}
+<link rel="prefetch" as="document" href="{{ shop.url }}" />
+  <link rel="preconnect dns-prefetch" href="https://fonts.shopifycdn.com" />
+     <link rel="preconnect dns-prefetch" href="https://ajax.googleapis.com/" />
+     <link rel="preconnect dns-prefetch" href="https://cdn.jsdelivr.net/" />
+    <link rel="preconnect dns-prefetch" href="https://fonts.googleapis.com/" />
+    <link rel="preconnect dns-prefetch" href="https://cdn.shopifycloud.com" />
+  <link rel="preconnect dns-prefetch" href="https://www.dwin1.com/" />
+
+<link rel="preconnect dns-prefetch" href="https://cdnjs.cloudflare.com" />  
+  <link rel="preconnect dns-prefetch" href="https://connect.facebook.net" />
+  
+
+
+
+{% if product.id %}<meta name="apple-itunes-app" content="app-id=1568106062, app-argument=publicdesire://product/{{ product.id }}">{% else %}<meta name="apple-itunes-app" content="app-id=1568106062">{% endif %}
+  <meta charset="utf-8">
+  <meta name="robots" content="INDEX,FOLLOW"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+    {% if template contains 'collection' %}
+      <link rel='canonical' href='{{ shop.url }}{{ collection.url }}' />
+    {% else %}
+      <link rel='canonical' href='{{ canonical_url }}' />
+    {% endif %}
+    
+   {% if template contains 'blog' or template == "article" %}
+  {% render 'blog-meta-hreflang' %}
+  {% else %}
+  {% render 'meta-hreflang' %}
+  {% endif %}
+  <!-- Animate on Scroll Stylesheet. Initialised in javascript-tags-footer snippet -->
+  {% comment %} <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" /> {% endcomment %}
+
+  {% if settings.favicon != blank %}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+  {% endif %}
+   {% comment %}
+  {% capture seo_title %}
+    {{ page_title }}
+    {% if current_tags %}
+      {%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+    {% endif %}
+    {% if current_page != 1 %}
+      &ndash; {{ 'general.meta.page' | t: page: current_page }}
+    {% endif %}
+    {% unless page_title contains shop.name %}
+      &ndash; {{ shop.name }}
+    {% endunless %}
+  {% endcapture %}
+  <title>{{ seo_title }}</title>
+  {{page_title | remove: "| Public Desire" }}
+  {% endcomment %}
+  <title>{{ page_title }}</title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  {% include 'social-meta-tags' %}
+
+<!--   {{ 'theme.scss.css' | asset_url | stylesheet_tag }} -->
+<link
+  rel="preload"
+  as="style"
+  onload="this.onload=null;this.rel='stylesheet'"
+  href='{{ 'theme.scss.css' | asset_url}}'>
+<noscript>
+  <link
+    rel="stylesheet"
+    href='{{ 'theme.scss.css' | asset_url}}'>
+</noscript>
+{% include 'javascript-tags-head' %}
+
+  {%comment%}{{ content_for_header }}{%endcomment%}    
+  
+  {%include "setbg"%}
+
+  {% include 'bc-sf-filter-style' %}
+  {% comment %}
+  {{ 'rebrand-custom-style.css' | asset_url | stylesheet_tag }}
+   {{ 'custom-discounts.css' | asset_url | stylesheet_tag }}
+  {% endcomment %}
+
+
+<!-- REAMAZE INTEGRATION START - DO NOT REMOVE -->
+{% render 'reamaze-config' %}
+{% render 'reamaze-sso' %}
+<!-- REAMAZE INTEGRATION END - DO NOT REMOVE -->
+
+<!-- Global site tag (gtag.js) - Google Ads: 922684309 -->
+<script async data-src="https://www.googletagmanager.com/gtag/js?id=AW-922684309"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-922684309');
+  //gtag('config', 'G-W0Q5R4N41E');
+</script>
+<link
+  rel="preload"
+  as="style"
+  onload="this.onload=null;this.rel='stylesheet'"
+  href='{{ 'rebrand-custom-style-new.css' | asset_url}}'>
+<noscript>
+  <link
+    rel="stylesheet"
+    href='{{ 'rebrand-custom-style-new.css' | asset_url}}'>
+</noscript>
+
+<link
+  rel="preload"
+  as="style"
+  onload="this.onload=null;this.rel='stylesheet'"
+  href='{{ 'custom-discounts.css' | asset_url}}'>
+<noscript>
+  <link
+    rel="stylesheet"
+    href='{{ 'custom-discounts.css' | asset_url}}'>
+</noscript>
+<style>
+.lazyload {
+	opacity: 0;
+	transform: scale(0.8);
+}
+
+.lazyloaded {
+	opacity: 1;
+	transform: scale(1);
+	transition: all 700ms;
+}
+</style>   
+{% comment %}<link rel="preload" href="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" as="script" />{% endcomment %}
+</head>
+
+<body id="{{ page_title | handle }}" class="template-{{ template.name | handle }} {% if template contains 'collection'%}{{collection.handle}} {% endif %}">
+  {% render 'elevar-body-end' %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!----Start-Slide cart app------->
+  <script>!function(){window.SLIDECART=!0;window.SLIDECART_FORMAT='{{shop.money_format}}';var e="https://cdn.jsdelivr.net/gh/apphq/slidecart-dist@master/slidecarthq.js?"+(new Date).getTime(),t=document.createElement("script");t.type="text/javascript",t.dataset.src=e,document.querySelector("body").appendChild(t)}();</script>
+ <!----End-Slide cart app------->
+<script>window.KlarnaThemeGlobals={};{%case template.name%} {%when"product"%} {% if product.first_available_variant.price %}window.KlarnaThemeGlobals.data_purchase_amount = {{ product.first_available_variant.price }};{% endif %}window.KlarnaThemeGlobals.productVariants={{product.variants|json}};window.KlarnaThemeGlobals.documentCopy=document.cloneNode(true);{%when"cart"%} window.KlarnaThemeGlobals.data_purchase_amount={{cart.total_price}};window.KlarnaThemeGlobals.documentCopy=document.cloneNode(true);{%endcase%}</script>
+  
+  {% if shop.domain contains "au." %}
+
+<script src="https://eu-library.klarnaservices.com/lib.js" data-client-id=“30784f36-1dae-59bf-a251-66b646cc2d1f”></script>
+{% elsif shop.domain contains "eu." %}
+
+<script src="https://eu-library.klarnaservices.com/lib.js" data-client-id=“30784f36-1dae-59bf-a251-66b646cc2d1f”></script>
+{% elsif shop.domain contains "us." %}
+
+<script async src="https://na-library.klarnaservices.com/lib.js" data-client-id="49ed360e-590c-5f14-9840-b27edaef3c62"></script> 
+
+{% else %}
+
+<script  async   src="https://eu-library.klarnaservices.com/lib.js"   data-client-id="30784f36-1dae-59bf-a251-66b646cc2d1f"
+></script>
+{% endif %}
+
+  <div class="body-container">
+
+  <a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
+  
+  {% section 'redirect' %} 
+  
+  {% section "announcement-bar" %}
+    
+  {% section 'header' %}
+  {% section 'header-usp-3up' %}
+  {%comment%}{% section 'header-bottom' %}{%endcomment%}
+  
+  {% section 'thin-slider-banner' %} 
+  {% section 'mobile-collection-header' %}
+   
+  {% section 'header-bottom-bar-mobile' %}
+  
+  <main id="MainContent">
+    {% if template contains 'index' %}
+    {% else %}
+    {% comment %}
+    <div class="PromoBanner shopify-section">
+      <div class="PromoBanner-content">
+        <a href="https://www.publicdesire.com/collections/boots-promo">
+        <div class="PromoBanner-text-wrap">
+          <div class="PromoBanner-text-left">
+            <span class="PromoBanner-text-offer">2 for $95 on boots</span>
+          </div>
+          <div class="PromoBanner-text-right">
+            <span class="PromoBanner-text-offerinfo-top">*Discount auto applied at checkout</span>
+            <span class="PromoBanner-text-offerinfo-bot">*Selected lines only</span>
+          </div>
+        </div>
+        </a>
+      </div>
+    </div>
+    {% endcomment %}
+    {% endif %}
+    {{ content_for_layout }}
+  </main>
+
+  <div class="nav-overlay"></div>
+
+  {% section 'footer' %}
+
+  {% render 'product-quickview'%}
+
+  {% include 'javascript-tags-footer' %}
+
+  {% include 'schema-json' %}
+
+  {% include 'bc-sf-filter' %}
+  <style>
+    span.wide-fit.most-popular {
+      display: none;
+    }
+    span.wide-fit.hot-product {
+    }
+    .promoImage{
+    display: none !important;
+    }
+    </style>
+  </div><!-- body-container -->
+<!-- <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
+  
+  {{ 'mycustom.js' | asset_url | script_tag }} 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+  
+  <script data-src="https://www.dwin1.com/6343.js" type="text/javascript" defer="defer"></script>
+{% include 'social-login' %}
+{% render 'globo.preorder.script' %}
+
+
+<script type="application/javascript" async 
+ data-src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=Y295Ue"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div data-app="mm" data-product="{{product.id}}"></div>
+  {{'source.js' | asset_url | script_tag }}
+</body>
+
+
+<!--  safari only -->
+<script>
+  
+  $(function() {
+  if (navigator.userAgent.indexOf('Safari') != -1 && navigator.userAgent.indexOf('Chrome') == -1) {
+    $('body').addClass('safari-mac-info');
+  }
+});
+</script>
+
+
+<!-- <script>
+  $(document).ready(function(){
+    setTimeout(function(){ 
+       $("#shopify-section-redirect .redirect-popup").addClass("active");
+    }, 3000); 
+    
+  });
+
+</script> -->
+
+</html>
+
+
+
+<!-- Begin Shopify-Clearpay JavaScript Snippet (v1.0.10) -->
+{% if cart.currency.iso_code == shop.currency %}
+<script type="text/javascript">
+// Editable fields (remove "//" from the start of each line to activate):
+// var clearpay_min = 0.04;  // As per your Clearpay contract.
+// var clearpay_max = 800.00;  // As per your Clearpay contract.
+
+var clearpay_product_selector = '.product-price';  // The selector used to identify the price on the Product pages.
+  var clearpay_product_css = {'margin-top': '20px', 'text-align': 'center', 'font-size': '12px'};  // The CSS styling of the Clearpay assets on the Product pages.
+// var clearpay_logo_theme = 'colour';  // The Clearpay logo colour. Can be 'colour' (default), 'black' or 'white'.
+// var clearpay_modal_open_icon = true;	 // If enabled, an "ⓘ" icon is displayed next to the Clearpay logo in place of the "More info" text.
+
+// var clearpay_variable_price_fallback_selector = '.product-price-selector';  // The selector used to identify the price on the Product pages if the Clearpay assets are disappearing after page-load or price is incorrect when a variant is selected.
+var clearpay_variable_price_fallback_method = "interval";  // Ensures the instalment price updates when the price changes. Can be "mutation" (default) or "interval".
+
+var clearpay_cart_integration_enabled = true;  // Enables/disables the Cart page display. Can be true (default) or false.
+var clearpay_cart_static_selector = '.basket-total';  // The selector used to identify the price on the Cart page.
+// var clearpay_cart_static_css = {'margin-top': '15px'};  // The CSS styling of the Clearpay assets on the Cart page.
+// var clearpay_cart_static_logo_theme = 'colour';  // The Clearpay logo colour. Can be 'colour' (default), 'black' or 'white'.
+
+// var clearpay_variable_subtotal_fallback_selector = '.cart-subtotal-selector';  // The selector used to identify the price on the Cart page if the Clearpay assets are disappearing after page-load.
+// var clearpay_variable_subtotal_fallback_method = "interval";  // Ensures the instalment price updates when the price changes. Can be "mutation" (default) or "interval".
+
+var clearpay_footer_logo_enabled = false;  // Enables/disables the footer payment icon. Can be true (default) or false.
+// var clearpay_footer_logo_container = '.payment-icons';  // The selector used to identify the payment icons in the footer.
+// var clearpay_footer_logo_format = 'icon';  // The Clearpay payment icon style. Can be 'icon' (default), 'stacked' or 'logo'.
+var clearpay_footer_logo_theme = 'black';  // The Clearpay payment icon colour. Can be 'colour' (default), 'black' or 'white'.
+// var clearpay_footer_logo_background = 'border';  // The Clearpay payment icon border style. Can be 'border' (default) or 'transparent'.
+var clearpay_footer_logo_css = {'width': '48px'};  // The CSS styling of the Clearpay payment icon in the footer.
+
+// Non-editable fields:
+var clearpay_shop_currency = {{ shop.currency | json }};
+var clearpay_cart_currency = {{ cart.currency.iso_code | json }};
+var clearpay_shop_money_format = {{ shop.money_format | json }};
+var clearpay_shop_permanent_domain = {{ shop.permanent_domain | json }};
+var clearpay_theme_name = {{ theme.name | json }};
+var clearpay_product = {{ product | json }};
+var clearpay_current_variant = {{ product.selected_or_first_available_variant | json }};
+var clearpay_cart_total_price = {{ cart.total_price | json }};
+var clearpay_js_snippet_version = '1.0.10';
+</script>
+<script type="text/javascript" src="https://static.afterpay.com/shopify-clearpay-javascript.js"></script>
+{% else %}
+<!-- Clearpay disabled: {{ cart.currency.iso_code }} != {{ shop.currency }} -->
+{% endif %}
+<!-- End Shopify-Clearpay JavaScript Snippet (v1.0.10) -->
+
+<style>
+  .cart-mini-contents{
+  display:none;
+}
+</style>
+<script>
+  $('#RecoverPassword').on("click",function(){
+      $(window).scrollTop(0);
+});
+</script>
+
+
+

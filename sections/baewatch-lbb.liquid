@@ -1,0 +1,369 @@
+<div class="container-fluid py-3">
+	<div class="row">
+		<div class="col-12 text-v-small">{% render 'breadcrumbs' %}</div>
+	</div><!-- row -->
+</div><!-- container -->
+
+<header class="page-header{% if section.settings.background %} image lazyload {%endif%}" {% if section.settings.background %} data-bgset="{% include 'responsive-bg-image', image: section.settings.background %}"{% endif %}>
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-12 mb-md-0 col-md-8 col-lg-6 mx-auto text-center">
+				<h1>{{ page.title }}</h1>
+			</div>
+		</div><!-- row -->
+	</div>
+</header>
+
+<div class="container px-0">
+	<div class="row no-gutters mt-4 mb-5">
+        <div class="col-12">
+            {% for block in section.blocks %}
+                {% case block.type %}
+                {% when 'introduction' %}
+                    <div class="introduction-section text-center">
+                        <div class="featured-image">
+                            <picture>
+                                <source media="(max-width: 767px)" srcset="{{ block.settings.featured_image_mobile | img_url: '760x' }}">
+                                <source media="(min-width: 1440px)" srcset="{{ block.settings.featured_image | img_url: '1440x' }}">
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ block.settings.featured_image | img_url: '1440x' }}" class="img-fluid lazyload d-block mx-auto" alt="{{ block.settings.featured_image.alt }}">
+                            </picture>
+                        </div>
+                        <div class="featured-description rte">{{block.settings.featured_description}}</div>
+                    </div>
+
+                {% when 'question' %}
+                    <div class="question-section">
+                        <div class="featured-image">
+                            <picture>
+                                <source media="(max-width: 767px)" srcset="{{ block.settings.featured_image_mobile | img_url: '360x' }}">
+                                <source media="(min-width: 1440px)" srcset="{{ block.settings.featured_image | img_url: '720x' }}">
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ block.settings.featured_image | img_url: '720x' }}" class="img-fluid lazyload d-block mx-auto" alt="{{ block.settings.featured_image.alt }}">
+                            </picture>
+                        </div>
+                        <div class="text-block">
+                            <div class="featured-title rte">{{block.settings.featured_title}}</div>
+                            <div class="featured-description">{{block.settings.featured_description}}</div>
+                        </div>
+                    </div>
+
+                {% when 'three_image_block' %}
+                    <div class="three-image-block">
+                        <div class="left-col">
+                            <picture>
+                                <source media="(max-width: 767px)" srcset="{{ block.settings.featured_image_one_mobile | img_url: '360x' }}">
+                                <source media="(min-width: 1440px)" srcset="{{ block.settings.featured_image_one | img_url: '720x' }}">
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ block.settings.featured_image_one | img_url: '720x' }}" class="img-fluid lazyload d-block mx-auto" alt="{{ block.settings.featured_image_one.alt }}">
+                            </picture>
+                        </div>
+                        <div class="right-col">
+                            <div class="image">
+                                <picture>
+                                    <source media="(max-width: 767px)" srcset="{{ block.settings.featured_image_two_mobile | img_url: '360x' }}">
+                                    <source media="(min-width: 1440px)" srcset="{{ block.settings.featured_image_two | img_url: '720x' }}">
+                                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ block.settings.featured_image_two | img_url: '720x' }}" class="img-fluid lazyload d-block mx-auto" alt="{{ block.settings.featured_image_two.alt }}">
+                                </picture>
+                            </div>
+                            <div class="image">
+                                <picture>
+                                    <source media="(max-width: 767px)" srcset="{{ block.settings.featured_image_three_mobile | img_url: '360x' }}">
+                                    <source media="(min-width: 1440px)" srcset="{{ block.settings.featured_image_three | img_url: '720x' }}">
+                                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ block.settings.featured_image_three | img_url: '720x' }}" class="img-fluid lazyload d-block mx-auto" alt="{{ block.settings.featured_image_three.alt }}">
+                                </picture>
+                            </div>
+                        </div>
+                    </div>
+
+                {% when 'question_reverse' %}
+                    <div class="question-section question-reverse">
+                        <div class="text-block">
+                            <div class="featured-title rte">{{block.settings.featured_title}}</div>
+                            <div class="featured-description">{{block.settings.featured_description}}</div>
+                        </div>
+                        <div class="featured-image">
+                            <picture>
+                                <source media="(max-width: 767px)" srcset="{{ block.settings.featured_image_mobile | img_url: '360x' }}">
+                                <source media="(min-width: 1440px)" srcset="{{ block.settings.featured_image | img_url: '720x' }}">
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ block.settings.featured_image | img_url: '720x' }}" class="img-fluid lazyload d-block mx-auto" alt="{{ block.settings.featured_image.alt }}">
+                            </picture>
+                        </div>
+                    </div>
+
+                {% when 'four_image_block' %}
+                    <div class="four-image-block">
+                        <div class="large-image">
+                            <picture>
+                                <source media="(max-width: 767px)" srcset="{{ block.settings.featured_image_one_mobile | img_url: '760x' }}">
+                                <source media="(min-width: 1440px)" srcset="{{ block.settings.featured_image_one | img_url: '1440x' }}">
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ block.settings.featured_image_one | img_url: '1440x' }}" class="img-fluid lazyload d-block mx-auto" alt="{{ block.settings.featured_image_one.alt }}">
+                            </picture>
+                        </div>
+                        <div class="double-image">
+                            <div class="image">
+                                <picture>
+                                    <source media="(max-width: 767px)" srcset="{{ block.settings.featured_image_two_mobile | img_url: '760x' }}">
+                                    <source media="(min-width: 1440px)" srcset="{{ block.settings.featured_image_two | img_url: '718x' }}">
+                                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ block.settings.featured_image_two | img_url: '718x' }}" class="img-fluid lazyload d-block mx-auto" alt="{{ block.settings.featured_image_two.alt }}">
+                                </picture>
+                            </div>
+                            <div class="image">
+                                <picture>
+                                    <source media="(max-width: 767px)" srcset="{{ block.settings.featured_image_three_mobile | img_url: '760x' }}">
+                                    <source media="(min-width: 1440px)" srcset="{{ block.settings.featured_image_three | img_url: '718x' }}">
+                                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ block.settings.featured_image_three | img_url: '718x' }}" class="img-fluid lazyload d-block mx-auto" alt="{{ block.settings.featured_image_three.alt }}">
+                                </picture>
+                            </div>
+                        </div>
+                        <div class="large-image">
+                            <picture>
+                                <source media="(max-width: 767px)" srcset="{{ block.settings.featured_image_four_mobile | img_url: '760x' }}">
+                                <source media="(min-width: 1440px)" srcset="{{ block.settings.featured_image_four | img_url: '1440x' }}">
+                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ block.settings.featured_image_four | img_url: '1440x' }}" class="img-fluid lazyload d-block mx-auto" alt="{{ block.settings.featured_image_four.alt }}">
+                            </picture>
+                        </div>
+                    </div>
+
+                {% when 'question_block' %}
+                    <div class="question-block text-center">
+                        <div class="question rte">{{block.settings.featured_question}}</div>
+                        <div class="answer">{{block.settings.featured_answer}}</div>
+                    </div>
+                
+                {% when 'link_block' %}
+                    <div class="question-block text-center">
+                        <a class="btn btn-secondary btn-lookbook" href="{{block.settings.button_url}}">{{block.settings.button_text}}</a>
+                    </div>
+ 
+                {% endcase %}
+            {% endfor %}
+        </div>
+	</div>
+</div>
+
+{% schema %}
+{
+  "name": "Baewatch Lookbook",
+	"settings": [
+		{
+			"type": "image_picker",
+			"id": "background",
+			"label": "Header Background Image",
+			"info": "Optimal image size: 1920 x 350"
+		}
+	],
+	"blocks": [
+		{
+			"type": "introduction",
+			"name": "Introduction Section",
+            "limit": 1,
+			"settings": [
+                {
+                    "type": "image_picker",
+                    "id": "featured_image",
+                    "label": "Introduction Image",
+                    "info": "Optimal image width size: 1440px"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "featured_image_mobile",
+                    "label": "Introduction Mobile Mobile",
+                    "info": "Optimal image width size: 760px"
+                },
+                {
+                    "type":      "richtext",
+                    "id":        "featured_description",
+                    "label":     "Introduction Description"
+                }
+			]
+		},
+        {
+			"type": "question",
+			"name": "Question + Image",
+            "limit": 1,
+			"settings": [
+                {
+                    "type": "image_picker",
+                    "id": "featured_image",
+                    "label": "Image",
+                    "info": "Optimal image width size: 720px"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "featured_image_mobile",
+                    "label": "Mobile Image",
+                    "info": "Optimal image width size: 360px"
+                },
+                {
+                    "type":      "text",
+                    "id":        "featured_title",
+                    "label":     "Question"
+                },
+                {
+                    "type":      "richtext",
+                    "id":        "featured_description",
+                    "label":     "Answer"
+                }
+			]
+		},
+        {
+			"type": "three_image_block",
+			"name": "3 Image Block",
+            "limit": 1,
+			"settings": [
+                {
+                    "type": "image_picker",
+                    "id": "featured_image_one",
+                    "label": "Image 1",
+                    "info": "Optimal image ratio is 720 x 872px"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "featured_image_one_mobile",
+                    "label": "Image 1 Mobile",
+                    "info": "Optimal image ratio is 360 x 436px"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "featured_image_two",
+                    "label": "Image 2",
+                    "info": "Optimal image ratio is 720 x 444px"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "featured_image_two_mobile",
+                    "label": "Image 2 Mobile",
+                    "info": "Optimal image ratio is 360 x 216px"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "featured_image_three",
+                    "label": "Image 3",
+                    "info": "Optimal image ratio is 720 x 444px"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "featured_image_three_mobile",
+                    "label": "Image 3 Mobile",
+                    "info": "Optimal image ratio is 360 x 216px"
+                }
+			]
+		},
+        {
+			"type": "question_reverse",
+			"name": "Question + Image Reversed",
+            "limit": 1,
+			"settings": [
+                {
+                    "type": "image_picker",
+                    "id": "featured_image",
+                    "label": "Image",
+                    "info": "Optimal image width size: 720px"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "featured_image_mobile",
+                    "label": "Mobile Image",
+                    "info": "Optimal image width size: 360px"
+                },
+                {
+                    "type":      "text",
+                    "id":        "featured_title",
+                    "label":     "Question"
+                },
+                {
+                    "type":      "richtext",
+                    "id":        "featured_description",
+                    "label":     "Answer"
+                }
+			]
+		},
+        {
+			"type": "four_image_block",
+			"name": "4 Image Block",
+            "limit": 1,
+			"settings": [
+                {
+                    "type": "image_picker",
+                    "id": "featured_image_one",
+                    "label": "Image 1",
+                    "info": "Optimal image width size: 1440px"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "featured_image_one_mobile",
+                    "label": "Image 1 Mobile",
+                    "info": "Optimal image width size: 760px"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "featured_image_two",
+                    "label": "Image 2",
+                    "info": "Optimal image width size: 718px"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "featured_image_two_mobile",
+                    "label": "Image 2 Mobile",
+                    "info": "Optimal image width size: 760px"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "featured_image_three",
+                    "label": "Image 3",
+                    "info": "Optimal image width size: 718px"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "featured_image_three_mobile",
+                    "label": "Image 3 Mobile",
+                    "info": "Optimal image width size: 760px"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "featured_image_four",
+                    "label": "Image 4",
+                    "info": "Optimal image width size: 1440px"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "featured_image_four_mobile",
+                    "label": "Image 4 Mobile",
+                    "info": "Optimal image width size: 760px"
+                }
+			]
+		},
+        {
+			"type": "question_block",
+			"name": "Q&A Block",
+			"settings": [
+                {
+                    "type":      "text",
+                    "id":        "featured_question",
+                    "label":     "Question"
+                },
+                {
+                    "type":      "richtext",
+                    "id":        "featured_answer",
+                    "label":     "Answer"
+                }
+			]
+		},
+        {
+			"type": "link_block",
+			"name": "Link",
+            "limit": 1,
+			"settings": [
+                {
+                    "type":      "text",
+                    "id":        "button_text",
+                    "label":     "Button Text"
+                },
+                {
+                    "type":      "url",
+                    "id":        "button_url",
+                    "label":     "Button Link"
+                }
+			]
+		}       
+	]
+}
+{% endschema %}

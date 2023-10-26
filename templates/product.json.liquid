@@ -1,0 +1,17 @@
+{% layout none %}{
+    "product": [
+        {
+            "id":"{{product.id}}",
+            "title":"{{product.title}}",
+            "available":"{{product.available}}",
+            "handle":"{{ product.url | within: collection }}",
+            "compare_at_price_max":"{{product.compare_at_price_max}}",
+            "price":"{{product.price}}",
+            {% for tag in product.tags %}{% if tag contains 'colour_' %}"colour":"{{tag | remove: "colour_" | replace: " ", "_" | downcase }}",{% endif %}{% endfor %}
+            {% for tag in product.tags %}{% if tag contains 'pg_' %}"product_group":"{{tag | downcase }}",{% endif %}{% endfor %}
+            "option_title":"{% for option in product.options limit:1 %}{% if forloop.last == true %}{{option}}{% endif %}{% endfor%}",
+            "variants":[ {% for variant in product.variants %}{"id":"{{variant.id}}","title":"{{variant.title}}","available":"{% if variant.inventory_quantity > 0 %}true{% else %}false{% endif %}","price":"{{variant.price}}","compare_at_price":"{{variant.compare_at_price}}","preorder":"{% if variant.inventory_quantity > 0 and variant.inventory_policy == "continue" %}true{% else %}false{% endif %}","incoming_date":"{% if variant.incoming %}{{ variant.next_incoming_date | date:'%B %d, %Y'}}{% endif %}"}{% if forloop.last == false %},{% endif %}{% endfor%} ],
+            "images":[ {% for image in product.images %}{"src_thumbnail":"{{image.src | img_url: '400x'}}","src":"{{image.src | img_url: '600x'}}","src_large":"{{image.src | img_url: '850x'}}"}{% if forloop.last == false %},{% endif %}{% endfor%} ]
+        }
+    ]
+}

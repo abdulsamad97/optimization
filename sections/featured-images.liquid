@@ -1,0 +1,184 @@
+{% if section.settings.title != blank %}
+<div class="row">
+    <div class="col-12 text-center text-uppercase banner_img_mob">
+        <div class="h2_title">{{section.settings.title}}</div>
+    </div><!-- col -->
+</div><!-- row -->       
+{% endif %}
+<div class="container featured-gallery-container">
+  <div class="row">
+    {% for block in section.blocks %}
+    {% case block.type %}
+    {% when 'image' %}
+
+        <div class="featured-gallery-item">
+            <div class="featured-gallery-image">
+                {% if block.settings.link != blank %}
+                <a href="{{block.settings.link}}" title="{{block.settings.title}}">
+                {% endif %}
+
+                {% if block.settings.image != blank %}
+                 <picture>
+                    <source data-srcset="{{ block.settings.image | img_url: '200x' }}" media="(max-width: 390px)" />
+                    <source data-srcset="{{ block.settings.image | img_url: '540x' }}" media="(max-width: 540px)" />
+                    <source data-srcset="{{ block.settings.image | img_url: '650x' }}" media="(min-width: 541px) and (max-width:600px)" />
+                    <source data-srcset="{{ block.settings.image | img_url: '750x' }}" media="(min-width: 601px) and (max-width:992px)" />
+                    <source data-srcset="{{ block.settings.image | img_url: '950x' }}" media="(min-width: 993px)" />
+                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ block.settings.image | img_url: '650x' }}" class="img-fluid lazyload" alt="{{block.settings.title}}" width="200" height="200"/>
+                </picture>
+                {% else%}
+                    {{ 'image' | placeholder_svg_tag: 'no-image img-fluid' }}
+                {% endif%}
+
+                {% if block.settings.link != blank %}
+                </a>
+                {% endif %}
+            </div>
+        </div><!-- featured-gallery-item -->
+
+    {% when 'video' %}
+
+        {% if block.settings.video_url != blank %}
+            {% capture videoOptions %}autoplay muted{% endcapture %}
+        {% else %}
+            {% capture videoOptions %}{% if block.settings.video_controls == true %}controls {% endif %}{% if block.settings.video_autoplay == true %}autoplay {% endif %}{% if block.settings.video_muted == true %}muted{% endif %}{% endcapture %}
+        {% endif %}
+
+        <div class="featured-gallery-item video{% if block.settings.video_url != blank %} video-link{% endif %}">
+        {% if block.settings.video_url != blank %}<a href="{{block.settings.video_url}}">{% endif %}
+            <video {{videoOptions}} {% if block.settings.video_mobile == true %}playsinline {% endif %}{% if block.settings.video_loop == true %}loop {% endif%}{% if block.settings.video_url == blank and block.settings.video_controls == true %}controlsList="nofullscreen nodownload"{% endif %} src="{{block.settings.video_source}}" {% if block.settings.video_url == blank and block.settings.video_autoplay == false %}preload="none"{% endif %}> </video>
+            {% if block.settings.video_url != blank %}</a>{% endif %}
+        </div><!-- hero-item -->
+
+    {% endcase %}
+    {% endfor %}
+
+</div>
+</div>
+<!-- container -->
+
+
+{% schema %}
+{
+    "name": "Featued Image",
+    "tag": "div",
+    "class": "featured-gallery",
+    "settings": [
+        {
+            "type": 	"text",
+            "id": 		"title",
+            "label": 	"Title"
+        }
+    ],
+    "blocks": [
+		{
+			"type": "image",
+			"name": "Image",
+			"settings": [
+			    {
+					"type": 	"image_picker",
+				 	"id": 		"image",
+				 	"label": 	"Image"
+				},
+                {
+                    "type":      "url",
+                    "id":        "link",
+                    "label":     "Link"
+                },
+                {
+                    "type":      "text",
+                    "id":        "title",
+                    "label":     "Alt Text",
+                    "info":      "Description text for the image/link for SEO."
+                }
+			]
+		},
+        {
+			"type": "video",
+			"name": "Video",
+			"settings": [
+                {
+                    "type": 	"header",
+                    "content": 	"Adding a Video"
+                },
+                {
+                    "type":     "paragraph",
+                    "content":  "Please upload your video file to the [Files section](https://public-desire-uk.myshopify.com/admin/settings/files). Then paste the URL below."
+                },
+				{
+					"type":     "text",
+					"id":       "video_source",
+					"label":    "Video URL"
+				},
+                {
+                    "type": 	"header",
+                    "content": 	"Video Options"
+                },
+                {
+                    "type":     "checkbox",
+                    "id":       "video_controls",
+                    "default":  true,
+                    "label":    "Controls?",
+                    "info":     "Please note some browsers might not respect this parameter."
+                },
+                {
+                    "type":     "checkbox",
+                    "id":       "video_autoplay",
+                    "default":  true,
+                    "label":    "Autoplay?"
+                },
+                {
+                    "type":     "checkbox",
+                    "id":       "video_muted",
+                    "default":  true,
+                    "label":    "Muted?"
+                },
+                {
+                    "type":     "checkbox",
+                    "id":       "video_loop",
+                    "default":  true,
+                    "label":    "Loop?"
+                },
+                {
+                    "type":     "checkbox",
+                    "id":       "video_mobile",
+                    "default":  true,
+                    "label":    "Inline Mobile Video?",
+                    "info":     "If the mobile device supports it, play the video inline, rather than fullscreen"
+                },
+                {
+                    "id":       "video_url",
+                    "type":     "url", 
+                    "label":    "Video Link",
+                    "info":     "Where should the video link too?, if this option has a value, it will automatically mute the video and hide the controls."
+                }
+			]
+		}
+	],
+	"presets": [
+    {
+      "name": "Featured Images",
+      "category": "Images"
+    }
+  ]
+	
+}
+{% endschema %}
+
+
+<style>
+  .h2_title{
+    color: #fff;
+    margin: 0.5em 0 0.5em;
+    font-size: 2.5rem;
+    line-height: 1.2;
+    font-family: Helvetica, Sans-Serif;
+    font-weight: bold;
+  }
+  @media (max-width: 575.98px){
+    .h2_title{
+      font-size: 1.5rem;
+    }
+  }
+  
+</style>

@@ -1,0 +1,491 @@
+<script type="text/javascript">
+
+  var _support = _support || { 'ui': {}, 'user': {} };
+
+  _support['account'] = 'publicdesire-usa';
+
+</script>
+<div class="container-fluid py-3">
+	<div class="row">
+		<div class="col-12 text-v-small">{% include 'breadcrumbs' %}</div>
+	</div><!-- row -->
+</div><!-- container -->
+
+<header class="page-header{% if section.settings.background %} image lazyload {%endif%}" {% if section.settings.background %} data-bgset="{% include 'responsive-bg-image', image: section.settings.background %}"{% endif %}>
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-12 mb-md-0 col-md-8 col-lg-6 mx-auto text-center">
+				<h1>{{ page.title }}</h1>
+			</div>
+		</div><!-- row -->
+	</div>
+</header>
+
+<div class="container">
+	<div class="row mb-5">
+		<div class="col-12 col-md-9 mx-auto">
+			<div class="row no-gutters">
+				{% if page.content != blank %}
+					<div class="col-12 mt-4">
+						<div class="rte text-md-center mb-4 size-guide-rte">
+							{{page.content}}
+						</div>
+					</div>
+				{% endif %}
+             	 {% comment %}
+				<div class="faq-accordion-container mt-5">
+					<div class="faq-accordion-item active">
+						<div class="faq-accordion-title">
+							<h3>Payments{% render 'icon-chevron-down'%}</h3>
+						</div>
+						<div class="faq-accordion-content">
+							{% for block in section.blocks %}
+								{% case block.type %}
+								{% when 'payment_faq' %}
+									<div class="accordion-item">
+										<div class="accordion-title">
+											<h3>{{ block.settings.faq_title }}{% render 'icon-chevron-down'%}</h3>
+										</div><!-- accordion-title -->
+										<div class="accordion-content">
+											<div class="rte">
+												{{ block.settings.faq_content }}
+											</div>
+										</div><!-- accordion-content -->
+									</div><!-- accordion-item -->
+								{% endcase %}
+							{% endfor %}
+						</div>
+					</div>
+					<div class="faq-accordion-item">
+						<div class="faq-accordion-title">
+							<h3>Orders{% render 'icon-chevron-down'%}</h3>
+						</div>
+						<div class="faq-accordion-content">
+							{% for block in section.blocks %}
+								{% case block.type %}
+								{% when 'preorder_faq' %}
+									<div class="accordion-item">
+										<div class="accordion-title">
+											<h3>{{ block.settings.faq_title }}{% render 'icon-chevron-down'%}</h3>
+										</div><!-- accordion-title -->
+										<div class="accordion-content">
+											<div class="rte">
+												{{ block.settings.faq_content }}
+											</div>
+										</div><!-- accordion-content -->
+									</div><!-- accordion-item -->
+								{% endcase %}
+							{% endfor %}
+						</div>
+					</div>
+					<div class="faq-accordion-item">
+						<div class="faq-accordion-title">
+							<h3>Delivery{% render 'icon-chevron-down'%}</h3>
+						</div>
+						<div class="faq-accordion-content">
+							{% for block in section.blocks %}
+								{% case block.type %}
+								{% when 'delivery_faq' %}
+									<div class="accordion-item">
+										<div class="accordion-title">
+											<h3>{{ block.settings.faq_title }}{% render 'icon-chevron-down'%}</h3>
+										</div><!-- accordion-title -->
+										<div class="accordion-content">
+											<div class="rte">
+												{{ block.settings.faq_content }}
+											</div>
+										</div><!-- accordion-content -->
+									</div><!-- accordion-item -->
+								{% endcase %}
+							{% endfor %}
+						</div>
+					</div>
+					<div class="faq-accordion-item">
+						<div class="faq-accordion-title">
+							<h3>Returns{% render 'icon-chevron-down'%}</h3>
+						</div>
+						<div class="faq-accordion-content">
+							{% for block in section.blocks %}
+								{% case block.type %}
+								{% when 'returns_faq' %}
+									<div class="accordion-item">
+										<div class="accordion-title">
+											<h3>{{ block.settings.faq_title }}{% render 'icon-chevron-down'%}</h3>
+										</div><!-- accordion-title -->
+										<div class="accordion-content">
+											<div class="rte">
+												{{ block.settings.faq_content }}
+											</div>
+										</div><!-- accordion-content -->
+									</div><!-- accordion-item -->
+								{% endcase %}
+							{% endfor %}
+						</div>
+					</div>
+					<div class="faq-accordion-item">
+						<div class="faq-accordion-title">
+							<h3>Technical / Account{% render 'icon-chevron-down'%}</h3>
+						</div>
+						<div class="faq-accordion-content">
+							{% for block in section.blocks %}
+								{% case block.type %}
+								{% when 'technical_faq' %}
+									<div class="accordion-item">
+										<div class="accordion-title">
+											<h3>{{ block.settings.faq_title }}{% render 'icon-chevron-down'%}</h3>
+										</div><!-- accordion-title -->
+										<div class="accordion-content">
+											<div class="rte">
+												{{ block.settings.faq_content }}
+											</div>
+										</div><!-- accordion-content -->
+									</div><!-- accordion-item -->
+								{% endcase %}
+							{% endfor %}
+						</div>
+					</div>
+                  <div class="faq-accordion-item">
+						<div class="faq-accordion-title">
+							<h3>Contact Us{% render 'icon-chevron-down'%}</h3>
+						</div>
+						<div class="faq-accordion-content">
+							{% for block in section.blocks %}
+								{% case block.type %}
+								{% when 'contact_faq' %}
+									<div class="accordion-item">
+										<div class="accordion-title">
+											<h3>{{ block.settings.faq_title }}{% render 'icon-chevron-down'%}</h3>
+										</div><!-- accordion-title -->
+										<div class="accordion-content">
+											<div class="rte">
+												{{ block.settings.faq_content }}
+											</div>
+										</div><!-- accordion-content -->
+									</div><!-- accordion-item -->
+								{% endcase %}
+							{% endfor %}
+						</div>
+					</div>
+                  
+                  
+                  
+				</div>
+              {% endcomment %}
+			</div>		
+		</div>
+	</div>
+</div>
+
+{% schema %}
+{
+  "name": "FAQ",
+	"settings": [
+		{
+			"type": "image_picker",
+			"id": "background",
+			"label": "Header Background Image",
+			"info": "Optimal image size: 1920 x 350"
+		}
+	],
+  "blocks": [
+		{
+			"type": "payment_faq",
+			"name": "Payments FAQ",
+			"settings": [
+				{
+					"type": "text",
+					"id": "faq_title",
+					"label": "FAQ Title"
+				},
+				{
+					"type": "richtext",
+					"id": "faq_content",
+					"label": "FAQ Content"
+				}
+			]
+		},
+		{
+			"type": "preorder_faq",
+			"name": "Orders FAQ",
+			"settings": [
+				{
+					"type": "text",
+					"id": "faq_title",
+					"label": "FAQ Title"
+				},
+				{
+					"type": "richtext",
+					"id": "faq_content",
+					"label": "FAQ Content"
+				}
+			]
+		},
+		{
+			"type": "returns_faq",
+			"name": "Returns FAQ",
+			"settings": [
+				{
+					"type": "text",
+					"id": "faq_title",
+					"label": "FAQ Title"
+				},
+				{
+					"type": "richtext",
+					"id": "faq_content",
+					"label": "FAQ Content"
+				}
+			]
+		},
+		{
+			"type": "technical_faq",
+			"name": "Technical / Account FAQ",
+			"settings": [
+				{
+					"type": "text",
+					"id": "faq_title",
+					"label": "FAQ Title"
+				},
+				{
+					"type": "richtext",
+					"id": "faq_content",
+					"label": "FAQ Content"
+				}
+			]
+		},
+	{
+			"type": "delivery_faq",
+			"name": "Delivery FAQ",
+			"settings": [
+				{
+					"type": "text",
+					"id": "faq_title",
+					"label": "FAQ Title"
+				},
+				{
+					"type": "richtext",
+					"id": "faq_content",
+					"label": "FAQ Content"
+				}
+			]
+		},
+
+
+		{
+			"type": "contact_faq",
+			"name": "Contact Us FAQ",
+			"settings": [
+				{
+					"type": "text",
+					"id": "faq_title",
+					"label": "FAQ Title"
+				},
+				{
+					"type": "richtext",
+					"id": "faq_content",
+					"label": "FAQ Content"
+				}
+			]
+		}
+  ]
+}
+{% endschema %}
+
+
+
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What Cards Can I Use to Place an Order?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We accept all major credit and debit cards. We also accept payment via PayPal and payments by Amazon."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Do You Accept Paypal?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, we accept payment via PayPal."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is My Payment Information Safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Payment information is processed securely by accredited third parties such as PayPal, Amazon and Stripe. No payment information is transferred to or held by Public Desire Limited. All transactions take place via connections secured with the latest industry standard security protocols."
+        }
+      }, {
+        "@type": "Question",
+        "name": "What Currencies Do You Accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We accept payments in pounds Sterling, US dollars, Euros and Australian dollars."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Why has my Payment Failed?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"Your order will only be confirmed if the payment has been successfully processed. If you have entered incorrect card details, please try again and double check the information you are inputting. Please contact us if you would like assistance in placing your order."}
+        }, {
+        "@type": "Question",
+        "name": "Pre-Orders",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"If you place an order which includes an item on pre-order, please note your order won’t be shipped until the pre-order item arrives into stock and you will receive all items within your order in one shipment. Should you wish to receive any other items first, then you would need to process this in a separate order."}
+        },{
+        "@type": "Question",
+        "name": "How do I Know My Order Has Completed?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"You will receive a confirmation email once your order has completed to the email provided. This may be in your spam/ trash folder, please check. Please make sure to check this is the correct email as we are unable to amend this once the order is completed."}
+        },{
+        "@type": "Question",
+        "name": "Can A Discount Code Be Added If I Forget?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"Unfortunately, once the order has been placed, this can no longer be added. You can always use the code if still valid on your next purchase."}
+        },{
+        "@type": "Question",
+        "name": "Can I Change/Cancel My Order?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"Once the order has been placed, unfortunately, we are unable to make any amendments as we try to process the order as quickly as we can. If you do need to make any changes, please contact our customer services team help@publicdesire.co.uk and we will try to assist although this cannot be guaranteed."}
+        },{
+        "@type": "Question",
+        "name": "What are my Delivery options to the US?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"We have two options for US delivery. Tracked delivery is $9.95 and takes 6-8 working days. Express delivery which is $14.95 and delivered within 2 working days using Fedex."}
+        },{
+        "@type": "Question",
+        "name": "I Have Not Received My Order, What Should I Do?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"You can check your tracking information in the email we have sent to you confirming your order has been shipped. If you cannot find your tracking details, please email us on help@publicdesire.co.uk where our team will be happy to help."}
+        },{
+        "@type": "Question",
+        "name": "Do You Deliver to Work Addresses?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"Yes, we deliver to work addresses. When you are in checkout, please enter your work address in the shipping details section."}
+        },{
+        "@type": "Question",
+        "name": "Do You Deliver to BFPO?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"Yes, we deliver to BFPO addresses. when you are in checkout, please enter the appropriate address in the shipping details section."}
+        },{
+        "@type": "Question",
+        "name": "My Tracking Shows as Delivered, But I Have Not Received My Order?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"If the tracking is showing as delivered but you have not received your order, please in the first instance check with members of your household, neighbours or a safe place. If you have still not received your order, we will need to contact the courier on your behalf. Please email us on help@publicdesire.co.uk with your name, order number, address details and we can then look into this for you."}
+        },{
+        "@type": "Question",
+        "name": "My Item Has Been Returned to You As 'Undelivered'",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"Our couriers attempt to deliver twice before returning items back to us as undelivered. However, these will be automatically refunded once received."}
+        },{
+        "@type": "Question",
+        "name": "Which Countries Do You Deliver To?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"You can find the current list of countries we can deliver to on our delivery page."}
+        },{
+        "@type": "Question",
+        "name": "How Long Do I Have to Return an Item?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"You can return your item within 60 days provided the product is in its original, unused condition."}
+        },{
+        "@type": "Question",
+        "name": "How Do I Return an Item?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"Please follow the instructions displayed on our returns page."}
+        },{
+        "@type": "Question",
+        "name": "Can I Send My Item Back for An Exchange?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"Unfortunately, we are no longer able to offer exchanges. If you require an alternative item, we recommend placing a new order and returning your unwanted shoes to us."}
+        },{
+        "@type": "Question",
+        "name": "How Long Does It Take to Process My Return?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"Please allow 10 working days from receipt of your return for it to be processed."}
+        },{
+        "@type": "Question",
+        "name": "I Have Lost My Returns Form, Can I Still Return My Item?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"If you do not have a returns form, you can include a note with your return. This must have your full name, address, email address, order number and reason for return. If you do not include a cover note, we will be unable to process your return until you contact us via email."}
+        },{
+        "@type": "Question",
+        "name": "I Have Received a Faulty Item",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"We are very sorry to hear about this, please can you send an email to our help team with your name, address, order number and a picture of your item and our team will be happy to assist you further. Our email is help@publicdesire.co.uk."}
+        },{
+        "@type": "Question",
+        "name": "I Have Received the Wrong Product",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"We are very sorry to hear about this, please can you send an email to our help team, with your name, address, order number and a picture of your item and our team will be happy to assist you further. Our email is help@publicdesire.co.uk."}
+        },{
+        "@type": "Question",
+        "name": "I Can't Sign into My Account",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"If you are unable to access your account, please check that you are using the correct email address and password to sign into your account. You can use the forgotten password link to reset your password. If this does not help, please email us on help@publicdesire.co.uk."}
+        },{
+        "@type": "Question",
+        "name": "I Have Not Received a Confirmation Email",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"If you have not received a confirmation email, please check your spam/trash folder and add us to your safe senders list. If you still cannot find the email then email us on help@publicdesire.co.uk and we will resend this email to you."}
+        },{
+        "@type": "Question",
+        "name": "My Payment Has Been Declined, Why?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"When entering your card details, please ensure that you enter the correct details including the billing address. If your card is still being declined it indicates your bank is rejecting the payment and if you contact them, they will be able to lift any block on the transaction and allow you to process the payment and complete your order. If you need further assistance, please email us on help@publicdesire.co.uk including your name, email address and type of card that you are using to place the order and we will help to get this resolved for you."}
+        },{
+        "@type": "Question",
+        "name": "Why has my Payment Failed?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"Your order will only be confirmed if the payment has been successfully processed. If you have entered incorrect card details, please try again and double check the information you are inputting. Please contact us if you would like assistance in placing your order."}
+        },{
+        "@type": "Question",
+        "name": "I Am Not Receiving Your Newsletters",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"If you have signed up to receive our newsletters and have not received them, they may be going to your spam/ trash folder. To correct this, please add mail@e-publicdesire.com to your address book or safe email list."}
+        },{
+        "@type": "Question",
+        "name": "I'm A Blogger, How Can I Work with Public Desire?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"If you're a fashion blogger interested in working with us, please fill out the form here."}
+        },{
+        "@type": "Question",
+        "name": "I Have a Press / Marketing Enquiry?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"Any press or marketing enquiries can be submitted using the form here."}
+        },{
+        "@type": "Question",
+        "name": "How Can I Get in Touch with You?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text":"You can contact us by emailing us on help@publicdesire.co.uk we aim to get back to you within 48 hours. If you prefer to write to us, you can do so by writing to Public Desire, Studio House, 40 Invar Road, Swinton, Manchester, M27 9HF."}
+        }]
+    }
+    </script>

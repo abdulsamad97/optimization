@@ -1,0 +1,54 @@
+<div class="container-fluid px-0">
+    <div class="row no-gutters">
+        <div class="col-12">
+            <picture>
+                <source media="(max-width: 767px)" srcset="{{ section.settings.mobile_image | img_url: '760x' }}">
+                <source media="(min-width: 1440px)" srcset="{{ section.settings.desktop_image | img_url: '1920x' }}">
+                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ section.settings.desktop_image | img_url: '1920x' }}" class="img-fluid lazyload d-block mx-auto" alt="{{ section.settings.desktop_image.alt }}">
+            </picture>
+        </div>
+    </div>
+</div>
+
+<div class="container">                        
+	<div class="row mb-5">
+		<div class="col-12 mx-auto">
+			<div class="row no-gutters">
+				{% if page.content != blank %}
+					<div class="col-12 mt-5">
+						<div class="rte text-md-center mb-4">
+							{{page.content}}
+                            <a href="{{section.settings.button_link}}" class="btn btn-secondary btn-affiliate">SIGN UP STRAIGHT AWAY</a>
+						</div>
+					</div>
+				{% endif %}
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+{% schema %}
+{
+  "name": "Affiliate",
+	"settings": [
+		{
+            "type":     "image_picker",
+            "id":       "desktop_image",
+            "label":    "Desktop Image",
+            "info":     "Landscape images work best for desktop. We wouldn't recommend exceeding 1920px in width."
+        },
+        {
+            "type":     "image_picker",
+            "id":       "mobile_image",
+            "label":    "Mobile Image",
+            "info":     "Portrait images work best for mobile. We wouldn't recommend exceeding 760px in width."
+        },
+        {
+            "type":      "url",
+            "id":        "button_link",
+            "label":     "Button Link"
+        }
+	]
+}
+{% endschema %}

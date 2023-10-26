@@ -1,0 +1,969 @@
+{% paginate collection.products by 12 %}
+
+<div class="container-fluid py-3">
+	<div class="row">
+		<div class="col-12">{% include 'breadcrumbs' %}</div>
+	</div><!-- row -->
+</div><!-- container -->
+
+<header class="page-header">
+	<div class="container">
+		<div class="row align-items-center">
+			{% if collection.handle == 'tiktok-shop' %}
+    <div class="col-12 mx-auto text-center tiktok-head">
+    <img src="https://cdn.shopify.com/s/files/1/0361/8422/7971/files/tiktok.png?v=1674830228" class="tiktok-icon"/>
+    <h1 class="{% if collection.title != blank %}cat-has-desc{% endif %}" >{{ collection.title }}</h1>
+    </div>
+    {% else %}
+    <div class="col-12 mx-auto text-center drop-arrow-wrap">
+    <h1 class="{% if collection.title != blank %}cat-has-desc{% endif %}" >{{ collection.title }} 
+                  <img src="{{ 'down-arrow.png' | asset_img_url }}" class="dwn-arow"/>
+              	  <img src="{{ 'up-arrow.png' | asset_img_url }}" class="up-arow"/>
+              	</h1>
+    </div>
+    {% endif %}
+		</div><!-- row -->
+	</div>
+</header>
+<div class="collection-description nnnnn">
+	<div class="container">
+		<div class="row">
+			<div class="col-12 mx-auto">
+				 {% comment %}
+				{% if collection.description != blank %}
+					<div class="rte text-center pt-3 mb-2 mobile-desc">
+					{{ collection.description }}
+					</div>
+				{% endif %}
+                   {% endcomment %}
+                {% if collection.description != blank %}
+					<div class="rte text-center mb-2 mobile-desc mobile-view-info">
+                     {% if collection.description.size > 100 %}
+                    <div class="collect_description-short-mob rte text-center pt-3 mb-2 mobile-desc">
+                       <div class="desc-holder-short">
+                    <span>{{ collection.description | truncatewords: 7 }}</span><a class="collect_readmore_mob" href="#">Show more ></a>
+                       </div>
+                    </div>
+                    <div class="collect_description-full-mob rte text-center pt-3 mb-2 mobile-desc" style="display:none;">
+                    {{ collection.description }}
+                    <br><a class="collect_readless_mob" href="#">< Show less</a>
+                    </div>
+                    {% else %}
+                       <div class="rte text-center pt-3 mb-2 mobile-desc mobile-view-info">
+                        {{ collection.description }}
+                       </div>
+                    {% endif %} 
+                    </div>
+                  <div class="rte text-center pt-3 mb-2 mobile-desc desktop-view-info">
+                    {% if collection.description.size > 100 %}
+                    <div class="collect_description-short rte text-center pt-3 mb-2 mobile-desc">
+                    {{ collection.description | truncatewords: 22, "<br>" }}<a class="collect_readmore" href="#">ReadMore ></a>
+                    </div>
+                    <div class="collect_description-full rte text-center pt-3 mb-2 mobile-desc" style="display:none;">
+                    {{ collection.description }}
+                    <br><a class="collect_readless" href="#">< ReadLess</a>
+                    </div>
+                    {% else %}
+                       <div class="rte text-center pt-3 mb-2 mobile-desc mobile-view-info">
+                    {{ collection.description }}
+                       </div>
+                    {% endif %} 
+                    </div>
+				{% endif %}
+			</div><!-- col -->
+		</div><!-- row -->
+		<div class="row">
+			<div class="col mt-lg-0 text-center">
+				<span class="collection-read-more">Read More</span>
+			</div>
+		</div>
+	</div><!-- container -->
+</div>
+{% if linklists[collection.handle].links != blank %}
+<div class="container no-gutters gutters-md">
+  <div class="row">
+    <ul class="subcat-listing">
+    {% for link in linklists[collection.handle].links %}
+      <li><a href="{{ link.url}}">{{ link.title | upcase }}</a></li>
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endif %}
+
+
+<div class="collection-listing mt-3 mt-lg-5">
+	<div class="container no-gutters gutters-md">
+		<div class="row">
+			<div id="collection-filters" class="col-12">
+                <span class="collection-count d-lg-none"><span class="value">{{ collection.products_count }}</span> Result(s)</span>
+                <div id="filter-bar">
+                    <button id="btn-sort" class="btn-plain d-lg-none">Sort</button>
+                    <div id="bc-sf-filter-top-sorting"></div>
+                    <div id="collection-view" class="d-lg-none">
+                        <ul>
+                            <li class="active collection-view-grid">{% render 'icon-collection-view-grid'%}</li>
+                            <li class="collection-view-single">{% render 'icon-collection-view-single' %}</li>
+                        </ul>
+                    </div>
+                    <button id="btn-filter" class="btn-plain">{% render 'icon-filter' %} Filter</button>
+                    <div id="bc-sf-filter-tree"></div>
+                     <span class="collection-count d-none d-lg-inline-flex"><span class="value">{{ collection.products_count }}</span> Result(s)</span>
+                </div><!-- filter-bar -->
+			</div><!-- col -->
+
+			<div id="collection-products" class="col-12">
+                <div id="bc-sf-filter-products" class="collection-view-grid" data-total-product-count="{{ collection.products_count }}" data-image-ratio="{{section.settings.ratio}}" data-preorder-default="{{ 'products.product.pre-order-default' | t }}" data-preorder-date-message="{{ 'products.product.pre-order-date-one' | t }}" data-preorder-default-last="{{ 'products.product.pre-order-default-last' | t }}">
+                    {% for product in collection.products %}
+                        {% if product.available %}
+                            {% render 'product-listing' with product as product %}
+                        {% endif %}
+                    {% else %}
+                        <p>{{ 'collections.general.no_matches' | t }}</p>
+                    {% endfor %}
+                </div><!-- row -->
+			</div><!-- col -->
+        
+            <div id="collection-pagination" class="col-12">
+                <div id="bc-sf-filter-bottom-pagination"></div>
+                <div id="bc-sf-filter-load-more"></div>
+            </div><!-- col -->
+        </div><!-- row -->
+	</div><!-- cotainer -->
+</div><!-- Collection Listing -->
+
+<div class="collection-overlay"></div>
+
+{% endpaginate %}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  // Declare bcSfFilterConfig variable
+  var bcSfFilterConfig = {
+    label: {
+      sorting: {% assign temp = 'collections.sorting.title' | t  %} {% unless temp contains 'translation missing'  %} {{ temp | json }} {% else %} "Sort by:" {% endunless %},
+      sorting_best_selling: {% assign temp = collection.sort_options[1].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Best Selling" {% endunless %},
+      sorting_featured: {% assign temp = collection.sort_options[0].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Featured" {% endunless %},
+      sorting_title_ascending: {% assign temp = collection.sort_options[2].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Alphabetically, A-Z" {% endunless %},
+      sorting_title_descending: {% assign temp = collection.sort_options[3].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Alphabetically, Z-A" {% endunless %},
+      sorting_price_ascending: {% assign temp = collection.sort_options[4].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Lowest Price" {% endunless %},
+      sorting_price_descending: {% assign temp = collection.sort_options[5].name %} {% unless temp == nil %} {{ temp | json }} {% else %} "Highest Price" {% endunless %},
+      sorting_date_ascending: {% assign temp = collection.sort_options[6].name %} {% unless temp == nil  %} {{ temp | json }} {% else %} "Date, Old to New" {% endunless %},
+      sorting_date_descending: {% assign temp = collection.sort_options[7].name %} {% unless temp == nil  %} {{ temp | json }} {% else %} "Date, New to Old" {% endunless %},
+      sorting_relevance: {% assign temp = 'collections.sorting.relevance' | t %} {% unless temp contains 'translation missing'  %} {{ temp | json }} {% else %} "Relevance" {% endunless %},
+
+      sale: {{ 'products.product.on_sale' | t | json }},
+      sale_price: {{ 'products.product.sale_price' | t | json }},
+      sold_out: {{ 'products.product.sold_out' | t | json }},
+      vendor: {{ 'products.product.vendor' | t |json }},
+      regular_price: {{ 'products.product.regular_price' | t | json }},
+      items_with_count_one: {{ 'collections.general.items_with_count.one' | t | json}},
+      items_with_count_other: {{ 'collections.general.items_with_count.other' | t | json }},
+      current_page: {{ 'general.pagination.current_page' | t | json }},
+    },
+    custom: {
+      // Add custom value here
+    }
+  };
+  
+  
+     $( document ).ready(function() {
+    
+      //Get each product Div
+      $('div', '#bc-sf-filter-products').each(function (position, element) {
+       // console.log("posi:--"+position)
+ setTimeout(function(){
+        if(position == 7){
+         // alert(2);
+         	//$(".template-collection.new-in .product-listing:nth-child(8)").append("<div class='image8-info'><a href='/collections/kenza'><img src='https://cdn.shopify.com/s/files/1/0361/8422/7971/files/cols-img.jpg?v=1635928270'></a></div>");
+        /*
+          $(".template-collection.new-in .product-listing:nth-child(8)").append("<div class='image8-info'><a href='{{section.settings.newin-link}}'><img src='{{section.settings.collection-8-img |img_url: 'original'}}'></a></div>");
+          $(".template-collection.kenza .product-listing:nth-child(8)").append("<div class='image8-info'><a href='{{section.settings.collection-8-img-link}}'><img src='{{section.settings.collection-8-img |img_url: 'original'}}'></a></div>");
+          $(".template-collection.heels .product-listing:nth-child(8)").append("<div class='image8-info'><a href='{{section.settings.collection-8-img-link}}'><img src='{{section.settings.collection-8-img |img_url: 'original'}}'></a></div>");
+          $(".template-collection.ankle-boots .product-listing:nth-child(8)").append("<div class='image8-info'><a href='{{section.settings.collection-8-img-link}}'><img src='{{section.settings.collection-8-img |img_url: 'original'}}'></a></div>");
+          $(".template-collection.long-boots .product-listing:nth-child(8)").append("<div class='image8-info'><a href='{{section.settings.collection-8-img-link}}'><img src='{{section.settings.collection-8-img |img_url: 'original'}}'></a></div>");
+          $(".template-collection.perspex .product-listing:nth-child(8)").append("<div class='image8-info'><a href='{{section.settings.collection-8-img-link}}'><img src='{{section.settings.collection-8-img |img_url: 'original'}}'></a></div>");
+          $(".template-collection.slippers .product-listing:nth-child(8)").append("<div class='image8-info'><a href='{{section.settings.collection-8-img-link}}'><img src='{{section.settings.collection-8-img |img_url: 'original'}}'></a></div>");
+          $(".template-collection.wide-fit .product-listing:nth-child(8)").append("<div class='image8-info'><a href='{{section.settings.collection-8-img-link}}'><img src='{{section.settings.collection-8-img |img_url: 'original'}}'></a></div>");
+          $(".template-collection.flats .product-listing:nth-child(8)").append("<div class='image8-info'><a href='{{section.settings.collection-8-img-link}}'><img src='{{section.settings.collection-8-img |img_url: 'original'}}'></a></div>");
+          $(".template-collection.sale .product-listing:nth-child(8)").append("<div class='image8-info'><a href='{{section.settings.collection-8-img-link}}'><img src='{{section.settings.collection-8-img |img_url: 'original'}}'></a></div>");
+          $(".template-collection.accessories .product-listing:nth-child(8)").append("<div class='image8-info'><a href='{{section.settings.collection-8-img-link}}'><img src='{{section.settings.collection-8-img |img_url: 'original'}}'></a></div>");
+          $(".template-collection.collections .product-listing:nth-child(8)").append("<div class='image8-info'><a href='{{section.settings.collection-8-img-link}}'><img src='{{section.settings.collection-8-img |img_url: 'original'}}'></a></div>");
+        */
+        }
+       }, 3000);   
+      });  
+       // default open toggle description on mobile view
+       
+       $("h1.cat-has-desc").addClass("active");
+       $(".collection-description.nnnnn").css("display","block"); 
+   });
+</script>
+
+
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    {
+        "type":         "select",
+        "id":           "ratio",
+        "label":        "Fixed Ratio?",
+        "options": [
+            {
+                "value": "fixed-ratio square-crop",
+                "label": "Square (4x4 Cropped)"
+            },
+            {
+                "value": "fixed-ratio square",
+                "label": "Square (4x4)"
+            },
+            {
+                "value": "fixed-ratio portrait-crop",
+                "label": "Portrait (4x5 Cropped)"
+            },
+            {
+                "value": "fixed-ratio portrait",
+                "label": "Portrait (4x5)"
+            },
+            {
+                "value": "",
+                "label": "No Set Ratio"
+            }
+        ],
+        "default":   "fixed-ratio square",
+        "info":      "Force image consistency with a ratio"
+    },
+    {
+        "id": "collection-8-img",
+        "type": "image_picker",
+        "label": "Image After 8 products"
+        },
+        {
+        "type": "url",
+        "id": "collection-8-img-link",
+        "label": "Image Link"
+        },
+        {
+        "type": "url",
+        "id": "newin-link",
+        "label": "New In collection Link"
+        }
+
+
+	]
+}
+{% endschema %}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $( document ).ready(function() {
+    var path =$(location).attr('href');
+    //alert(path);
+    
+     url = path.split("/");
+    //alert('https://'+url[2]+'/collections/amber-rose-gill');
+    setTimeout(function(){
+      
+     if(path == 'https://'+url[2]+'/collections/amber-rose-gill'){
+      $("#collection-products #bc-sf-filter-products .product-listing .product-image a").append('<span class="amber_rose">Amber X PD</span>');
+      }
+ 
+      $("#bc-sf-filter-load-more .bc-sf-filter-load-more-button").click(function(){
+         setTimeout(function(){ 
+        var path =$(location).attr('href');
+           url = path.split("/");
+        //alert(path)
+        if(path == 'https://'+url[2]+'/collections/amber-rose-gill?page=2'){
+       $("#collection-products #bc-sf-filter-products .product-listing .product-image a").append('<span class="amber_rose">Amber X PD</span>');
+        }
+        else if(path == 'https://'+url[2]+'/collections/amber-rose-gill?page=3'){
+         $("#collection-products #bc-sf-filter-products .product-listing .product-image a").append('<span class="amber_rose">Amber X PD</span>');
+       
+        }
+        else if(path == 'https://'+url[2]+'/collections/amber-rose-gill?page=4'){
+         $("#collection-products #bc-sf-filter-products .product-listing .product-image a").append('<span class="amber_rose">Amber X PD</span>');
+       
+        }
+        else if(path == 'https://'+url[2]+'/collections/amber-rose-gill?page=5'){
+         $("#collection-products #bc-sf-filter-products .product-listing .product-image a").append('<span class="amber_rose">Amber X PD</span>');
+       
+        }
+           
+    }, 1000);
+      });
+   }, 1200);
+  });
+
+    
+  
+</script>
+
+
+<script>
+  $( document ).ready(function() {
+     if ($(window).width() <= 767) {
+    document.cookie = 'product_type_count_info' +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = 'product_size_count_info' +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = 'product_color_count_info' +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = 'product_height_count_info' +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+     }
+    
+    
+   // var path =$(location).attr('href');
+  //  setTimeout(function(){
+//      if(path =='https://www.publicdesire.com/collections/amber-rose-gill'){
+//       $("#collection-products #bc-sf-filter-products .product-listing .product-image a").append('<span class="amber_rose">Amber X PD</span>');
+//       }
+ 
+    //  $("#bc-sf-filter-load-more .bc-sf-filter-load-more-button").click(function(){
+//          setTimeout(function(){ 
+//         var path =$(location).attr('href');
+//        // alert(path)
+//         if(path =='https://www.publicdesire.com/collections/amber-rose-gill?page=2'){
+//        $("#collection-products #bc-sf-filter-products .product-listing .product-image a").append('<span class="amber_rose">Amber X PD</span>');
+//         }
+//         else if(path =='https://www.publicdesire.com/collections/amber-rose-gill?page=3'){
+//          $("#collection-products #bc-sf-filter-products .product-listing .product-image a").append('<span class="amber_rose">Amber X PD</span>');
+       
+//         }
+//         else if(path =='https://www.publicdesire.com/collections/amber-rose-gill?page=4'){
+//          $("#collection-products #bc-sf-filter-products .product-listing .product-image a").append('<span class="amber_rose">Amber X PD</span>');
+       
+//         }
+//         else if(path =='https://www.publicdesire.com/collections/amber-rose-gill?page=5'){
+//          $("#collection-products #bc-sf-filter-products .product-listing .product-image a").append('<span class="amber_rose">Amber X PD</span>');
+       
+//         }
+           
+//     }, 1000);
+//       });
+//      }, 1200); 
+    
+  //  <--------Start-Filter app text code--------->
+     $(document).on("click","#filter-bar #bc-sf-filter-tree span.mobile-filter-header span.close",function() {
+        $("button#btn-filter").html('<svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-filter" viewBox="0 0 15 15"><defs><path d="M8.786 3.75v2.813h-.943V15H5.957V6.562h-.943V3.75h3.772zM4.07 8.438v2.812H3.13V15H1.243v-3.75H.3V8.437h3.771zm9.429 1.874v2.813h-.943V15h-1.886v-1.875H9.73v-2.813H13.5zM12.557 0v9.375h-1.886V0h1.886zM3.13 0v7.5H1.243V0h1.886zm4.714 0v2.813H5.957V0h1.886z" id="a"></path></defs><g transform="translate(.6)" fill="none" fill-rule="evenodd"><mask id="b" fill="#fff"><use xlink:href="#a"></use></mask><use fill="#444" fill-rule="nonzero" xlink:href="#a"></use><g mask="url(#b)" fill="#000"><path d="M-.6 0h15v15h-15z"></path></g></g></svg> SHOW FILTERS');
+      });
+    
+    
+    setTimeout(function(){
+       $("#btn-filter").html('<svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-filter" viewBox="0 0 15 15"><defs><path d="M8.786 3.75v2.813h-.943V15H5.957V6.562h-.943V3.75h3.772zM4.07 8.438v2.812H3.13V15H1.243v-3.75H.3V8.437h3.771zm9.429 1.874v2.813h-.943V15h-1.886v-1.875H9.73v-2.813H13.5zM12.557 0v9.375h-1.886V0h1.886zM3.13 0v7.5H1.243V0h1.886zm4.714 0v2.813H5.957V0h1.886z" id="a"></path></defs><g transform="translate(.6)" fill="none" fill-rule="evenodd"><mask id="b" fill="#fff"><use xlink:href="#a"></use></mask><use fill="#444" fill-rule="nonzero" xlink:href="#a"></use><g mask="url(#b)" fill="#000"><path d="M-.6 0h15v15h-15z"></path></g></g></svg> SHOW FILTERS'); 
+        $(document).on("click","button#btn-filter",function() {
+         if($("button.btn-plain").hasClass("active")){
+          // alert(1);
+           $(this).html('<svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-filter" viewBox="0 0 15 15"><defs><path d="M8.786 3.75v2.813h-.943V15H5.957V6.562h-.943V3.75h3.772zM4.07 8.438v2.812H3.13V15H1.243v-3.75H.3V8.437h3.771zm9.429 1.874v2.813h-.943V15h-1.886v-1.875H9.73v-2.813H13.5zM12.557 0v9.375h-1.886V0h1.886zM3.13 0v7.5H1.243V0h1.886zm4.714 0v2.813H5.957V0h1.886z" id="a"></path></defs><g transform="translate(.6)" fill="none" fill-rule="evenodd"><mask id="b" fill="#fff"><use xlink:href="#a"></use></mask><use fill="#444" fill-rule="nonzero" xlink:href="#a"></use><g mask="url(#b)" fill="#000"><path d="M-.6 0h15v15h-15z"></path></g></g></svg> HIDE FILTERS');
+         }else{
+          // alert(2)
+           $(this).html('<svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-filter" viewBox="0 0 15 15"><defs><path d="M8.786 3.75v2.813h-.943V15H5.957V6.562h-.943V3.75h3.772zM4.07 8.438v2.812H3.13V15H1.243v-3.75H.3V8.437h3.771zm9.429 1.874v2.813h-.943V15h-1.886v-1.875H9.73v-2.813H13.5zM12.557 0v9.375h-1.886V0h1.886zM3.13 0v7.5H1.243V0h1.886zm4.714 0v2.813H5.957V0h1.886z" id="a"></path></defs><g transform="translate(.6)" fill="none" fill-rule="evenodd"><mask id="b" fill="#fff"><use xlink:href="#a"></use></mask><use fill="#444" fill-rule="nonzero" xlink:href="#a"></use><g mask="url(#b)" fill="#000"><path d="M-.6 0h15v15h-15z"></path></g></g></svg> SHOW FILTERS');
+         }
+       });
+      
+     
+
+      
+       
+
+    }, 2500);
+      
+ //<--------End-Filter app text code--------->
+    
+    
+     $(document).on("click","a.bc-sf-filter-clear-all",function() {
+       if ($(window).width() <= 767) {
+         
+         document.cookie = 'product_type_count_info' +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+         document.cookie = 'product_size_count_info' +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+         document.cookie = 'product_color_count_info' +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+         document.cookie = 'product_height_count_info' +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+ 
+         setTimeout(function(){
+         $("div#bc-sf-filter-option-block-size").css("display", "none");
+        $("h3[aria-controls='bc-sf-filter-option-block-size'] span").addClass('up');
+        
+         $("div#bc-sf-filter-option-block-product-type").css("display", "none");
+        $("h3[aria-controls='bc-sf-filter-option-block-product-type'] span").addClass('up');
+        
+         $("div#bc-sf-filter-option-block-colour").css("display", "none");
+        $("h3[aria-controls='bc-sf-filter-option-block-colour'] span").addClass('up');
+        
+         $("div#bc-sf-filter-option-block-heel-height").css("display", "none");
+        $("h3[aria-controls='bc-sf-filter-option-block-heel-height'] span").addClass('up');
+         
+         $("div#bc-sf-filter-option-block-price").css("display", "none");
+        $("h3[aria-controls='bc-sf-filter-option-block-price'] span").addClass('up');
+           
+         },1500); 
+         
+       }
+     });
+    
+ 
+    
+    $(document).on("click","#btn-filter",function() {
+   
+      //console.log("testing window" +$(window).width());
+      if ($(window).width() <= 767) {
+        $(".filter-count-info").remove();
+        $(".apply-filter-info").remove();
+         var product_type_count='';
+           var product_size_count='';
+           var product_color_count='';
+           var product_height_count='';
+        
+        
+        $('div#bc-sf-filter-option-block-product-type ul').each(function(){    
+           product_type_count=  $(this).find('li a.selected').length;
+          if(product_type_count > 0){
+          $("#bc-sf-filter-tree #bc-sf-filter-options-wrapper .bc-sf-filter-option-block .bc-sf-filter-block-title h3[aria-controls=bc-sf-filter-option-block-product-type]").append('<span class="filter-count-info product-type-count">'+product_type_count+' Selected</span>');
+          }
+          else if(product_type_count == ''){
+           $("#bc-sf-filter-tree #bc-sf-filter-options-wrapper .bc-sf-filter-option-block .bc-sf-filter-block-title h3[aria-controls=bc-sf-filter-option-block-product-type]").append('');
+          }
+          })
+
+        $('div#bc-sf-filter-option-block-size ul').each(function(){    
+           product_size_count=  $(this).find('li a.selected').length;
+          if(product_size_count > 0){
+          $("#bc-sf-filter-tree #bc-sf-filter-options-wrapper .bc-sf-filter-option-block .bc-sf-filter-block-title h3[aria-controls=bc-sf-filter-option-block-size]").append('<span class="filter-count-info product-size-count">'+product_size_count+' Selected</span>');  
+          }
+          else if(product_size_count > 0){
+          $("#bc-sf-filter-tree #bc-sf-filter-options-wrapper .bc-sf-filter-option-block .bc-sf-filter-block-title h3[aria-controls=bc-sf-filter-option-block-size]").append('');  
+           }
+          })
+
+        $('div#bc-sf-filter-option-block-colour ul').each(function(){    
+           product_color_count=  $(this).find('li a.selected').length;
+          if(product_color_count > 0){
+          $("#bc-sf-filter-tree #bc-sf-filter-options-wrapper .bc-sf-filter-option-block .bc-sf-filter-block-title h3[aria-controls=bc-sf-filter-option-block-colour]").append('<span class="filter-count-info product-colour-count">'+product_color_count+' Selected</span>');  
+          }
+           else if(product_color_count > 0){
+          $("#bc-sf-filter-tree #bc-sf-filter-options-wrapper .bc-sf-filter-option-block .bc-sf-filter-block-title h3[aria-controls=bc-sf-filter-option-block-colour]").append('');  
+          }
+          })
+
+        $('div#bc-sf-filter-option-block-heel-height ul').each(function(){    
+           product_height_count=  $(this).find('li a.selected').length;
+          if(product_height_count > 0){
+          $("#bc-sf-filter-tree #bc-sf-filter-options-wrapper .bc-sf-filter-option-block .bc-sf-filter-block-title h3[aria-controls=bc-sf-filter-option-block-heel-height]").append('<span class="filter-count-info product-height-count">'+product_height_count+' Selected</span>');  
+          }
+          else if(product_height_count > 0){
+          $("#bc-sf-filter-tree #bc-sf-filter-options-wrapper .bc-sf-filter-option-block .bc-sf-filter-block-title h3[aria-controls=bc-sf-filter-option-block-heel-height]").append('');  
+          }
+          })
+        
+
+//         $("div#bc-sf-filter-option-block-size").css("display", "none");
+//         $("div#bc-sf-filter-option-block-product-type").css("display", "none");
+//         $("div#bc-sf-filter-option-block-colour").css("display", "none");
+//         $("div#bc-sf-filter-option-block-price").css("display", "none");
+//         $("div#bc-sf-filter-option-block-heel-height").css("display", "none");
+        
+         $("div#bc-sf-filter-option-block-price").css("display", "none");
+        $("h3[aria-controls='bc-sf-filter-option-block-price'] span").addClass('up');
+        
+         $("div#bc-sf-filter-option-block-size").css("display", "none");
+        $("h3[aria-controls='bc-sf-filter-option-block-size'] span").addClass('up');
+        
+         $("div#bc-sf-filter-option-block-colour").css("display", "none");
+        $("h3[aria-controls='bc-sf-filter-option-block-colour'] span").addClass('up');
+        
+         $("div#bc-sf-filter-option-block-heel-height").css("display", "none");
+        $("h3[aria-controls='bc-sf-filter-option-block-heel-height'] span").addClass('up');
+        
+        
+    
+      //Added button filter
+       $("div#bc-sf-filter-tree").append("<div class='filter-btn-info'><button class='apply-filter-info'>Apply filters</button></div>").show('slow');
+     
+       }
+        
+    });
+    
+     // 4 function
+    
+     //div#bc-sf-filter-options-wrapper
+    
+    $(document).on("click","div#bc-sf-filter-tree",function() {
+      
+      if ($(window).width() <= 767) {
+       // alert(1);
+         var product_type_count='';
+           var product_size_count='';
+           var product_color_count='';
+           var product_height_count='';
+         setTimeout(function(){
+
+           $(".filter-count-info").remove();
+           $(".apply-filter-info").remove();
+           $('div#bc-sf-filter-option-block-product-type ul').each(function(){    
+             product_type_count=  $(this).find('li a.selected').length;
+             if(product_type_count > 0){
+               $("#bc-sf-filter-tree #bc-sf-filter-options-wrapper .bc-sf-filter-option-block .bc-sf-filter-block-title h3[aria-controls=bc-sf-filter-option-block-product-type]").append('<span class="filter-count-info product-type-count">'+product_type_count+' Selected</span>');  
+            }
+           })
+
+           $('div#bc-sf-filter-option-block-size ul').each(function(){    
+             product_size_count=  $(this).find('li a.selected').length;
+             if(product_size_count > 0){
+               $("#bc-sf-filter-tree #bc-sf-filter-options-wrapper .bc-sf-filter-option-block .bc-sf-filter-block-title h3[aria-controls=bc-sf-filter-option-block-size]").append('<span class="filter-count-info product-size-count">'+product_size_count+' Selected</span>');  
+            }
+           })
+
+           $('div#bc-sf-filter-option-block-colour ul').each(function(){    
+             product_color_count=  $(this).find('li a.selected').length;
+             if(product_color_count > 0){
+               $("#bc-sf-filter-tree #bc-sf-filter-options-wrapper .bc-sf-filter-option-block .bc-sf-filter-block-title h3[aria-controls=bc-sf-filter-option-block-colour]").append('<span class="filter-count-info product-colour-count">'+product_color_count+' Selected</span>');  
+             }
+           })
+
+           $('div#bc-sf-filter-option-block-heel-height ul').each(function(){    
+             product_height_count=  $(this).find('li a.selected').length;
+             if(product_height_count > 0){
+               $("#bc-sf-filter-tree #bc-sf-filter-options-wrapper .bc-sf-filter-option-block .bc-sf-filter-block-title h3[aria-controls=bc-sf-filter-option-block-heel-height]").append('<span class="filter-count-info product-height-count">'+product_height_count+' Selected</span>');  
+              }
+           })
+           
+            //Added button filter
+               $("div#bc-sf-filter-options-wrapper").append("<div class='filter-btn-info'><button class='apply-filter-info'>Apply filters</button></div>").show('slow');
+
+
+         }, 1500);
+        
+      }
+    });
+    
+    
+     if ($(window).width() <= 767) {
+    $(document).on('click', '.bc-sf-filter-option-block.bc-sf-filter-option-block-range.bc-sf-filter-option-block-price', function() {
+    
+    document.cookie = 'product_type_count_info' +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = 'product_size_count_info' +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = 'product_color_count_info' +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    document.cookie = 'product_height_count_info' +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+ 
+      var fil_product_type = $("span.filter-count-info.product-type-count").text();
+      var fil_product_size = $("span.filter-count-info.product-size-count").text();
+      var fil_product_color = $("span.filter-count-info.product-colour-count").text();
+      var fil_product_height = $("span.filter-count-info.product-height-count").text();
+      setCookie('product_type_count_info', fil_product_type,3600);
+      setCookie('product_size_count_info', fil_product_size,3600);
+      setCookie('product_color_count_info', fil_product_color,3600);
+      setCookie('product_height_count_info', fil_product_height,3600);
+      
+ // console.log(fil_product_type +'eeeee==>'+ fil_product_size +'==>'+  fil_product_color +'==>'+ fil_product_height);
+
+      var product_type_count= getCookie('product_type_count_info');
+      var product_size_count= getCookie('product_size_count_info')
+      var product_color_count= getCookie('product_color_count_info')
+      var product_height_count= getCookie('product_height_count_info')
+
+  //console.log(product_type_count +'e<==>'+ product_size_count +'<==>'+  product_color_count +'<==>'+ product_height_count);
+           }); 
+              
+              
+     setInterval(check_selected, 500);
+     function check_selected(){
+      var product_type_count= getCookie('product_type_count_info');
+      var product_size_count= getCookie('product_size_count_info');
+      var product_color_count= getCookie('product_color_count_info');
+      var product_height_count= getCookie('product_height_count_info') ; 
+       
+       if ($(".product-type-count").length > 0){
+         //
+       }else{
+         if(product_type_count != ''){
+          
+           $("#bc-sf-filter-tree #bc-sf-filter-options-wrapper .bc-sf-filter-option-block .bc-sf-filter-block-title h3[aria-controls=bc-sf-filter-option-block-product-type]").append('<span class="filter-count-info product-type-count">'+product_type_count+'</span>');  
+         }
+       }
+
+       if ($(".product-size-count").length > 0){
+         //
+       }else{
+         if(product_size_count != ''){
+          
+           $("#bc-sf-filter-tree #bc-sf-filter-options-wrapper .bc-sf-filter-option-block .bc-sf-filter-block-title h3[aria-controls=bc-sf-filter-option-block-size]").append('<span class="filter-count-info product-size-count">'+product_size_count+'</span>');  
+         }
+       } 
+
+       if ($(".product-colour-count").length > 0){
+         //
+       }else{
+         if(product_color_count != ''){
+          
+           $("#bc-sf-filter-tree #bc-sf-filter-options-wrapper .bc-sf-filter-option-block .bc-sf-filter-block-title h3[aria-controls=bc-sf-filter-option-block-colour]").append('<span class="filter-count-info product-colour-count">'+product_color_count+'</span>');  
+         }
+       }
+
+       if ($(".product-height-count").length > 0){
+         //
+       }else{
+         if(product_height_count != ''){
+          
+           $("#bc-sf-filter-tree #bc-sf-filter-options-wrapper .bc-sf-filter-option-block .bc-sf-filter-block-title h3[aria-controls=bc-sf-filter-option-block-heel-height]").append('<span class="filter-count-info product-height-count">'+product_height_count+'</span>');  
+         }
+       }
+       
+       
+      if ($(".apply-filter-info").length > 0){
+        //
+       }else{       
+        //Added button filter
+       $("div#bc-sf-filter-tree").append("<div class='filter-btn-info'><button class='apply-filter-info'>Apply filters</button></div>").show('slow');
+       }
+
+     }
+  
+}
+    
+    
+    // Hide price on click another div
+    if ($(window).width() <= 767) {
+    $(document).on('click', '.bc-sf-filter-option-block.bc-sf-filter-option-block-list.bc-sf-filter-option-block-product-type', function() {
+      document.cookie = 'product_type_count_info' +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      setTimeout(function(){
+       // alert(1);
+        $("div#bc-sf-filter-option-block-price").css("display", "none");
+        $("h3[aria-controls='bc-sf-filter-option-block-price'] span").addClass('up');
+        
+         $("div#bc-sf-filter-option-block-size").css("display", "none");
+        $("h3[aria-controls='bc-sf-filter-option-block-size'] span").addClass('up');
+        
+         $("div#bc-sf-filter-option-block-colour").css("display", "none");
+        $("h3[aria-controls='bc-sf-filter-option-block-colour'] span").addClass('up');
+        
+         $("div#bc-sf-filter-option-block-heel-height").css("display", "none");
+        $("h3[aria-controls='bc-sf-filter-option-block-heel-height'] span").addClass('up');
+        
+      },1000);
+
+    });  
+
+
+
+    $(document).on('click', '.bc-sf-filter-option-block.bc-sf-filter-option-block-list.bc-sf-filter-option-block-size', function() {
+      document.cookie = 'product_size_count_info' +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      setTimeout(function(){
+        $("div#bc-sf-filter-option-block-price").css("display", "none");
+        $("h3[aria-controls='bc-sf-filter-option-block-price'] span").addClass('up');
+        
+         $("div#bc-sf-filter-option-block-product-type").css("display", "none");
+        $("h3[aria-controls='bc-sf-filter-option-block-product-type'] span").addClass('up');
+        
+         $("div#bc-sf-filter-option-block-colour").css("display", "none");
+        $("h3[aria-controls='bc-sf-filter-option-block-colour'] span").addClass('up');
+        
+         $("div#bc-sf-filter-option-block-heel-height").css("display", "none");
+        $("h3[aria-controls='bc-sf-filter-option-block-heel-height'] span").addClass('up');
+        
+      },1000);
+    }); 
+
+
+    $(document).on('click', '.bc-sf-filter-option-block.bc-sf-filter-option-block-list.bc-sf-filter-option-block-colour', function() {
+      document.cookie = 'product_color_count_info' +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      setTimeout(function(){
+        $("div#bc-sf-filter-option-block-price").css("display", "none");
+        $("h3[aria-controls='bc-sf-filter-option-block-price'] span").addClass('up');
+          
+         $("div#bc-sf-filter-option-block-size").css("display", "none");
+        $("h3[aria-controls='bc-sf-filter-option-block-size'] span").addClass('up');
+        
+         $("div#bc-sf-filter-option-block-product-type").css("display", "none");
+        $("h3[aria-controls='bc-sf-filter-option-block-product-type'] span").addClass('up');
+        
+         $("div#bc-sf-filter-option-block-heel-height").css("display", "none");
+        $("h3[aria-controls='bc-sf-filter-option-block-heel-height'] span").addClass('up');
+        
+      },1000);
+    }); 
+
+
+    $(document).on('click', '.bc-sf-filter-option-block.bc-sf-filter-option-block-list.bc-sf-filter-option-block-heel-height', function() {
+      document.cookie = 'product_height_count_info' +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      setTimeout(function(){
+        $("div#bc-sf-filter-option-block-price").css("display", "none");
+        $("h3[aria-controls='bc-sf-filter-option-block-price'] span").addClass('up');
+       
+         $("div#bc-sf-filter-option-block-size").css("display", "none");
+        $("h3[aria-controls='bc-sf-filter-option-block-size'] span").addClass('up');
+        
+         $("div#bc-sf-filter-option-block-product-type").css("display", "none");
+        $("h3[aria-controls='bc-sf-filter-option-block-product-type'] span").addClass('up');
+        
+         $("div#bc-sf-filter-option-block-colour").css("display", "none");
+        $("h3[aria-controls='bc-sf-filter-option-block-colour'] span").addClass('up');
+        
+      },1000);
+    }); 
+  
+    
+    
+      //Added button filter
+      $(document).on("click",".apply-filter-info",function() {
+        //  alert(1);
+        $("div#bc-sf-filter-tree").removeClass("active");
+        $("button#btn-filter").html('<svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-filter" viewBox="0 0 15 15"><defs><path d="M8.786 3.75v2.813h-.943V15H5.957V6.562h-.943V3.75h3.772zM4.07 8.438v2.812H3.13V15H1.243v-3.75H.3V8.437h3.771zm9.429 1.874v2.813h-.943V15h-1.886v-1.875H9.73v-2.813H13.5zM12.557 0v9.375h-1.886V0h1.886zM3.13 0v7.5H1.243V0h1.886zm4.714 0v2.813H5.957V0h1.886z" id="a"></path></defs><g transform="translate(.6)" fill="none" fill-rule="evenodd"><mask id="b" fill="#fff"><use xlink:href="#a"></use></mask><use fill="#444" fill-rule="nonzero" xlink:href="#a"></use><g mask="url(#b)" fill="#000"><path d="M-.6 0h15v15h-15z"></path></g></g></svg> SHOW FILTERS');
+        location.reload();
+      })
+      
+      // on close button click
+      $(document).on("click",".close",function() {
+        // alert(1);
+        var url=$(location).attr('href');
+        var arr=url.split('?')[0];
+        window.location.href = arr;
+      })
+      
+      // outside the filter bar click on collection 
+
+      $(document).on("click",".collection-overlay",function() {
+        var url=$(location).attr('href');
+        var arr=url.split('?')[0];
+        window.location.href = arr;
+        // alert(arr);
+      })
+       } 
+    
+    // bc-sf filter addon function to adjust filter display
+    // found in /assets/bc-sf-filter.js
+    bcsfFilterUpdates();
+    
+  });
+    
+
+</script>
+
+
+
+<style>
+  @media screen and (max-width: 480px) {
+    .bc-sf-filter-selected-items {
+    display: none;
+} 
+    #bc-sf-filter-tree #bc-sf-filter-options-wrapper .bc-sf-filter-option-block .bc-sf-filter-block-title h3 span.filter-count-info:after {
+      display: none;
+    }
+    #bc-sf-filter-tree #bc-sf-filter-options-wrapper .bc-sf-filter-option-block .bc-sf-filter-block-title h3 span.filter-count-info {
+      padding: 2px 6px;
+     background: #e3d5cc; 
+      font-weight: 300;
+      border-radius: 5px;
+    }
+    #bc-sf-filter-tree #bc-sf-filter-options-wrapper .bc-sf-filter-option-block .bc-sf-filter-block-title h3 {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    
+/*     .bc-sf-filter-selection-wrapper {
+    display: none;
+  } */
+   #filter-bar #bc-sf-filter-tree #bc-sf-filter-options-wrapper {
+    position: relative;
+        overflow: scroll;
+}
+    #filter-bar #bc-sf-filter-tree {
+      /*height: 100vh;*/
+      height: 90vh;
+    }
+    #filter-bar #bc-sf-filter-tree .filter-btn-info {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: #fff;
+      border-top: 1px solid #eee;
+      padding: 16px;
+    }
+    #filter-bar #bc-sf-filter-tree .filter-btn-info button.apply-filter-info {
+      width: 100%;
+      border: 0;
+      background-color: #2d2d2d;
+      color: #fff;
+      padding: 15px !important;
+      letter-spacing: 2px;
+      cursor: pointer;
+      font-family: futura-pt,sans-serif;
+      font-size: 16px !important;
+      font-weight: 900 !important;
+    }
+    
+    #bc-sf-filter-tree h3 span {
+    font-size: 16px !important;
+  }
+  #bc-sf-filter-tree h3 span:after {
+    width: 26px !important;
+    background-size: contain !important;
+    background-repeat: no-repeat;
+  }
+    
+  }
+  
+  
+  @media screen and (max-width: 991px) {
+  #bc-sf-filter-tree.active {
+    z-index: 999;
+  }
+  #filter-bar #bc-sf-filter-tree {
+    top: 0px;
+    background: #f8f8f8;
+  }
+}
+  
+  
+  @media screen and (max-width: 767px){
+  
+  #filter-bar #bc-sf-filter-tree span.mobile-filter-header h3 {
+    font-size: 16px;
+    font-family: Helvetica,Sans-Serif;
+    text-transform: capitalize;
+    font-weight: 400;
+    letter-spacing: .5px;
+  }
+  #filter-bar #bc-sf-filter-tree ul.bc-sf-filter-option-multiple-list li {
+    margin-bottom: 5px;
+    padding: 6px 10px;
+  }
+  #filter-bar #bc-sf-filter-tree ul.bc-sf-filter-option-multiple-list li a.bc-sf-filter-option-item {
+    margin: 0px;
+    padding-left: 25px;
+  }
+  #filter-bar #bc-sf-filter-tree ul.bc-sf-filter-option-multiple-list li a.bc-sf-filter-option-item span {
+    text-transform: capitalize;
+  }
+  #bc-sf-filter-tree #bc-sf-filter-options-wrapper .bc-sf-filter-option-block .bc-sf-filter-block-title h3 span {
+    font-size: 14px !important;
+    text-transform: capitalize;
+  }
+  #bc-sf-filter-tree #bc-sf-filter-options-wrapper .bc-sf-filter-option-block .bc-sf-filter-block-title h3 span:after {
+    content: "\f105";
+    font-family: 'FontAwesome';
+    background-image: none;
+    right: auto;
+    position: relative;
+    transform: none;
+    display: inline-block;
+    margin-left: 5px;
+  }
+  #bc-sf-filter-tree #bc-sf-filter-options-wrapper .bc-sf-filter-option-block .bc-sf-filter-block-title {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    margin-bottom: 5px;
+    padding: 0 10px;
+    background: #fff;
+    font-weight: 600;
+    font-size: .875rem;
+    color: #000;
+    box-shadow: 3px 3px 3px #0000000d;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .bc-sf-filter-option-block[data-show-more-type*=scrollbar] .bc-sf-filter-block-content {
+    margin-top: 0px;
+  }
+
+  #filter-bar #bc-sf-filter-tree #bc-sf-filter-options-wrapper {
+    margin-top: 10px;
+  }
+  #bc-sf-filter-tree #bc-sf-filter-options-wrapper .bc-sf-filter-option-block .bc-sf-filter-block-title h3 span span:after {
+    display: none;
+  }
+  #filter-bar #bc-sf-filter-tree span.mobile-filter-header span.close {
+    color: transparent;
+  }
+  #filter-bar #bc-sf-filter-tree span.mobile-filter-header span.close:after {
+    content: "";
+    background-image: url(https://cdn.shopify.com/s/files/1/0270/6584/3821/files/close.png?v=1653049156);
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    background-size: contain;
+  }
+  #bc-sf-filter-tree .bc-sf-filter-selection-wrapper .bc-sf-filter-block-title h3 span {
+    font-size: 14px !important;
+    font-family: Helvetica,Sans-Serif;
+    text-transform: capitalize;
+    font-weight: 400;
+    letter-spacing: .5px;
+  }
+  .bc-sf-filter-selection-wrapper .bc-sf-filter-selected-items {
+    max-height: 103px;
+    overflow-x: hidden;
+  }
+  .bc-sf-filter-selection-wrapper .bc-sf-filter-selected-items::-webkit-scrollbar {
+    width: 2px;
+  }
+  .bc-sf-filter-selection-wrapper .bc-sf-filter-selected-items::-webkit-scrollbar-track {
+    background: #fff;
+  }
+  .bc-sf-filter-selection-wrapper .bc-sf-filter-selected-items::-webkit-scrollbar-thumb {
+    background-color: #fff;
+  }
+#filter-bar #bc-sf-filter-tree .bc-sf-filter-option-block {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+#filter-bar #bc-sf-filter-tree span.mobile-filter-header {
+    background-color: #fff;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 40px;
+}
+#filter-bar #bc-sf-filter-tree span.mobile-filter-header h3:before {
+    content: "";
+    width: 17px;
+    height: 17px;
+    background-image: url(https://cdn.shopify.com/s/files/1/0270/6584/3821/files/svg1_1.jpg?v=1653050201);
+    display: inline-block;
+    background-size: contain;
+    position: relative;
+    top: 2px;
+    margin-right: 5px;
+}
+  
+}
+</style>
+
+
+<!--------start-collection description expand------------------>
+    <script>
+$('.collect_readmore').click(function (event) {
+event.preventDefault();
+var descriptionFull = document.querySelector('.collect_description-full');
+descriptionFull.style.display = 'block';
+var descriptionShort = document.querySelector('.collect_description-short');
+descriptionShort.style.display = 'none';
+});
+$('.collect_readless').click(function (event) {
+event.preventDefault();
+var descriptionFull = document.querySelector('.collect_description-full');
+descriptionFull.style.display = 'none';
+var descriptionShort = document.querySelector('.collect_description-short');
+descriptionShort.style.display = 'block';
+  window.scrollTo({top: 110, behavior: 'smooth'});
+})
+</script>
+    <!--------end-collection description expand------------------>
+
+<script>
+$('.collect_readmore_mob').click(function (event) {
+event.preventDefault();
+var descriptionFull = document.querySelector('.collect_description-full-mob');
+descriptionFull.style.display = 'block';
+var descriptionShort = document.querySelector('.collect_description-short-mob');
+descriptionShort.style.display = 'none';
+});
+$('.collect_readless_mob').click(function (event) {
+event.preventDefault();
+var descriptionFull = document.querySelector('.collect_description-full-mob');
+descriptionFull.style.display = 'none';
+var descriptionShort = document.querySelector('.collect_description-short-mob');
+descriptionShort.style.display = 'block';
+  window.scrollTo({top: 110, behavior: 'smooth'});
+})
+</script>

@@ -1,0 +1,168 @@
+<div class="product-listing">
+    {% if product.images.size > 1 %}
+        {% assign imageHover = "product-image-hover"%}
+    {% else %}
+        {% assign imageHover = "" %}
+    {% endif %}
+    
+    <div class="product-image {{imageHover}}">
+        <a  href="{{ product.url | within: collection }}">
+            {% assign productTags = product.tags | join: ', ' %}
+            {% if productTags contains 'Category_Wide Fit' %}
+          		<span class="wide-fit">Wide Fit</span>
+            {% endif %}
+          
+          {% if productTags contains 'amber_rose' %}
+          		<span class="amber_rose">AMBER X PD</span>
+            {% endif %}
+          {% comment %}
+           {% if productTags contains 'discount_leo_size' %}
+          		<span class="discount_leo_info">Size Down On This Style</span>
+            {% endif %}
+         
+            
+
+           
+          {% if productTags contains 'discount_slippers_342' %}
+          		<span class="discount_slippers_342_info">3 for 2! use code: slipperseason</span>
+            {% endif %}
+          
+            {% if productTags contains 'blackfriday' %}
+          		<span class="cyber-deal">Cyber Deal</span>
+            {% endif %}
+           {% endcomment %}
+            <img class="img-fluid lazyload" data-src="{{ product.featured_image.src | img_url: '600x' }}" data-srcset="{{ product.featured_image.src | img_url: '400x' }} 400w, {{ product.featured_image.src | img_url: '600x' }} 600w, {{ product.featured_image.src | img_url: '900x' }} 900w" data-sizes="auto" {% if product.images.size > 1 %}data-second-image="{{ product.images[1].src | img_url: '600x' }}"{% endif %} alt="{{ product.title }}" width="600" height="800">
+        </a>
+        <span class="smartwishlist" data-product="{{ product.id }}" data-variant="{{ product.variants.first.id }}"></span>
+        <button class="product-quickview" aria-label="Quickview {{product.title}}" data-product-availability="{{product.available}}" data-product-url="{{ product.url  }}">{% render 'icon-search' %}</button>
+    </div><!-- product-image -->
+    <div class="product-details">
+      
+       
+     {% comment %}  
+      {% assign productTags = product.tags | join: ', ' %}
+      {% if productTags contains 'discount_clothing_25' %}
+     	 <span class="discount_heels_20_info">25% off with code: NEWFIT</span>
+      {% endif %}
+        
+      {% endcomment %} 
+      
+       {% comment %}
+        {% if productTags contains 'discount_partyfaves_30' %}
+   		   <span class="discount_partyfaves_30_info">EXTRA 30% OFF! CODE: OUTOUT</span>
+      	{% endif %}
+      
+      
+      
+       {% if productTags contains 'discount_longboots_20' %}
+              <span class="discount_boots_20_info">EXTRA 25% OFF! CODE: KILLERBOOTS</span>
+          {% endif %}
+      
+      
+      
+      {% if productTags contains 'discount_sale_10' and productTags contains 'discount_january_30' %}
+
+      <!--span class="discount_boots_20_info">EXTRA 30% OFF! CODE: MUSTHAVE</span-->
+
+
+      {% elsif productTags contains 'discount_january_30'  %}
+
+      <!--span class="discount_boots_20_info">EXTRA 30% OFF! CODE: MUSTHAVE</span-->     
+
+      {% elsif productTags contains 'discount_sale_10' and productTags contains 'discount_cyber_20' %}
+
+      <span class="discount_new_20_info">EXTRA 10% OFF! CODE: SPARKLE</span>
+
+      {% elsif productTags contains 'discount_boots_240' and productTags contains 'discount_cyber_20' %}
+
+      <!--span class="discount_heels_20_info">2 for $60 Boots! Code: SPENDANDSAVE</span-->
+
+      {% elsif productTags contains 'discount_boots_240' %}
+
+      <!--span class="discount_heels_20_info">2 for $60 Boots! Code: SPENDANDSAVE</span--> 
+
+      {% elsif productTags contains 'discount_partyfaves_30' %}
+
+      <!--span class="discount_partyfaves_30_info">EXTRA 30% OFF! CODE: OUTOUT</span-->
+
+      {% elsif productTags contains 'discount_boots_20' %}
+
+      <!--span class="discount_boots_20_info">EXTRA 20% OFF! CODE: WINTERWARMER</span-->      
+
+      {% elsif productTags contains 'discount_sale_10' %}
+
+      <span class="discount_new_20_info">EXTRA 10% OFF! CODE: SPARKLE</span>
+
+      {% elsif productTags contains 'discount_cyber_20' %}
+
+<!--       <div class="discount_cyber_20_info"><p>20% OFF WITH UNIDAYS!</p></div> -->
+
+      {% endif %}       
+      
+ {% endcomment %}
+       <!-------------start(26-12-2021)------------------->
+       {% comment %}
+        {% assign productTags = product.tags | join: ', ' %}
+          {% if productTags contains 'discount_sale_10' %}
+          <span class="discount_new_20_info">EXTRA 10% OFF! CODE: SPARKLE</span>
+          {% endif %}
+      
+          {% if productTags contains 'discount_boots_20' %}
+          <span class="discount_boots_20_info">EXTRA 20% OFF! CODE: WINTERWARMER</span>
+          {% endif %}      
+      
+      
+      	{% endcomment %}
+      <!-------------end(26-12-2021)------------------->
+               
+      
+      {% comment %}
+       {% assign productTags = product.tags | join: ', ' %}
+          {% if productTags contains 'discount_heels_20' %}
+          <span class="discount_heels_20_info">EXTRA 20% OFF WITH CODE: GLAM</span>
+          {% endif %}
+      
+         
+      {% assign productTags = product.tags | join: ', ' %}
+          {% if productTags contains 'kenza' %}
+          <span class="collection-kenza-info"><img src="https://cdn.shopify.com/s/files/1/0270/6584/3821/files/OVERLAY-BANNER.jpg?v=1635588253"></span>
+          {% endif %}
+  
+      {% assign productTags = product.tags | join: ', ' %}
+          {% if productTags contains 'discount_juicy_30' %}
+          <span class="collection-discount_juicy_30-info">$21 USING CODE: JUICY</span>
+          {% endif %}
+      
+      
+        {% assign productTags = product.tags | join: ', ' %}
+          {% if productTags contains 'discount_new_20' %}
+          <span class="discount_new_20_info">FREE USA DELIVERY OVER $90</span>
+          {% endif %}
+     
+      
+       {% assign productTags = product.tags | join: ', ' %}
+          {% if productTags contains 'discount_halley_sizeup' %}
+          <span class="discount_halley_sizeup_info"> SIZE UP ON THIS STYLE</span>
+          {% endif %}
+      
+      
+       {% assign productTags = product.tags | join: ', ' %}
+          {% if productTags contains 'discount_new_30' %}
+          <span class="collection-discount_juicy_30-info">EXTRA 20% OFF WITH CODE: SINGLE</span>
+          {% endif %}
+      {% endcomment %}
+        <h3 class="product-title"><a href="{{ product.url | within: collection }}">{{ product.title }}</a></h3>
+        
+        {% if product.compare_at_price_max > product.price and product.compare_at_price_max > 0 %}
+            <span class="product-price sale product_new_sale_price">
+                <span class="money">{{ product.price | money }} ({{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}% off)</span>
+                <span class="original-price money">{{product.compare_at_price_max | money }}</span>
+            </span><!-- product-price -->
+        {% else %}
+            <span class="product-price">
+                <span class="money">{{ product.price | money }}</span>
+            </span><!-- product-price -->
+        {% endif %}
+
+     </div><!-- product-details -->
+</div><!-- product-single -->

@@ -1,0 +1,61 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12 text-v-small py-3">{% include 'breadcrumbs' %}</div>
+	</div><!-- row -->
+</div><!-- container -->
+
+<div class="container mt-2">
+    <div class="row">
+        <aside class="col-12 account-sidebar mb-3">
+            {% include 'account-sidebar' %}
+        </aside><!-- aside -->
+
+        <header class="col-12 align-items-center page-header">
+            <div class="mx-auto text-center mb-4">
+                <h1>Orders</h1>
+            </div>
+        </header>
+        
+        <section class="col-12">
+
+            {% if customer.orders.size != 0 %}
+            <div class="account-orders mb-5 mt-md-3">
+                <div class="account-orders-header">
+                    <div class="item">Orders #</div>
+                    <div class="item">Order Date</div>
+                    <div class="item">Order Total</div>
+                    <div class="item">Order Status</div>
+                </div><!-- account-orders-header -->
+                <div class="account-orders-body">
+                {% paginate customer.orders by 20 %}
+                {% for order in customer.orders %}
+                    <div class="account-orders-row">
+                        <div class="featured-image">
+                            {% for line_item in order.line_items %}
+                                {% if forloop.first == true %}
+                                    <img src="{{ line_item.image | img_url: '100x' }}" class="img-fluid">
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="order-overview">
+                            <div class="item" data-column="Order Number:"><a href="{{order.customer_url}}" class="orderNumber">{{ order.order_number }}</a></div>
+                            <div class="item" data-column="Order Date:">{{ order.created_at | date: format: 'day_month_year' }}</div>
+                            <div class="item" data-column="Total:">{{ order.total_price | money }}</div>
+                            <div class="item" data-column="Status:">{% if order.cancelled %}{{order.cancel_reason_label}}{% else %}{{ order.fulfillment_status }}{% endif %}</div>
+                        </div>
+                        <div class="order-details"></div>
+                    </div><!-- account-orders-row -->
+                {% endfor %}
+                {% if paginate.pages > 1 %}
+                    {% include 'pagination' %}
+                {% endif %}
+                {% endpaginate %}
+                </div><!-- account-orders-body -->
+            </div><!-- account-orders -->
+
+            {% else %}
+			    <p class="">{{ 'customer.orders.none' | t }}</p>
+		    {% endif %}
+        </section><!-- section -->
+    </div>
+</div>

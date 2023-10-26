@@ -1,0 +1,240 @@
+<style>
+
+.custom-klaviyo-start-wrapper {
+    border-top: 1px solid #fff;
+}
+.container11 {
+    margin-bottom: -48px !important;
+}
+.footer-border {
+    border-top: none;
+}
+
+.container11 .row.mb-5 {
+    margin-bottom: 0 !important;
+}
+  
+.playstore-logo1 {
+    position: relative;
+    bottom: 12%;
+    color: #fff !important;
+}
+  
+.playstore-logo2 {
+    position: relative;
+    bottom: 12%;
+
+}
+  .desapp-download-info.desktop-view-info {
+    position: relative;
+}
+
+ 
+.playstore {
+    display: flex;
+    justify-content: space-around;
+}
+
+.playstore-logo1 , .playstore-logo2 {
+    display: flex;
+    flex-direction: column;
+}
+
+.playstore-logo1 a.download_btn_info , .playstore-logo2 a.download_btn_info{
+    background: #a84dee;
+    color: #fff;
+    padding: 8px 28px;
+    font-size: 15px;
+    font-weight: 600;
+  margin-top: 8px;
+    text-decoration: none;
+}
+
+  .playstore-logo1 a.download_btn_info, .playstore-logo2 a.download_btn_info{
+    background-color:#fff;
+    color:#000;
+  }
+
+  .btn-holder{
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 6vw;
+    width: 61vw;
+    height: auto;
+    right: 0;
+    padding: 0 12% 0 12.5%;
+  }
+  .playstore-logo1, .playstore-logo2{
+    width:38%;
+  }
+
+  @media (min-width:1500px){
+    .btn-holder{
+      padding:0 12% 0 12.3%;
+    }
+  }
+
+  @media (max-width:1200px){
+    .btn-holder{
+      padding: 0 9.5%;
+      bottom:3.5vw;
+    }
+    .playstore-logo1, .playstore-logo2{
+      width:45%;
+    }
+  }
+  @media (max-width:990px){
+    .btn-holder{
+      padding:0 5%;
+      bottom:3.5vw;
+    }
+    .playstore-logo1, .playstore-logo2{
+      width:auto;
+    }
+  }
+@media screen and (max-width: 576px){
+.playstore-logo1 , .playstore-logo2 {
+    display: flex;
+    flex-direction: column;
+    width: 34%;
+ }
+
+.playstore-logo1 a.download_btn_info, .playstore-logo2 a.download_btn_info {
+    padding: 8px 4px;
+    text-decoration: none;
+}
+  .playstore-logo2 {
+    position: absolute;
+    left: 10%;
+    bottom: 2%;
+    transform:unset;
+}
+  .playstore-logo1 {
+position: absolute;
+bottom: 2%;
+right: 9%;
+color: #fff !important;
+}
+  .playstore-logo1 a.download_btn_info, .playstore-logo2 a.download_btn_info {
+font-size: 11px;
+padding:6px 4px;
+}
+}
+
+</style>
+<div class="container-fluid py-3 {{ page.template_suffix }}">
+	<div class="row">
+		<div class="col-12 text-v-small">{% include 'breadcrumbs' %}</div>
+	</div><!-- row -->
+</div><!-- container -->
+
+<!--header class="page-header{% if section.settings.background %} image lazyload {%endif%}" {% if section.settings.background %} data-bgset="{% include 'responsive-bg-image', image: section.settings.background %}"{% endif %}>
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-12 mb-md-0 col-md-8 col-lg-8 mx-auto text-center">
+              <div class="single-product-header-wrapper">
+              <h1>{{ page.title }}</h1>
+              <h3 class="title">{{ section.settings.sub-heading-title }}</h3>
+              </div>
+			</div>
+		</div><!-- row -->
+	</div>
+</header--> 
+
+<div class="container11">
+	<div class="row mb-5">
+		<div class="col-12 mx-auto">
+			<div class="row no-gutters">
+				{% if page.content != blank %}
+					<div class="col-12 mt-4_info">
+						<div class="rte text-center mb-4_info">
+                          {% comment %}
+							{{page.content}}
+                  {% endcomment %}
+
+
+<!-- <div class="row">
+<div class="col-md-6 order-md-2">
+<h3 class="title">PSA: YOU CAN NOW ENJOY MUST-HAVE SHOES AT YOUR FINGERTIPS</h3>
+<div class="">
+<h4>DOWNLOAD THE APP AND ENJOY:</h4>
+<ul>
+<li>10% off your first order when you download the app</li>
+<li>Early access to our celebrity and influencer collections</li>
+<li>Exclusive discounts and offers</li>
+<li>Brand new styles added daily</li>
+<li>Save your faves on the wishlist</li>
+<li>Shop the latest and hottest trends</li>
+<li>Worldwide shipping</li>
+</ul>
+</div>
+<div class="playstore ">
+<div class="playstore-logo"><span class="coming-soon"></span> <a href="https://play.google.com/store/apps/details?id=com.publicdesire.android"><img src="https://cdn.shopify.com/s/files/1/0270/6584/3821/files/Asset_2_480x480.png?v=1621854222" alt="" /></a> <a href="https://play.google.com/store/apps/details?id=com.publicdesire.android" class="download_btn_info">Download Now</a></div>
+<div class="playstore-logo"><a href="https://apps.apple.com/app/public-desire/id1568106062"> <img src="https://cdn.shopify.com/s/files/1/0270/6584/3821/files/Asset_3_480x480.png?v=1621854245" alt="PD Apple iStore" /> </a> <a href="https://apps.apple.com/app/public-desire/id15681060622" class="download_btn_info">Download Now</a></div>
+</div>
+</div>
+<div class="col-md-6 app-banner">
+  <div class="desktop-view-info">
+    <img src="https://cdn.shopify.com/s/files/1/0270/6584/3821/files/DESKTOP_ALABAMA_APPPAGE.jpg?v=1665147518" alt="" />
+  </div>
+  <div class="mobile-view-info">
+    <img src="https://cdn.shopify.com/s/files/1/0270/6584/3821/files/image.jpg?v=1665147520" alt="" />
+  </div>
+  
+</div>
+</div> -->
+
+
+
+  <div class="desapp-download-info desktop-view-info">
+    <img src="https://cdn.shopify.com/s/files/1/0361/8422/7971/files/DESKTOP-min.jpg?v=1680217975 alt="" />
+
+    <div class="btn-holder">
+      <div class="playstore-logo1">
+      <a href="https://apps.apple.com/app/public-desire/id15681060622" class="download_btn_info">Download Now</a>
+    </div>
+    <div class="playstore-logo2">
+      <a href="https://play.google.com/store/apps/details?id=com.publicdesire.android" class="download_btn_info">Download Now</a>
+    </div>
+    </div>
+
+  
+  </div>
+  <div class="mobapp-download-info mobile-view-info">
+    <img src="https://cdn.shopify.com/s/files/1/0361/8422/7971/files/MOBILE-min.jpg?v=1680217975" alt="" />
+    <div class="playstore-logo2">
+  <a href="https://apps.apple.com/app/public-desire/id15681060622" class="download_btn_info">Download Now</a>
+</div> 
+    <div class="playstore-logo1">
+    <a href="https://play.google.com/store/apps/details?id=com.publicdesire.android" class="download_btn_info">Download Now</a>
+  </div>
+
+  </div>
+
+
+                          
+						</div>
+					</div>
+				{% endif %}
+				<div class="col-12">
+					<div class="accordion-container  mt-5">
+						{% for tab in section.blocks %}
+						<div class="accordion-item {% if forloop.first == true %}active{% endif %}">
+							<div class="accordion-title">
+								<h3>{{ tab.settings.tab_title }}{% render 'icon-chevron-down'%}</h3>
+							</div><!-- accordion-title -->
+							<div class="accordion-content">
+								<div class="rte">
+									{{ tab.settings.tab_content }}
+								</div>
+							</div><!-- accordion-content -->
+						</div><!-- accordion-item -->
+						{% endfor %}
+					</div><!-- accordion-container -->
+				</div><!-- col -->
+			</div>
+			
+		</div>
+	</div>
+</div>

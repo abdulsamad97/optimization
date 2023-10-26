@@ -1,0 +1,229 @@
+<div class="container-fluid py-3">
+	<div class="row">
+		<div class="col-12 text-v-small">{% include 'breadcrumbs' %}</div>
+	</div><!-- row -->
+</div><!-- container -->
+
+<div class="container">
+
+<div class="row mb-5 my-5">
+    <div class="col-12 col-lg-5">
+        <div id="CustomerLoginForm">
+			<header class="align-items-center page-header">
+				<div class="mx-auto text-center mb-4">
+					<h1>Login to your account</h1>
+				</div>
+			</header>
+
+			<div class="one-click-social-login"></div>
+
+			<span class="account-divide">OR</span>
+
+		  	{% form 'customer_login' %}
+
+			{{ form.errors | default_errors }}
+			<div class="form-group">
+			<label for="CustomerEmail" class="uppercase bold d-none required">
+			  {{ 'customer.login.email' | t }}
+			</label>
+			<input type="email"
+				   name="customer[email]"
+				   id="CustomerEmail"
+				   class="required {% if form.errors contains 'email' %}input-error{% endif %}"
+				   spellcheck="false"
+				   autocomplete="off"
+				   autocapitalize="off"
+					 placeholder="Email Address*"
+				   autofocus>
+			</div>
+
+			{% if form.password_needed %}
+		  	<div class="form-group">
+			  <label for="CustomerPassword" class="uppercase bold d-none required">
+				{{ 'customer.login.password' | t }}
+			  </label>
+			  <input type="password"
+					 name="customer[password]"
+					 id="CustomerPassword"
+					 placeholder="Password*"
+					 class="required {% if form.errors contains 'password' %}input-error{% endif %}">
+			</div>
+			{% endif %}
+			
+			<div class="row align-items-center">
+				
+				<div class="col-12 text-center">
+					<button type="submit" class="btn btn-secondary btn-wide btn-account">{{ 'customer.login.sign_in' | t }}</button>
+				</div>
+
+                {% if form.password_needed %}
+                <div class="col-12 text-center">
+                    <a href="#recover" id="RecoverPassword" class="account-link">{{ 'customer.login.forgot_password' | t }}</a>
+				</div> 
+                {% endif %}
+			</div>
+			
+		  {% endform %}
+		  
+		</div><!-- CustomerLoginForm -->
+        
+        <div id="RecoverPasswordForm" class="hide">
+		<header class="align-items-center page-header">
+			<div class="mx-auto text-center mb-4">
+				<h2>Reset Password</h2>
+			</div>
+		</header>
+			{% comment %} <p class="text-center mb-0 pb-4">{{ 'customer.recover_password.instruction' | t }}</p> {% endcomment %}
+			<div class="form-success hide" id="ResetSuccess">
+				{{ 'customer.recover_password.success' | t }}
+			</div>
+
+			{% form 'recover_customer_password' %}
+			{{ form.errors | default_errors }}
+
+			{% if form.posted_successfully? %}
+				<span class="hide reset-password-success"></span>
+			{% endif %}
+
+			<div class="form-group">
+			<label for="RecoverEmail" class="uppercase bold d-none">
+				{{ 'customer.recover_password.email' | t }}
+			</label>
+			<input type="email"
+					name="email"
+					id="RecoverEmail"
+					spellcheck="false"
+					autocomplete="off"
+					placeholder="Email Address"
+					autocapitalize="off">
+			</div>
+			
+			<div class="row">
+				<div class="col-12 text-center">
+				    <button type="submit" class="btn btn-secondary btn-wide btn-account"> {{ 'customer.recover_password.submit' | t }} </button>
+				</div><!-- col -->
+                <div class="col-12 text-center">
+                    <a href="#signin" class="hide-forgot-password account-link">{{ 'customer.recover_password.cancel' | t }}</a>
+                </div><!-- col -->
+			</div><!-- row -->
+			
+			{% endform %}
+
+		</div><!-- RecoverPasswordForm -->
+
+    </div><!-- col -->
+    
+    <div class="col-12 col-lg-2">
+        <div class="login-form-divider"></div>
+    </div><!-- col -->
+
+	<div class="col-12 col-lg-5 d-none d-md-block">
+        <header class="align-items-center page-header">
+			<div class="mx-auto text-center mb-4">
+				<h2>Create Account</h2>
+			</div>
+		</header>
+		<div class="one-click-social-login"></div>
+		<span class="account-divide">OR</span>
+        {% form 'create_customer', class: "validation-invalid" %}
+			<div class="row">
+
+                <div class="col-12">
+                  {{ form.errors | default_errors }}
+                </div>
+
+				<div class="form-group col-12">
+					<label for="FirstName" class="d-none uppercase bold required">
+					{{ 'customer.register.first_name' | t }}
+					</label>
+					<input type="text" name="customer[first_name]" class="required" id="FirstName" placeholder="First Name*" autofocus {% if form.first_name %}value="{{ form.first_name }}"{% endif %}>
+				</div><!-- col -->
+
+				<div class="form-group col-12">
+					<label for="LastName" class="d-none uppercase bold required">
+					{{ 'customer.register.last_name' | t }}
+					</label>
+					<input type="text" name="customer[last_name]" class="required" id="LastName" placeholder="Surname*" {% if form.last_name %}value="{{ form.last_name }}"{% endif %}>
+				</div><!-- col -->
+
+                 <div class="form-group col-12">
+                    <label for="birthday" class="d-none uppercase bold">Date of Birth</label> 
+                    <input type="text" value="" pattern="\d{1,2}/\d{1,2}/\d{4}" name="customer[note][birthday]" id="birthday" placeholder="Date of Birth (DD/MM/YYYY)" maxlength="10"/>
+                </div>
+                
+                {% comment %} 
+                <div class="form-group col-12">
+                    <label for="telephone" class="d-none uppercase bold required">Telephone Number</label> 
+                    <input type="text" value="" name="customer[note][telephone]" id="telephone" placeholder="Telephone Number*" class="required"/>
+                </div> {% endcomment %}
+
+                <div class="form-group col-12">
+                    <label for="mobile" class="d-none uppercase bold">Mobile Number</label> 
+                    <input type="text" value="" name="customer[note][mobile]" id="mobile" placeholder="Mobile Number"/>
+                </div>
+
+				<div class="form-group col-12">
+					<label for="Email" class="d-none uppercase bold required">
+					{{ 'customer.register.email' | t }}
+					</label>
+					<input type="email" name="customer[email]" class="required" id="Email" placeholder="Email Address*" class="{% if form.errors contains 'email' %}input-error{% endif %}" value="{% if form.email %}{{ form.email }}{% endif %}" spellcheck="false" autocomplete="off" autocapitalize="off">
+				</div><!-- col -->
+
+                <div class="form-group col-12">
+                    <label for="Password" class="d-none uppercase bold required password-required">Password</label>
+                    <input type="password" id="PasswordOne" class="required password-required" placeholder="Password*">
+                </div><!-- col -->
+
+				<div class="form-group col-12">
+					<label for="CreatePassword" data-label="create account" class="d-none uppercase bold required password-required">
+					Confirm Password
+					</label>
+					<input type="password" class="required password-required" placeholder="Repeat Password*" name="customer[password]" id="CreatePassword" class="{% if form.errors contains 'password' %}input-error{% endif %}">
+				</div><!-- col -->
+
+                {% comment %} <div class="form-group col-12 checkbox-input">
+                    <input type="hidden" name="customer[accepts_marketing]" value="" />
+                    <input type="checkbox" name="customer[accepts_marketing]" />
+                    <span class="checkbox-label text-small">Sign up for our newsletter.</span>
+                </div><!-- col --> {% endcomment %}
+			</div>
+
+			<div class="row">
+                <div class="col-12 text-center">
+				    <button type="submit" id="btn-create-account" class="btn btn-secondary btn-wide btn-account">{{ 'customer.register.title' | t }}</button>
+                </div><!-- col -->
+                {% comment %} <div class="col-12 text-center">
+                    <a href="/account/login" class="account-link">{{ 'customer.register.existing_account' | t }}</a>
+                </div> {% endcomment %}
+			</div><!-- row -->
+
+					
+            {% endform %}
+    </div><!-- col -->
+
+    <div class="col-12 col-lg-5 d-md-none">
+        <header class="align-items-center page-header">
+			<div class="mx-auto text-center mb-4">
+				<p class="title">Don't have an account?</p>
+			</div>
+		</header>
+		<div class="text-center mt-4">
+			<a href="/account/register" class="btn btn-secondary btn-wide btn-account">{{ 'customer.register.title' | t }}</a>
+		</div>
+    </div><!-- col -->
+</div><!-- row -->
+
+<div class="row">
+	<div class="col-12 col-md-8 col-lg-6 mx-auto">
+
+		{% if shop.checkout.guest_login %}
+		  <h2>{{ 'customer.login.guest_title' | t }}</h2>
+		  {% form 'guest_login' %}
+			<button type="submit" class="btn">{{ 'customer.login.guest_continue' | t }} </button>
+		  {% endform %}
+		{% endif %} 
+
+	</div><!-- col -->
+</div><!-- row -->
+
+</div><!-- container -->

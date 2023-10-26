@@ -1,0 +1,87 @@
+{% if section.settings.text_banner != blank %}
+<section class="thin-banner-header-bottom-bar">
+    <div class="row">
+      <div class="col-lg-12 thin-header-bottom-bar-item">
+        <div class="thin-header-bottom-bar-inner">
+        	 {% if section.settings.item_link != blank %}
+            <a href="{{ section.settings.item_link }}">
+            {% endif %}
+        	<p>{{ section.settings.text_banner }}</p>
+   {% if section.settings.item_link != blank %}
+            </a>
+            {% endif %}
+        </div>        
+      </div>
+      
+    </div>
+</section>
+{% endif %}
+<style>
+  .thin-banner-header-bottom-bar{
+    background-color:{{section.settings.background_color}};
+    color:{{section.settings.font_color}};
+    font-size: 14px;
+    text-align: center;
+    border-top: 2px solid #fff;
+    padding-top: 15px;
+  }
+  .thin-banner-header-bottom-bar p{
+    margin-bottom:12px;
+  }
+   .thin-banner-header-bottom-bar a{
+    color:{{section.settings.font_color}};
+  }
+ @media (max-width:767px){
+   .thin-banner-header-bottom-bar{
+     font-size:12px;
+   }
+   .thin-banner-header-bottom-bar p{
+      margin-bottom:15px;
+      padding:0 15px;
+      font-size:14px;
+    }
+ }
+</style>
+{% schema %}
+  {
+    "name": "Thin Banner Header Bar",
+	
+    "settings": [
+	{
+		"id":"text_banner",
+		"type":"text",
+		"label":"Banner Text",
+		"default":"20% OFF BAGS USING CODE: BAGS20"
+	},	
+      {
+            "type":     "url",
+            "id":       "item_link",
+            "label":    "Link"
+        },
+	{
+		"id":"background_color",
+		"type":"color",
+		"label":"Background Color",
+		"default":"#000000"
+	},	
+	{
+		"id":"font_color",
+		"type":"color",
+		"label":"Text Color",
+		"default":"#f2403f"
+	}
+	],
+    "presets": [
+      {
+          "name": 		"Thin Banner Header Bar",
+          "category": 	"Header"
+      }
+  	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

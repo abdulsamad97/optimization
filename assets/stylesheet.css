@@ -1,0 +1,465 @@
+@font-face {
+    font-family: 'Gotham';
+    src: local('Gotham-Book'),
+        url('Gotham-Book.woff2') format('woff2'),
+        url('Gotham-Book.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gotham';
+    src: local('Gotham-Medium'),
+        url('Gotham-Medium.woff2') format('woff2'),
+        url('Gotham-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+.black-friday-bg {
+    background-image: url(https://cdn.shopify.com/s/files/1/0359/5049/3835/files/black-friday-bg.jpg?v=1604558922);
+    background-color: #0e100d;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.text-white {
+	color: #fff;
+}
+.text-teal {
+	color: #00dbdb;
+}
+.black-friday-signup-content p,
+.black-friday-signup-form-title {
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: 1px;
+    font-weight: 500;
+    font-family: 'Gotham';
+}
+.black-friday-signup-wrap {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.black-friday-signup-top img {
+    max-width: 100%;
+    height: auto;
+}
+.black-friday-signup-top {
+    margin-bottom: 50px;
+}
+.black-friday-signup-content p {
+	margin-bottom: 20px;
+}
+.black-friday-signup-content p:last-child {
+	margin-bottom: 0;
+}
+.black-friday-signup-content {
+    margin-bottom: 50px;
+}
+.form-control {
+    color: #d77af8;
+    border: 3px solid #d77af8;
+    background: transparent;
+    height: 70px;
+    font-weight: bold;
+    font-family: 'Gotham';
+    font-size: 16px;
+    letter-spacing: 2px;
+}
+.form-control::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #d77af8;
+}
+.form-control::-moz-placeholder { /* Firefox 19+ */
+  color: #d77af8;
+}
+.form-control:-ms-input-placeholder { /* IE 10+ */
+  color: #d77af8;
+}
+.form-control:-moz-placeholder { /* Firefox 18- */
+  color: #d77af8;
+}
+.form-control:focus {
+    outline: 0;
+    border-color: #d77af8;
+}
+.custom-checkbox {
+    position: relative;
+}
+.custom-checkbox-input {
+    width: 49px;
+    height: 49px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+}
+.custom-checkbox .custom-checkbox-label {
+    color: #00ffff;
+    position: relative;
+    padding-left: 69px;
+    font-size: 9px;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    margin-bottom: 0;
+    min-height: 49px;
+    line-height: 1.7;
+    max-width: 510px;
+    margin-right: auto;
+    cursor: pointer;
+}
+.custom-checkbox-label::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 49px;
+    height: 49px;
+    background: #00ffff;
+    content: "";
+}
+.custom-checkbox-label::after {
+    content: "";
+    width: 29px;
+    height: 29px;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxNS41NTYgNTE1LjU1NiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMiIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgY2xhc3M9IiI+PGc+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMCAyNzQuMjI2IDE3Ni41NDkgMTc2Ljg4NiAzMzkuMDA3LTMzOC42NzItNDguNjctNDcuOTk3LTI5MC4zMzcgMjkwLTEyOC41NTMtMTI4LjU1MnoiIGZpbGw9IiNmZmZmZmYiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48L2c+PC9zdmc+);
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0;
+    visibility: hidden;
+}
+.custom-checkbox .custom-checkbox-input:checked ~ .custom-checkbox-label::after {
+	opacity: 1;
+    visibility: visible;
+}
+.form-submit {
+    color: #00ffff;
+    border: 3px solid #00ffff;
+    background: transparent;
+    width: 339px;
+    height: 67px;
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    max-width: 100%;
+}
+.form-submit:hover {
+    color: #fff;
+    border-color: #00ffff;
+    background: #00ffff;
+}
+.form-submit:focus {
+    outline: 0;
+    border-color: #00ffff;
+}
+#newsletter-blackfriday {
+    padding-bottom: 80px;
+}
+
+@media (min-width: 576px) {
+  .black-friday-signup-content p,
+  .black-friday-signup-form-title {
+      font-size: 16px;
+      line-height: 1.5;
+  }
+  .black-friday-signup-wrap {
+      padding-top: 30px;
+      padding-bottom: 30px;
+  }
+  .black-friday-signup-top {
+      margin-bottom: 50px;
+  }
+  .black-friday-signup-content p {
+      margin-bottom: 30px;
+  }
+  .black-friday-signup-content {
+      margin-bottom: 50px;
+  }
+  .form-control {
+      height: 70px;
+      font-size: 16px;
+  }
+  .custom-checkbox-input {
+      width: 49px;
+      height: 49px;
+  }
+  .custom-checkbox .custom-checkbox-label {
+      padding-left: 69px;
+      font-size: 10px;
+      min-height: 49px;
+      line-height: 1.7;
+      max-width: 510px;
+  }
+  .custom-checkbox-label::before {
+      width: 49px;
+      height: 49px;
+  }
+  .custom-checkbox-label::after {
+      width: 29px;
+      height: 29px;
+      top: 10px;
+      left: 10px;
+  }
+
+  .form-submit {
+      width: 339px;
+      height: 67px;
+      font-size: 18px;
+  }
+  #newsletter-blackfriday {
+      padding-bottom: 100px;
+  }
+  .black-friday-signup-top img {
+      max-width: 90%;
+      height: auto;
+  }
+}
+
+@media (min-width: 768px) {
+  .black-friday-signup-content p,
+  .black-friday-signup-form-title {
+      font-size: 16px;
+      line-height: 1.5;
+  }
+  .black-friday-signup-wrap {
+      padding-top: 30px;
+      padding-bottom: 30px;
+  }
+  .black-friday-signup-top {
+      margin-bottom: 50px;
+  }
+  .black-friday-signup-content p {
+      margin-bottom: 30px;
+  }
+  .black-friday-signup-content {
+      margin-bottom: 60px;
+  }
+  .form-control {
+      height: 70px;
+      font-size: 16px;
+  }
+  .custom-checkbox-input {
+      width: 49px;
+      height: 49px;
+  }
+  .custom-checkbox .custom-checkbox-label {
+      padding-left: 69px;
+      font-size: 10px;
+      min-height: 49px;
+      line-height: 1.7;
+      max-width: 510px;
+  }
+  .custom-checkbox-label::before {
+      width: 49px;
+      height: 49px;
+  }
+  .custom-checkbox-label::after {
+      width: 29px;
+      height: 29px;
+      top: 10px;
+      left: 10px;
+  }
+
+  .form-submit {
+      width: 339px;
+      height: 67px;
+      font-size: 18px;
+  }
+  #newsletter-blackfriday {
+      padding-bottom: 60px;
+  }
+  .black-friday-signup-top img {
+      max-width: 90%;
+      height: auto;
+  }
+}
+
+@media (min-width: 992px) {
+  .black-friday-signup-content p,
+  .black-friday-signup-form-title {
+      font-size: 16px;
+      line-height: 1.5;
+  }
+  .black-friday-signup-wrap {
+      padding-top: 40px;
+      padding-bottom: 40px;
+  }
+  .black-friday-signup-top {
+      margin-bottom: 90px;
+  }
+  .black-friday-signup-content p {
+      margin-bottom: 40px;
+  }
+  .black-friday-signup-content {
+      margin-bottom: 70px;
+  }
+  .form-control {
+      height: 70px;
+      font-size: 16px;
+  }
+  .custom-checkbox-input {
+      width: 49px;
+      height: 49px;
+  }
+  .custom-checkbox .custom-checkbox-label {
+      padding-left: 69px;
+      font-size: 10px;
+      min-height: 49px;
+      line-height: 1.7;
+      max-width: 510px;
+  }
+  .custom-checkbox-label::before {
+      width: 49px;
+      height: 49px;
+  }
+  .custom-checkbox-label::after {
+      width: 29px;
+      height: 29px;
+      top: 10px;
+      left: 10px;
+  }
+
+  .form-submit {
+      width: 339px;
+      height: 67px;
+      font-size: 18px;
+  }
+  #newsletter-blackfriday {
+      padding-bottom: 80px;
+  }
+  .black-friday-signup-top img {
+      max-width: 90%;
+      height: auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  .black-friday-signup-content p,
+  .black-friday-signup-form-title {
+      font-size: 16px;
+      line-height: 1.5;
+  }
+  .black-friday-signup-wrap {
+      padding-top: 40px;
+      padding-bottom: 40px;
+  }
+  .black-friday-signup-top {
+      margin-bottom: 70px;
+  }
+  .black-friday-signup-content p {
+      margin-bottom: 50px;
+  }
+  .black-friday-signup-content {
+      margin-bottom: 80px;
+  }
+  .form-control {
+      height: 70px;
+      font-size: 16px;
+  }
+  .custom-checkbox-input {
+      width: 49px;
+      height: 49px;
+  }
+  .custom-checkbox .custom-checkbox-label {
+      padding-left: 69px;
+      font-size: 10px;
+      min-height: 49px;
+      line-height: 1.7;
+      max-width: 510px;
+  }
+  .custom-checkbox-label::before {
+      width: 49px;
+      height: 49px;
+  }
+  .custom-checkbox-label::after {
+      width: 29px;
+      height: 29px;
+      top: 10px;
+      left: 10px;
+  }
+
+  .form-submit {
+      width: 339px;
+      height: 67px;
+      font-size: 18px;
+  }
+  #newsletter-blackfriday {
+      padding-bottom: 100px;
+  }
+  .black-friday-signup-top img {
+      max-width: 90%;
+      height: auto;
+  }
+}
+
+@media (min-width: 1500px) {
+  .black-friday-signup-content p,
+  .black-friday-signup-form-title {
+      font-size: 22px;
+      line-height: 1.5;
+  }
+  .black-friday-signup-wrap {
+      padding-top: 60px;
+      padding-bottom: 60px;
+  }
+  .black-friday-signup-top {
+      margin-bottom: 90px;
+  }
+  .black-friday-signup-content p {
+      margin-bottom: 70px;
+  }
+  .black-friday-signup-content {
+      margin-bottom: 100px;
+  }
+  .form-control {
+      height: 100px;
+      font-size: 22px;
+  }
+  .custom-checkbox-input {
+      width: 59px;
+      height: 59px;
+  }
+  .custom-checkbox .custom-checkbox-label {
+      padding-left: 79px;
+      font-size: 12px;
+      min-height: 59px;
+      line-height: 1.7;
+      max-width: 510px;
+  }
+  .custom-checkbox-label::before {
+      width: 59px;
+      height: 59px;
+  }
+  .custom-checkbox-label::after {
+      width: 39px;
+      height: 39px;
+      top: 10px;
+      left: 10px;
+  }
+
+  .form-submit {
+      width: 339px;
+      height: 77px;
+      font-size: 24px;
+  }
+  #newsletter-blackfriday {
+      padding-bottom: 120px;
+  }
+  .black-friday-signup-top img {
+      max-width: 100%;
+      height: auto;
+  }
+  .black-friday-signup-container {
+  	max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+

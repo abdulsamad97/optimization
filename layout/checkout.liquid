@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}" dir="{{ direction }}" class="{{ checkout_html_classes }}">
+  <head>
+  {% render 'elevar-head' %}
+  {% render 'elevar-head-listener' %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
+    <meta name="referrer" content="origin">
+
+    <title>{{ page_title }}</title>
+
+    {{ content_for_header }}
+
+    {{ checkout_stylesheets }}
+    {{ checkout_scripts }}
+
+    <style>
+        @font-face {
+            font-family: 'Druk';
+            src: url('{{ 'Druk-HeavyItalic.woff2' | asset_url }}') format('woff2'),
+                url('{{ 'Druk-HeavyItalic.woff' | asset_url }}') format('woff'),
+                url('{{ 'Druk-HeavyItalic.ttf' | asset_url }}') format('truetype'),
+                url('{{ 'Druk-HeavyItalic.svg' | asset_url }}#Druk-HeavyItalic') format('svg');
+            font-weight: 900;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Gotham';
+            src: local('Gotham-Book'),
+                url('{{ 'Gotham-Book.woff2' | asset_url }}') format('woff2'),
+                url('{{ 'Gotham-Book.woff' | asset_url }}') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Gotham';
+            src: local('Gotham-Medium'),
+                url('{{ 'Gotham-Medium.woff2' | asset_url }}') format('woff2'),
+                url('{{ 'Gotham-Medium.woff' | asset_url }}') format('woff');
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Gotham';
+            src: local('Gotham-Black'),
+                url('{{ 'Gotham-Black.woff2' | asset_url }}') format('woff2'),
+                url('{{ 'Gotham-Black.woff' | asset_url }}') format('woff');
+            font-weight: 900;
+            font-style: normal;
+        }
+  
+/**********checkout payment order***************/
+  
+        fieldset.content-box {
+            display: flex;
+            flex-direction: column;
+        }
+        .radio-wrapper[data-gateway-name="credit_card"] {
+            order: 1;
+        }
+        
+        div#payment-gateway-subfields-48998711427 {
+            order: 2;
+        }
+        .radio-wrapper[data-gateway-name="paypal"] {
+            order: 3;
+        }
+        .radio-wrapper[data-select-gateway="67434020995"] {
+            order: 4;
+        }
+        .radio-wrapper[data-select-gateway="67468951683"] {
+            order: 5;
+        }
+        
+        .radio-wrapper[data-gateway-name="amazon_pay"] {
+            order: 6;
+        }
+
+      .input-radio:checked:focus {
+    		border-width: 7px;
+        	border-color: #000000;
+		}  
+  
+    </style>
+    <link rel="fontawsm" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+    {{ 'checkout.css' | asset_url | stylesheet_tag }}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {{ 'filename.js' | asset_url | script_tag }}
+
+  
+  
+
+
+  <!-- REAMAZE INTEGRATION START - DO NOT REMOVE -->
+{% render 'reamaze-config' %}
+{% render 'reamaze-sso' %}
+<!-- REAMAZE INTEGRATION END - DO NOT REMOVE -->
+
+</head>
+  <body>
+  {% render 'elevar-checkout-end' %}
+ 
+    {{ skip_to_content_link }}
+
+    <header class="banner" data-header role="banner">
+      <div class="wrap">
+        {{ content_for_logo }}
+      </div>
+    </header>
+
+    {{ order_summary_toggle }}
+    <div class="content" data-content>
+      <div class="wrap">
+        <div class="main">
+          <header class="main__header" role="banner">
+            {{ content_for_logo }}
+            {{ breadcrumb }}
+            {{ alternative_payment_methods }}
+          </header>
+          <main class="main__content" role="main">
+            {{ content_for_layout }}
+            <script>
+            if (Shopify.Checkout.OrderStatus){
+                document.getElementById("main-header").classList.add('show');
+            }
+            </script>
+          </main>
+          <footer class="main__footer" role="contentinfo">
+            {{ content_for_footer }}
+          </footer>
+        </div>
+        <aside class="sidebar" role="complementary">
+          <div class="sidebar__header">
+            {{ content_for_logo }}
+          </div>
+          <div class="sidebar__content">
+            {{ content_for_order_summary }}
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    {{ tracking_code }}
+
+    <script>
+
+        if (Shopify.Checkout.step === "contact_information") {
+            Checkout.$('[data-drawer-toggle="[data-order-summary]"]').click();
+            $(document).ready(function(){
+              $('.fieldset-description').before('<div class="accept_marking_holder"><input type="checkbox" class="input-checkbox" id="marketing_accept" required><label for="marketing_accept"> <span>Send me important shipping updates<br><br></span></label></div>');
+              console.log("accepts_marketing",sessionStorage.getItem("accepts_marketing"));
+                  
+              setTimeout(function() {
+                
+              if(sessionStorage.getItem("accepts_marketing") != ''){
+                console.log("session_set");
+                if(sessionStorage.getItem("accepts_marketing") == "checked"){
+                  $('#checkout_buyer_accepts_marketing').prop("checked",true);
+                  $('#marketing_accept').prop("checked",true);
+                }else if(sessionStorage.getItem("accepts_marketing")== null){
+                  sessionStorage.setItem("accepts_marketing", "checked");
+                  $('#checkout_buyer_accepts_marketing').prop("checked",true);
+                  $('#marketing_accept').prop("checked",true);
+                }else{
+                  $('#checkout_buyer_accepts_marketing').prop("checked",false);
+                  $('#marketing_accept').prop("checked",false);
+                }
+                
+              }else{
+                console.log("session_notset")
+                sessionStorage.setItem("accepts_marketing", "checked");
+                $('#checkout_buyer_accepts_marketing').prop("checked",true);
+                $('#marketing_accept').prop("checked",true);
+              }
+                }, 2000);
+            // sessionStorage.setItem("accepts_marketing", "true");
+              
+
+              $('#marketing_accept').on("change",function(e){
+           if ($(this).is(':checked')) {
+              //$(this).prop('checked',false);
+             sessionStorage.setItem("accepts_marketing", "checked");
+              $('#checkout_buyer_accepts_marketing').prop("checked",true);
+          } else {
+             sessionStorage.setItem("accepts_marketing", "notchecked");
+               //$(this).prop('checked',true);
+               $('#checkout_buyer_accepts_marketing').prop("checked",false);
+          }
+                 });
+            });
+        }
+        
+    </script>
+    {%- if settings.plus_enable_phone_number_formatting -%}
+      {%- render 'plus-format-phone-number' -%}
+    {%- endif -%}
+  </body>
+</html>
+
+
+<script>
+  $(document).ready(function(){
+    $("input#checkout_shipping_address_first_name").attr('maxlength','40');
+    $("input#checkout_shipping_address_last_name").attr('maxlength','40');
+    $("input#checkout_shipping_address_address1").attr('maxlength','40');
+    $("input#checkout_shipping_address_address2").attr('maxlength','40');
+    
+     $("input#checkout_shipping_address_first_name").attr('pattern','^[a-zA-Z]+(?:\s+[a-zA-Z]+)*$');
+    $("input#checkout_shipping_address_last_name").attr('pattern','^[a-zA-Z]+(?:\s+[a-zA-Z]+)*$');
+  
+  });
+  
+  
+   
+  
+  
+$('#continue_button').on("click",function(e){
+
+  $("#error-for-first_name").remove();
+  $("#error-for-last_name").remove();
+  $("#error-for-address1").remove();
+  $("#error-for-city").remove();
+  $("#error-for-email").remove();
+  $("#error-for-zip").remove();
+  $("#error-for-phone").remove();
+
+  
+  
+ 
+  var emailcode = $('#checkout_email').val();
+      if(emailcode == ''){
+        var errMsgemail = '<p style="display:block;" class="field__message field__message--error" id="error-for-email">Enter a valid email</p>';
+        $('#checkout_email').closest('div').append(errMsgemail);
+        $('#checkout_email').addClass("shipping-input-err-info");
+        
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        return false;
+    }
+  
+
+    var fncode = $('#checkout_shipping_address_first_name').val();
+
+  
+      if(fncode == ''){
+        var errMsgfn = '<p style="display:block;"  class="field__message field__message--error" id="error-for-first_name">Enter a first name</p>';
+        $('#checkout_shipping_address_first_name').closest('div').append(errMsgfn);
+        $('#checkout_shipping_address_first_name').addClass("shipping-input-err-info");
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        return false;
+    }
+  
+ 
+  
+  
+   var lncode = $('#checkout_shipping_address_last_name').val();
+
+  
+  
+      if(lncode == ''){
+        var errMsgln = '<p style="display:block;"  class="field__message field__message--error" id="error-for-last_name">Enter a last name</p>';
+        $('#checkout_shipping_address_last_name').closest('div').append(errMsgln);
+         $('#checkout_shipping_address_last_name').addClass("shipping-input-err-info");
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        return false;
+    }
+  
+  
+   var addresscode = $('#checkout_shipping_address_address1').val();
+      if(addresscode == ''){
+        var errMsgadrress = '<p style="display:block;"  class="field__message field__message--error" id="error-for-address1">Enter an address</p>';
+        $('#checkout_shipping_address_address1').closest('div').append(errMsgadrress);
+        $('#checkout_shipping_address_address1').addClass("shipping-input-err-info");
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        return false;
+    }
+  
+  
+   var city = $('#checkout_shipping_address_city').val();
+      if(city == ''){
+        var errMsgcity = '<p style="display:block;"  class="field__message field__message--error" id="error-for-city">Enter a city</p>';
+        $('#checkout_shipping_address_city').closest('div').append(errMsgcity);
+         $('#checkout_shipping_address_city').addClass("shipping-input-err-info");
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        return false;
+    }
+
+  
+  
+    var pcode = $('#checkout_shipping_address_zip').val();
+      if(pcode == ''){
+        var errMsg = '<p style="display:block;" class="field__message field__message--error" id="error-for-zip">Enter a ZIP / postal code</p>';
+        //$("#checkout_shipping_address_zip").append('<p>Enter postal code</p>');
+        $('#checkout_shipping_address_zip').closest('div').append(errMsg);
+       $('#checkout_shipping_address_zip').addClass("shipping-input-err-info");
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        return false;
+    }
+  
+     var phone = $('#checkout_shipping_address_phone').val();
+      if(phone == ''){
+        var errMsgphone = '<p style="display:block;"  class="field__message field__message--error" id="error-for-phone">Enter a valid phone number</p>';
+        $('#checkout_shipping_address_phone').closest('div').append(errMsgphone);
+        $('#checkout_shipping_address_phone').addClass("shipping-input-err-info");
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+       return false;
+    }
+  
+});
+  
+
+  
+  
+</script>
+

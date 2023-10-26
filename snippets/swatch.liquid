@@ -1,0 +1,44 @@
+
+{% assign option_index = 0 %}
+{% assign storeEU = 'https://eu.publicdesire.com/' %}
+{% assign storeAU = 'https://au.publicdesire.com/' %}
+{% assign storeUS = 'https://us.publicdesire.com/' %}
+{% assign storeUK = 'https://www.publicdesire.com/' %}
+
+{% if shop.domain contains "au." %}
+   {% assign storename= 'AU' %}
+{% elsif shop.domain contains "eu." %}
+   {% assign storename= 'EU' %}
+{% elsif shop.domain contains "us." %}
+   {% assign storename= 'US' %}
+{% else %}
+   {% assign storename= 'UK' %}
+{% endif %}
+
+{% for option in product.options %}
+  {% if option == swatch %}
+    {% assign option_index = forloop.index0 %}
+    {% assign downcased_option = swatch | downcase %}
+  {% endif %}
+{% endfor %}
+
+<div class="product-swatch {{storename}} swatch-{{ swatch | downcase }}" data-option-index="{{ option_index }}">
+  <h2 class="product-swatch-header 123">{{storename | append: ' '}}{{ swatch | append: 's: '  }}</h2>
+  <ul class="product-swatch-list desktop">
+  {% assign values = '' %}
+  {% for variant in product.variants %}
+    <li class="{% if variant == current_variant %}active{% endif %}" data-variant-id="{{variant.id}}" data-available="{{variant.available}}">{{ variant.title | escape |remove: "AU" }}</li>
+  {% endfor %}
+
+    <select class="product-swatch-list mobile" name="id">
+    {% for variant in product.variants %}
+        <option value="{{variant.id}}" {% if variant == current_variant %}selected{%endif%} {% unless variant.available %}disabled{% endunless %}>{{variant.title | escape }}</option>
+    {% endfor %}
+    </select>
+    {% if product.available and product.variants.size > 1 %}
+    	{% for option in product.options %}
+    		{% comment %}{% include 'swatch' with option %} {% endcomment %}
+    	{% endfor %}
+    {% endif %}
+  </ul>
+</div>

@@ -1,0 +1,5 @@
+<ul class="account-sidebar-navigation">
+    {% for link in linklists.account-sidebar.links %}
+        <li><a href="{{link.url}}" class="{% if link.active %}current{% endif %}">{{link.title}}</a></li>
+    {% endfor %}
+</ul>

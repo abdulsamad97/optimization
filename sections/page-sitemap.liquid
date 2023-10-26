@@ -1,0 +1,128 @@
+<div class="container-fluid py-3">
+	<div class="row">
+		<div class="col-12 text-v-small">{% include 'breadcrumbs' %}</div>
+	</div><!-- row -->
+</div><!-- container -->
+
+<header class="page-header{% if section.settings.background %} image lazyload {%endif%}" {% if section.settings.background %} data-bgset="{% include 'responsive-bg-image', image: section.settings.background %}"{% endif %}>
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-12 mb-md-0 col-md-8 col-lg-6 mx-auto text-center">
+				<h1>{{ page.title }}</h1>
+			</div>
+		</div><!-- row -->
+	</div>
+</header>
+
+<div class="container">
+	<div class="row mt-3 mt-md-5 mb-5 sitemap-wrapper">
+		<div class="col-12 mx-auto mb-4">
+			<h3 class="text-uppercase">Our Categories</h3>
+			<div class="categories-wrapper {% if section.blocks.size > 5 %}two-column{% endif %}">
+			{% if section.blocks.size > 5 %}
+				<div class="category-column">
+					{% for block in section.blocks %}
+						{% if forloop.index <= 5  %}
+							<ul>
+								<li><a href="{{ block.settings.first_level_url }}">{{ block.settings.title }}</a></li>
+								<ol>
+									{% for link in linklists[block.settings.submenu].links %}
+										<li><a href="{{ link.url }}">{{ link.title }}</a></li>
+									{% endfor %}
+								</ol>
+							</ul>
+						{% endif %}
+					{% endfor %}
+				</div>
+				<div class="category-column">
+					{% for block in section.blocks %}
+						{% if forloop.index > 5  %}
+							<ul>
+								<li><a href="{{ block.settings.first_level_url }}">{{ block.settings.title }}</a></li>
+								<ol>
+									{% for link in linklists[block.settings.submenu].links %}
+										<li><a href="{{ link.url }}">{{ link.title }}</a></li>
+									{% endfor %}
+								</ol>
+							</ul>
+						{% endif %}
+					{% endfor %}
+				</div>
+			{% else %}
+				{% for block in section.blocks %}
+						<ul>
+							<li><a href="{{ block.settings.first_level_url }}">{{ block.settings.title }}</a></li>
+							<ol>
+								{% for link in linklists[block.settings.submenu].links %}
+									<li><a href="{{ link.url }}">{{ link.title }}</a></li>
+								{% endfor %}
+							</ol>
+						</ul>
+				{% endfor %}
+			{% endif %}
+			</div>
+		</div>
+		<div class="col-12 mx-auto mb-4">
+			<h3 class="text-uppercase">Our Main Site Pages</h3>	
+            <ul>
+                {% for link in linklists.footer-customer-support.links %}
+                    <li><a href="{{link.url}}" >{{link.title}}</a></li>
+                {% endfor %}
+                {% for link in linklists.footer.links %}
+                    <li><a href="{{link.url}}" >{{link.title}}</a></li>
+                {% endfor %}
+                {% for link in linklists.footer-policies.links %}
+                    <li><a href="{{link.url}}" >{{link.title}}</a></li>
+                {% endfor %}
+                {% for link in linklists.footer-customer-support.links %}
+                    <li><a href="{{link.url}}" >{{link.title}}</a></li>
+                {% endfor %}
+            </ul>
+		</div>
+        <div class="col-12 mx-auto">	
+            <h3 class="text-uppercase">Our Collections</h3>
+            <ul>
+                {% for collection in collections %}
+                    <li><a href="{{ collection.url }}" title="{{ 'collections.general.link_title' | t: title: title }}">{{ collection.title }}</a></li>
+                {% endfor %}
+            </ul>
+		</div>
+	</div>
+</div>
+
+{% schema %}
+{
+  "name": "Sitemap",
+	"settings": [
+		{
+			"type": "image_picker",
+			"id": "background",
+			"label": "Header Background Image",
+			"info": "Optimal image size: 1920 x 350"
+		}
+	],
+    "blocks": [
+        {
+			"type": "sitemap_block",
+			"name": "Navigation Block",
+			"settings": [
+                {
+				   "type":      "text",
+				   "id":        "title",
+				   "label":     "Navigation Title"
+				},
+				{
+				   "type":      "url",
+				   "id":        "first_level_url",
+				   "label":     "Navigation URL"
+				},
+                {
+					"type":     "link_list",
+			   		"id":       "submenu",
+			   		"label":    "Sub Menu"
+				}
+			]
+		}
+    ]
+}
+{% endschema %}
